@@ -86,31 +86,10 @@
   }
 
   /* ── SCROLLYTELLING ACT 1–4 REEL (PORTRAIT MOBILE) ───────── */
-  /* Reel is swipe-driven on mobile — collapse scroll space to 100vh */
+  /* Slow down the timeline: push the height from 400vh to 600vh on mobile,
+     meaning the user must organically swipe a few times to pass it. */
   .experience-reel {
-    height: 100vh !important;
-  }
-
-  /* Swipe hint injected by project.js */
-  .reel-swipe-hint {
-    position: absolute;
-    bottom: 90px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 20;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    color: rgba(255,255,255,0.45);
-    text-transform: uppercase;
-    white-space: nowrap;
-    pointer-events: none;
-    animation: swipeHintPulse 2.2s ease-in-out infinite;
-  }
-
-  @keyframes swipeHintPulse {
-    0%, 100% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
-    50%       { opacity: 0.7; transform: translateX(-50%) translateY(-5px); }
+    height: 600vh !important;
   }
 
   /* Full-viewport background images fill the sticky container */
