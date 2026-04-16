@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080A0F" />
+
+    <!-- ── SEO & Meta ──────────────────────────────────────────── -->
+    <!-- CHANGE 1: "Unreal Engine Developer" → "Game Developer" everywhere -->
+    <title>Adithya Raghavan — Game Developer</title>
+    <meta name="description"
+        content="Adithya Raghavan is a Game Developer specializing in cinematic first-person and third-person games built in Unreal Engine 5. Expert in Lumen, Nanite, Blueprints, C++, Level Design, and VFX." />
+    <meta name="keywords"
+        content="Unreal Engine, Game Developer, UE5, Lumen, Nanite, Blueprints, C++, First Person, Third Person, Level Design, Game Portfolio" />
+    <meta name="author" content="Adithya Raghavan" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://adithyaraghavan.dev/" />
+    <meta property="og:title" content="Adithya Raghavan — Game Developer" />
+    <meta property="og:description"
+        content="Crafting cinematic worlds in Unreal Engine 5. First-person & third-person games built to AAA standards." />
+    <meta property="og:image" content="https://adithyaraghavan.dev/assets/img/Unfinished-Business.png" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Adithya Raghavan — Game Developer" />
+    <meta name="twitter:description" content="Crafting cinematic worlds in Unreal Engine 5." />
+    <meta name="twitter:image" content="https://adithyaraghavan.dev/assets/img/Unfinished-Business.png" />
+    <!-- Canonical -->
+    <link rel="canonical" href="https://adithyaraghavan.dev/" />
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>" />
+    <link rel="apple-touch-icon" href="assets/img/Unfinished-Business.png" />
+    <!-- ── Preloads ────────────────────────────────────────────── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- ── Fonts ───────────────────────────────────────────────── -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
+
+    <!-- ── Font Awesome ────────────────────────────────────────── -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- ── CSS ─────────────────────────────────────────────────── -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/interactions.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/sections.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/theme-portal.css" />
+    <link rel="stylesheet" href="css/mobile.css" />
+</head>
+
+<body>
+    <div id="transition-panel"
+        style="display:none; position:fixed; inset:0; z-index:9999; background:#050508; pointer-events:none;"
+        aria-hidden="true"></div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         NOISE OVERLAY — persistent film grain texture
+    ══════════════════════════════════════════════════════════ -->
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         CUSTOM CURSOR
+    ══════════════════════════════════════════════════════════ -->
+    <div class="cursor__dot theme-cursor-element" aria-hidden="true"></div>
+    <div class="cursor__ring theme-cursor-element" aria-hidden="true"></div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         [1] LOADING SCREEN
+    ══════════════════════════════════════════════════════════ -->
+    <div class="loader" id="loader" role="status" aria-label="Loading site">
+        <div class="loader__monogram" aria-hidden="true">
+            A<span>R</span>
+        </div>
+        <div class="loader__tagline">Adithya Raghavan &nbsp;·&nbsp; Game Developer</div>
+        <div class="loader__progress-bg" aria-hidden="true">
+            <div class="loader__progress-bar" id="loaderBar"></div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         [2] NAVIGATION
+    ══════════════════════════════════════════════════════════ -->
+    <nav class="nav" id="nav" aria-label="Primary navigation">
+        <a href="index.html" class="nav__logo" data-text="AR" aria-label="Adithya Raghavan — Home"
+            data-title="BACK TO HOME">
+            A<span>R</span>
+        </a>
+
+        <ul class="nav__links" role="list">
+            <li><a href="#projects" class="nav__link" id="nav-work">Work</a></li>
+            <li><a href="#about" class="nav__link" id="nav-about">About</a></li>
+            <li><a href="#skills" class="nav__link" id="nav-skills">Skills</a></li>
+            <li><a href="#contact" class="nav__link" id="nav-contact">Contact</a></li>
+            <li><a href="assets/docs/Adithya-Raghavan-CV.pdf" class="nav__link" id="nav-resume" target="_blank"
+                    style="color:var(--accent);">Resume <i class="fa-solid fa-arrow-up-right-from-square"
+                        style="font-size:0.7em; margin-left:4px;"></i></a></li>
+        </ul>
+
+        <button class="nav__hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav__progress-wrapper"
+            style="position:absolute; bottom:0; left:0; width:100%; height:2px; background:var(--border);">
+            <div id="navProgress"
+                style="height:100%; width:0%; background:linear-gradient(to right, var(--accent), var(--secondary)); position:relative; transition: width 0.1s linear;">
+                <div id="navProgressGlow"
+                    style="position:absolute; right:0; top:-2px; width:20px; height:6px; background:white; filter:blur(4px); opacity:0; transition:opacity 0.3s;">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile full-screen menu -->
+    <div class="nav__mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation" aria-modal="true">
+        <button class="nav__mobile-close" id="mobileClose" aria-label="Close menu">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/>
+          </svg>
+          Close
+        </button>
+        <a href="#projects" class="nav__mobile-link" id="mob-work">Work</a>
+        <a href="#about" class="nav__mobile-link" id="mob-about">About</a>
+        <a href="#skills" class="nav__mobile-link" id="mob-skills">Skills</a>
+        <a href="#contact" class="nav__mobile-link" id="mob-contact">Contact</a>
+        <a href="assets/docs/Adithya-Raghavan-CV.pdf" target="_blank" class="nav__mobile-link" id="mob-resume"
+            style="color:var(--accent);">Resume <i class="fa-solid fa-arrow-up-right-from-square"
+                style="font-size:0.7em;"></i></a>
+    </div>
+
+    <main>
+        <!-- ══════════════════════════════════════════════════════════
+             [3] HERO
+        ══════════════════════════════════════════════════════════ -->
+        <section class="hero" id="hero" aria-label="Hero — introduction">
+
+            <div class="hero__bg" aria-hidden="true">
+                <video class="hero__video" autoplay muted loop playsinline preload="auto">
+                    <source src="assets/video/reel.mp4" type="video/mp4">
+                </video>
+
+                <!-- Fallback image displayed while video loads or if no video src is set -->
+                <img src="assets/img/hero-bg.png" alt="" class="hero__bg-img"
+                    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.45;z-index:0;"
+                    aria-hidden="true" fetchpriority="high" />
+                <div class="hero__bg-inner" style="z-index:0;"></div>
+            </div>
+
+            <div class="hero__overlay" aria-hidden="true" style="z-index:2;"></div>
+            <canvas id="hero-constellation"
+                style="position:absolute; inset:0; z-index:3; width:100%; height:100%; opacity:0.3; pointer-events:none;"></canvas>
+
+            <div class="container" style="position:relative;z-index:10;width:100%;">
+                <div class="hero__content">
+
+                    <!-- CHANGE 1: "UNREAL ENGINE DEVELOPER" → "GAME DEVELOPER" -->
+                    <p class="hero__label" id="heroLabel">
+                        Game Developer
+                    </p>
+
+                    <h1 class="hero__title display" id="heroTitle">
+                        Adithya<br>Raghavan
+                    </h1>
+
+                    <p class="hero__subtitle" id="heroSubtitle">
+                        Structured in Code. Alive in Experience.
+                    </p>
+
+                    <div class="hero__cta-group" id="heroCta">
+                        <a href="#projects" class="btn btn--primary" id="cta-work">
+                            View My Work
+                        </a>
+                        <a href="assets/docs/Adithya-Raghavan-CV.pdf" class="btn btn--secondary" id="cta-cv"
+                            download="Adithya-Raghavan-CV.pdf">
+                            Download CV <i class="fa-solid fa-arrow-down" style="font-size:12px;"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="scroll-indicator" aria-hidden="true" style="z-index:3;">
+                <span>Scroll</span>
+                <div class="scroll-indicator__line"></div>
+            </div>
+
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════
+         [4] MARQUEE / TICKER BAR
+    ══════════════════════════════════════════════════════════ -->
+        <div class="marquee-section" aria-label="Technology skills marquee" aria-hidden="true">
+            <div class="marquee__track">
+                <!-- Duplicated for seamless infinite loop -->
+                <div class="marquee__item" data-tooltip="Industry-leading 3D creation tool.">Unreal Engine 5 <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Real-time global illumination system.">Lumen <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Virtualized micropolygon geometry.">Nanite <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Hyper-realistic physics and reflections.">Ray Tracing <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Intimate perspective for deep immersion.">First Person <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Character-driven spatial mechanics.">Third Person <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Visual scripting for rapid logic iteration.">Blueprints <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Robust bedrock for massive mechanics.">C++ <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Sculpting flow into geometry.">Level Design <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Bringing worlds to life.">VFX <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Crafting rich, cohesive atmospheres.">World Building <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Algorithms scripting vast ecologies.">Procedural Generation
+                    <span class="marquee__dot"></span>
+                </div>
+                <!-- Duplicate -->
+                <div class="marquee__item" data-tooltip="Industry-leading 3D creation tool.">Unreal Engine 5 <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Real-time global illumination system.">Lumen <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Virtualized micropolygon geometry.">Nanite <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Hyper-realistic physics and reflections.">Ray Tracing <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Intimate perspective for deep immersion.">First Person <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Character-driven spatial mechanics.">Third Person <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Visual scripting for rapid logic iteration.">Blueprints <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Robust bedrock for massive mechanics.">C++ <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Sculpting flow into geometry.">Level Design <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Bringing worlds to life.">VFX <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Crafting rich, cohesive atmospheres.">World Building <span
+                        class="marquee__dot"></span></div>
+                <div class="marquee__item" data-tooltip="Algorithms scripting vast ecologies.">Procedural Generation
+                    <span class="marquee__dot"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════════
+         [5] FEATURED PROJECTS
+         CHANGE 3: "View Project →" links to individual pages
+         CHANGE 4: 5 panels total, counters updated to X / 05
+    ══════════════════════════════════════════════════════════ -->
+        <section class="projects" id="projects" aria-label="Featured projects">
+
+            <div class="projects__header container">
+                <span class="section__label">Selected Work</span>
+                <h2 class="section__title display">Featured Projects</h2>
+            </div>
+
+            <!-- ── Project 01: Unfinished Business ── -->
+            <article class="project-panel" id="unfinished-business" aria-label="Unfinished Business"
+                data-project-theme="ub">
+                <div class="project-panel__media">
+                    <div class="project-placeholder project-placeholder--1">
+                        <img src="assets/img/Unfinished-Business.png"
+                            alt="Unfinished Business — linear, story-driven action-adventure game, happening in a metropolitan city"
+                            class="project-panel__image" loading="lazy"
+                            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
+                        <div class="project-placeholder__overlay" aria-hidden="true"></div>
+                    </div>
+                    <div class="project-panel__media-overlay" aria-hidden="true"></div>
+                </div>
+
+                <div class="project-panel__info">
+                    <p class="project-panel__number mono">01 / 05</p>
+                    <div class="project-panel__badge-row">
+                        <span class="badge badge--fp">Third Person</span>
+                    </div>
+                    <h3 class="project-panel__title display" data-text="Unfinished Business">Unfinished Business</h3>
+                    <p class="project-panel__description">
+                        Combat-focused action-adventure third person prototype developed in Unreal Engine 5 using
+                        Blueprint scripting.
+                        Implements core gameplay systems including player movement, shooting mechanics, vehicle
+                        interaction, and basic enemy AI behavior.
+                    </p>
+                    <div class="project-panel__tags">
+                        <span class="tag tag--accent">#UE5</span>
+                        <span class="tag">#Lumen</span>
+                        <span class="tag tag--accent">#Blueprints</span>
+                        <span class="tag tag--accent">#LevelDesign</span>
+                        <span class="tag tag--accent">#VFX</span>
+                        <span class="tag tag--accent">#SoundDesign</span>
+                    </div>
+                    <a href="unfinished-business.html" class="case-link" id="unfinished-business-link"
+                        aria-label="View Unfinished Business details" data-title="UNFINISHED BUSINESS">
+                        View Project
+                        <span class="case-link__arrow" aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- ── Project 02: Leo & Nora ── -->
+            <article class="project-panel project-panel--reverse" id="project-leo-nora" aria-label="Leo &amp; Nora"
+                data-project-theme="ln">
+                <div class="project-panel__media">
+                    <div class="project-placeholder project-placeholder--2">
+                        <img src="assets/img/Leo-Nora.jpg"
+                            alt="Leo & Nora — dark fantasy third-person RPG with Nanite open world"
+                            class="project-panel__image" loading="lazy"
+                            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
+                        <div class="project-placeholder__overlay" aria-hidden="true"></div>
+                    </div>
+                    <div class="project-panel__media-overlay" aria-hidden="true"></div>
+                </div>
+
+                <div class="project-panel__info">
+                    <p class="project-panel__number mono">02 / 05</p>
+                    <div class="project-panel__badge-row">
+                        <span class="badge badge--tp">Third Person</span>
+                    </div>
+                    <h3 class="project-panel__title display" data-text="Leo & Nora">Leo & Nora</h3>
+                    <p class="project-panel__description">
+                        A cooperative split-screen experience built in Unreal Engine 5, where two players must work
+                        together to progress through a world inspired by Indian mythology.
+                        Each character brings unique interactions and abilities, encouraging constant communication and
+                        coordination.
+                        From environmental puzzles to shared objectives, every moment is designed around teamwork and
+                        connection.
+                    </p>
+                    <div class="project-panel__tags">
+                        <span class="tag tag--accent">#UE5</span>
+                        <span class="tag tag--accent">#Splitscreen</span>
+                        <span class="tag tag--accent">#Multiplayer</span>
+                        <span class="tag tag--accent">#Co-op</span>
+                        <span class="tag tag--accent">#GameplaySystems</span>
+                        <span class="tag tag--accent">#Interaction</span>
+                    </div>
+                    <a href="leo-and-nora.html" class="case-link" id="leo-nora-link"
+                        aria-label="View Leo & Nora details" data-title="LEO & NORA">
+                        View Project
+                        <span class="case-link__arrow" aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- ── Project 03: Undead Unleashed ── -->
+            <article class="project-panel" id="project-undead-unleashed" aria-label="Undead Unleashed"
+                data-project-theme="uu">
+                <div class="project-panel__media">
+                    <div class="project-placeholder project-placeholder--3">
+                        <img src="assets/img/Undead-Unleashed.png"
+                            alt="Undead Unleashed — sci-fi tactical FPS with destructible environments"
+                            class="project-panel__image" loading="lazy"
+                            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
+                        <div class="project-placeholder__overlay" aria-hidden="true"></div>
+                    </div>
+                    <div class="project-panel__media-overlay" aria-hidden="true"></div>
+                </div>
+
+                <div class="project-panel__info">
+                    <p class="project-panel__number mono">03 / 05</p>
+                    <div class="project-panel__badge-row">
+                        <span class="badge badge--fp">First Person</span>
+                    </div>
+                    <h3 class="project-panel__title display" data-text="Undead Unleashed">Undead Unleashed</h3>
+                    <p class="project-panel__description">
+                        A fast-paced survival shooter where pressure is constant and control is limited. AI-driven
+                        undead swarms are computed in real-time, overwhelming the player with unpredictable movement and
+                        density. Tight environments and reactive encounters turn every moment into a fight for space,
+                        where survival is shaped by positioning, awareness, and split-second decisions.
+                    </p>
+                    <div class="project-panel__tags">
+                        <span class="tag tag--accent">#UE5</span>
+                        <span class="tag tag--accent">#AI</span>
+                        <span class="tag tag--accent">#GameplaySystems</span>
+                        <span class="tag tag--accent">#LevelDesign</span>
+                        <span class="tag tag--accent">#Prototyping</span>
+                        <span class="tag tag--accent">#Blueprints</span>
+                    </div>
+                    <a href="undead-unleashed.html" class="case-link" data-hover="cyan" id="undead-unleashed-link"
+                        aria-label="View Undead Unleashed details" data-title="UNDEAD UNLEASHED">
+                        View Project
+                        <span class="case-link__arrow" aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- ── Project 04: Yami ── (CHANGE 4) -->
+            <article class="project-panel project-panel--reverse" id="project-yami" aria-label="Yami"
+                data-project-theme="yami">
+                <div class="project-panel__media">
+                    <div class="project-placeholder project-placeholder--4">
+                        <img src="assets/img/Yami.png"
+                            alt="Yami — third-person stealth-action in a brutalist near-future city"
+                            class="project-panel__image" loading="lazy"
+                            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
+                        <div class="project-placeholder__overlay" aria-hidden="true"></div>
+                    </div>
+                    <div class="project-panel__media-overlay" aria-hidden="true"></div>
+                </div>
+
+                <div class="project-panel__info">
+                    <p class="project-panel__number mono">04 / 05</p>
+                    <div class="project-panel__badge-row">
+                        <span class="badge badge--tp">First Person</span>
+                    </div>
+                    <h3 class="project-panel__title display" data-text="Yami">Yami</h3>
+                    <p class="project-panel__description">
+                        A first-person survival horror experience set within a dark, maze-like world inspired by
+                        traditional Japanese architecture. Built around limited visibility, ambush-driven enemy
+                        behavior, and constant tension, where lighting and spatial awareness shape every encounter.
+                        Developed in Unreal Engine 5 with a focus on atmospheric level design and reactive AI systems.
+                    </p>
+                    <div class="project-panel__tags">
+                        <span class="tag tag--accent">#UE5</span>
+                        <span class="tag tag--accent">#FirstPerson</span>
+                        <span class="tag tag--accent">#SurvivalHorror</span>
+                        <span class="tag tag--accent">#AtmosphericDesign</span>
+                        <span class="tag tag--accent">#LevelDesign</span>
+                        <span class="tag tag--accent">#AI</span>
+                    </div>
+                    <a href="yami.html" class="case-link" data-hover="magenta" id="yami-link"
+                        aria-label="View Yami details" data-title="YAMI">
+                        View Project
+                        <span class="case-link__arrow" aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- ── Project 05: Neon Veil ── (CHANGE 4) -->
+            <article class="project-panel" id="project-neon-veil" aria-label="Neon Veil" data-project-theme="nv">
+                <div class="project-panel__media">
+                    <div class="project-placeholder project-placeholder--5">
+                        <img src="assets/img/Neon-Veil.png"
+                            alt="Neon Veil — first-person military thriller with destructible cover and branching campaign"
+                            class="project-panel__image" loading="lazy"
+                            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
+                        <div class="project-placeholder__overlay" aria-hidden="true"></div>
+                    </div>
+                    <div class="project-panel__media-overlay" aria-hidden="true"></div>
+                </div>
+
+                <div class="project-panel__info">
+                    <p class="project-panel__number mono">05 / 05</p>
+                    <div class="project-panel__badge-row">
+                        <span class="badge badge--fp">First Person</span>
+                    </div>
+                    <h3 class="project-panel__title display" data-text="Neon Veil">Neon Veil</h3>
+                    <p class="project-panel__description">
+                        A stealth-driven horror experience set in a confined cyberpunk environment, where a relentless
+                        entity stalks the player through neon-lit corridors. Built around concealment and timing,
+                        players must hide within scattered closets to avoid detection while searching for a single
+                        weapon capable of eliminating the threat. With constant pressure from a persistent AI and only
+                        one opportunity to strike, survival depends on patience, awareness, and executing the perfect
+                        moment to escape.
+                    </p>
+                    <div class="project-panel__tags">
+                        <span class="tag tag--accent">#UE5</span>
+                        <span class="tag tag--accent">#FirstPerson</span>
+                        <span class="tag tag--accent">#StealthHorror</span>
+                        <span class="tag tag--accent">#AI</span>
+                        <span class="tag tag--accent">#LevelDesign</span>
+                        <span class="tag tag--accent">#Prototyping</span>
+                    </div>
+                    <a href="neon-veil.html" class="case-link" data-hover="cyan" id="neon-veil-link"
+                        aria-label="View Neon Veil details" data-title="NEON VEIL">
+                        View Project
+                        <span class="case-link__arrow" aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════
+         [6] ABOUT
+    ══════════════════════════════════════════════════════════ -->
+        <section class="section about" id="about" aria-label="About Adithya Raghavan">
+            <div class="topo-bg" aria-hidden="true"></div>
+            <div class="container">
+
+                <div class="about__grid">
+
+                    <!-- Left: portrait -->
+                    <div class="about__image-wrap reveal reveal--left">
+                        <div class="about__image-frame">
+                            <img src="assets/img/Adithya-Raghavan-Image.jpg" alt="Adithya Raghavan"
+                                class="about__portrait" loading="lazy" />
+                        </div>
+                        <p class="about__image-caption" aria-hidden="true">Game Developer · Chennai, India</p>
+                    </div>
+
+                    <!-- Right: bio -->
+                    <div class="about__content reveal reveal--right">
+                        <span class="section__label">About</span>
+
+                        <blockquote class="about__pull-quote display">
+                            Every level is a story.<br>Every frame is intentional.
+                        </blockquote>
+
+                        <p class="about__bio">
+                            I'm Adithya Raghavan, A gameplay focused Unreal Engine developer with a strong foundation in
+                            Blueprint systems, now expanding into C++ and online multiplayer architecture. My work spans
+                            single-player, cooperative, and competitive experiences, from cinematic action prototypes to
+                            split-screen co-op and rapid game jam projects, each built with an emphasis on core gameplay
+                            feel, system design, and player immersion. Currently focused on mastering networking and
+                            scalable gameplay systems, I aim to create responsive, engaging experiences that blend
+                            technical depth with meaningful player interaction.
+                        </p>
+
+
+                        <div class="about__cta reveal delay-2" style="margin-top: var(--sp-8);">
+                            <a href="assets/docs/Adithya-Raghavan-CV.pdf" class="btn btn--secondary"
+                                download="Adithya-Raghavan-CV.pdf" style="padding: 14px 32px; font-size: 14px;">
+                                Download CV <i class="fa-solid fa-file-pdf" style="margin-left:8px; opacity:0.7;"></i>
+                            </a>
+                        </div>
+
+                        <!-- Animated stat counters -->
+                        <div class="about__stats">
+                            <div class="stat">
+                                <div class="stat__number display">
+                                    <span data-counter="1" data-suffix="+" data-duration="1600">0+</span>
+                                </div>
+                                <div class="stat__label">Years Experience</div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider" aria-hidden="true"></div>
+
+        <!-- ══════════════════════════════════════════════════════════
+         [7] SKILLS & TOOLS
+         CHANGE 5: 3 cards — Engine, 3D Modeling Software, Photo Editing & Design
+    ══════════════════════════════════════════════════════════ -->
+        <section class="section skills" id="skills" aria-label="Skills and tools">
+            <div class="topo-bg" aria-hidden="true"></div>
+            <div class="container">
+
+                <div class="reveal">
+                    <span class="section__label">Expertise</span>
+                    <h2 class="section__title display">Skills &amp; Tools</h2>
+                </div>
+
+                <div class="skills__grid skills__grid--3col">
+
+                    <!-- Engine (unchanged) -->
+                    <div class="skill-card" aria-label="Engine skills">
+                        <div class="skill-card__icon" aria-hidden="true">
+                            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="16,3 29,10 29,22 16,29 3,22 3,10" />
+                                <circle cx="16" cy="16" r="4" />
+                                <line x1="16" y1="12" x2="16" y2="3" />
+                                <line x1="16" y1="20" x2="16" y2="29" />
+                                <line x1="19.46" y1="14" x2="29" y2="10" />
+                                <line x1="12.54" y1="18" x2="3" y2="22" />
+                            </svg>
+                        </div>
+                        <div class="skill-card__category">Category</div>
+                        <div class="skill-card__name display">Engine</div>
+                        <div class="skill-card__tags">
+                            <span class="tag tag--accent">#UE5</span>
+                            <span class="tag tag--accent">#Blueprints</span>
+                            <span class="tag tag--accent">#C++</span>
+                            <span class="tag">#Gameplay Framework</span>
+                            <span class="tag tag--accent">#Animation BP</span>
+                            <span class="tag tag--accent">#AI Behavior Trees</span>
+                            <span class="tag tag--accent">#Multiplayer</span>
+                        </div>
+                    </div>
+
+                    <!-- 3D Modeling Software (NEW) -->
+                    <div class="skill-card" aria-label="3D Modeling Software skills">
+                        <div class="skill-card__icon" aria-hidden="true">
+                            <!-- Polygon/cube icon for modeling -->
+                            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="16,3 29,10 29,22 16,29 3,22 3,10" />
+                                <polygon points="16,3 16,29 3,22 3,10" opacity="0.3" fill="rgba(232,160,32,0.08)"
+                                    stroke="none" />
+                                <line x1="16" y1="3" x2="16" y2="29" />
+                                <line x1="3" y1="10" x2="29" y2="22" />
+                                <line x1="29" y1="10" x2="3" y2="22" />
+                            </svg>
+                        </div>
+                        <div class="skill-card__category">Category</div>
+                        <div class="skill-card__name display">3D Modeling</div>
+                        <div class="skill-card__tags">
+                            <span class="tag tag--accent">#Maya</span>
+                            <span class="tag tag--accent">#Blender</span>
+                            <span class="tag">#ZBrush</span>
+                            <span class="tag">#3ds Max</span>
+                        </div>
+                    </div>
+
+                    <!-- Photo Editing & Design (NEW) -->
+                    <div class="skill-card" aria-label="Photo Editing and Design skills">
+                        <div class="skill-card__icon" aria-hidden="true">
+                            <!-- Brush/palette icon for photo editing -->
+                            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M6 26 C6 26 8 20 14 18 L24 8 C25.5 6.5 27.5 6.5 29 8 C30.5 9.5 30.5 11.5 29 13 L19 23 C17 29 6 26 6 26Z" />
+                                <circle cx="8" cy="24" r="3" fill="rgba(232,160,32,0.15)"
+                                    stroke="rgba(232,160,32,0.6)" />
+                                <line x1="14" y1="18" x2="19" y2="23" />
+                            </svg>
+                        </div>
+                        <div class="skill-card__category">Category</div>
+                        <div class="skill-card__name display">Photo &amp; Design</div>
+                        <div class="skill-card__tags">
+                            <span class="tag tag--accent">#Photoshop</span>
+                            <span class="tag tag--accent">#Adobe Illustrator</span>
+                            <span class="tag">#Lightroom</span>
+                            <span class="tag">#Substance Painter</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider" aria-hidden="true"></div>
+
+        <!-- CHANGE 6: Process section removed entirely -->
+        <!-- ══════════════════════════════════════════════════════════
+         [8] AWARD HIGHLIGHT
+         CHANGE 7: Replaces Testimonials section
+         <!-- TODO: Add real university name, year, and any award photo if available -->
+        ══════════════════════════════════════════════════════════ -->
+        <section class="section award" id="award" aria-label="Award recognition">
+            <div class="topo-bg" aria-hidden="true"></div>
+            <div class="container">
+                <div class="award__inner reveal">
+
+                    <!-- Trophy icon -->
+                    <div class="award__icon" aria-hidden="true">
+                        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--accent)"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Cup body -->
+                            <path d="M20 8 H44 V30 C44 40 32 46 32 46 C32 46 20 40 20 30 Z" />
+                            <!-- Handles -->
+                            <path d="M20 14 C14 14 10 18 10 24 C10 30 14 32 20 30" />
+                            <path d="M44 14 C50 14 54 18 54 24 C54 30 50 32 44 30" />
+                            <!-- Stem -->
+                            <line x1="32" y1="46" x2="32" y2="54" />
+                            <!-- Base -->
+                            <line x1="22" y1="54" x2="42" y2="54" />
+                            <!-- Stars inside cup -->
+                            <polygon
+                                points="32,18 33.5,22.5 38,22.5 34.5,25 36,29.5 32,27 28,29.5 29.5,25 26,22.5 30.5,22.5"
+                                fill="rgba(232,160,32,0.2)" stroke="var(--accent)" stroke-width="1" />
+                        </svg>
+                    </div>
+
+                    <span class="section__label"
+                        style="display:block;text-align:center;margin-bottom:var(--sp-3);">Recognition</span>
+
+                    <h2 class="award__headline display">Game of the Year</h2>
+
+                    <p class="award__university">
+                        Awarded at <strong>ICAT Design &amp; Media College (2025)</strong>
+                    </p>
+
+                    <p class="award__description">
+                        Selected from all student-developed titles for outstanding technical achievement,
+                        visual quality, and gameplay innovation.
+                    </p>
+
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider" aria-hidden="true"></div>
+
+        <!-- ══════════════════════════════════════════════════════════
+         [9] CONTACT
+    ══════════════════════════════════════════════════════════ -->
+        <section class="section contact" id="contact" aria-label="Contact Adithya Raghavan">
+            <div class="contact__bg-text display" aria-hidden="true">CONTACT</div>
+            <div class="topo-bg" aria-hidden="true"></div>
+
+            <div class="container" style="position:relative;z-index:2;">
+
+                <h2 class="contact__headline display reveal">
+                    Let's Build<br>Something<br><span class="accent-word">Extraordinary.</span>
+                </h2>
+
+                <p class="contact__sub reveal delay-1">
+                    Open to new projects, collaborations, and full-time roles.
+                </p>
+
+                <a href="mailto:adithyaragh1@gmail.com" class="contact__email-btn btn btn--primary reveal delay-2"
+                    id="contact-email-btn" aria-label="Send email to Adithya Raghavan">
+                    Get In Touch &nbsp;→&nbsp; adithyaragh1@gmail.com
+                </a>
+
+                <!-- Social links -->
+                <div class="contact__social-row reveal delay-3" role="list" aria-label="Social media links">
+                    <a href="https://www.linkedin.com/in/adithyaraghav/" class="social-link" id="social-linkedin"
+                        target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" role="listitem">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/Azadayne" class="social-link" id="social-github" target="_blank"
+                        rel="noopener noreferrer" aria-label="GitHub profile" role="listitem">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://azadayne.itch.io/" class="social-link" id="social-itchio" target="_blank"
+                        rel="noopener noreferrer" aria-label="Itch.io profile" role="listitem">
+                        <i class="fa-brands fa-itch-io"></i>
+                    </a>
+                </div>
+
+                <div class="contact__divider">
+                    Chennai, India &nbsp;·&nbsp; Worldwide Remote
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ══════════════════════════════════════════════════════════
+         FOOTER
+    ══════════════════════════════════════════════════════════ -->
+    <footer class="footer" aria-label="Site footer">
+        <p class="footer__copy">
+            © <span id="footerYear"></span> Adithya Raghavan. All rights reserved.
+        </p>
+        <p class="footer__tag">
+            Built with <span>Unreal-grade</span> attention to detail.
+        </p>
+    </footer>
+
+    <!-- ══════════════════════════════════════════════════════════
+         SCRIPTS
+    ══════════════════════════════════════════════════════════ -->
+    <script src="js/nav.js"></script>
+    <script defer src="js/main.js"></script>
+    <script defer src="js/cursor.js"></script>
+    <script defer src="js/transitions.js"></script>
+    <script defer src="js/ripple.js"></script>
+    <script defer src="js/scramble.js"></script>
+    <script defer src="js/counter.js"></script>
+    <script defer src="js/animations.js"></script>
+    <script defer src="js/selection.js"></script>
+    <script defer src="js/theme-portal.js"></script>
+
+    <!-- Footer year -->
+    <script>
+        document.getElementById('footerYear').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>

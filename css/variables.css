@@ -1,0 +1,81 @@
+/* ============================================================
+   variables.css — Design system tokens (Cyberpunk Update)
+   ============================================================ */
+
+:root {
+  /* ── Colors ──────────────────────────────────────────────── */
+  --bg:              #050508;
+  --surface:         #0A0A12;
+  --surface-high:    #12121E;
+  
+  --accent:          #7B61FF;
+  --secondary:       #00F5D4;
+  --tertiary:        #FF2D6B;
+  
+  --glow-purple:     rgba(123, 97, 255, 0.15);
+  --glow-cyan:       rgba(0, 245, 212, 0.12);
+  --glow-pink:       rgba(255, 45, 107, 0.12);
+
+  --accent-glow:     var(--glow-purple);
+  --accent-hover:    rgba(123, 97, 255, 0.12);
+
+  --text-primary:    #F0F0FF;
+  --text-secondary:  #6B6B8A;
+  --text-muted:      #2E2E45;
+
+  --border:          rgba(255, 255, 255, 0.06);
+  --border-accent:   rgba(123, 97, 255, 0.4);
+
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-display:    'Bebas Neue', 'Impact', sans-serif;
+  --font-body:       'Inter', system-ui, sans-serif;
+  --font-mono:       'JetBrains Mono', 'Fira Code', monospace;
+
+  --size-hero:       clamp(64px, 8vw, 96px);
+  --size-section:    clamp(40px, 5vw, 64px);
+  --size-card:       clamp(28px, 3vw, 36px);
+  --size-body:       18px;
+  --size-label:      13px;
+  --size-micro:      11px;
+
+  --tracking-display: 0.05em;
+  --tracking-label:   0.12em;
+
+  /* ── Spacing (8px base unit) ─────────────────────────────── */
+  --sp-1:   8px;
+  --sp-2:   16px;
+  --sp-3:   24px;
+  --sp-4:   32px;
+  --sp-5:   40px;
+  --sp-6:   48px;
+  --sp-8:   64px;
+  --sp-10:  80px;
+  --sp-12:  96px;
+  --sp-16:  128px;
+  --sp-20:  160px;
+
+  /* ── Border Radius ───────────────────────────────────────── */
+  --radius-tag:  4px;
+  --radius-card: 8px;
+  --radius-none: 0px;
+
+  /* ── Shadows ─────────────────────────────────────────────── */
+  --shadow-card:    0 24px 64px rgba(0, 0, 0, 0.6);
+  --shadow-hover:   0 32px 80px rgba(0, 0, 0, 0.8);
+  --shadow-accent:  0 8px 32px rgba(123, 97, 255, 0.2);
+
+  /* ── Transitions ─────────────────────────────────────────── */
+  --ease-out:       cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:    cubic-bezier(0.45, 0, 0.55, 1);
+  --duration-fast:  0.2s;
+  --duration-base:  0.4s;
+  --duration-slow:  0.7s;
+
+  /* ── Z-index layers ──────────────────────────────────────── */
+  --z-base:    1;
+  --z-card:    10;
+  --z-nav:     100;
+  --z-loader:  200;
+  --z-cursor:  300;
+  --z-overlay: 400;
+}

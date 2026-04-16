@@ -1,0 +1,400 @@
+/* ================================================================
+   theme-portal.css — Homepage Project Theme Preview System
+   When a project card is hovered on index.html, the body receives
+   data-active-theme="<key>". These rules remap the homepage CSS
+   variables to that project's identity.
+
+   Selector strategy: body[data-active-theme="XX"] {}
+   — scoped to body attribute, zero bleed to any project page.
+   — Every rule reuses values already defined in the project theme.
+   ================================================================ */
+
+/* ── CURSOR KEYFRAMES (used by portal-spawned cursors only) ──── */
+@keyframes portalReticlePulse {
+  0%, 100% { box-shadow: 0 0 6px rgba(0,245,212,0.4),  inset 0 0 4px rgba(0,245,212,0.1); }
+  50%       { box-shadow: 0 0 18px rgba(0,245,212,0.8), inset 0 0 8px rgba(0,245,212,0.2); }
+}
+
+@keyframes portalReticleRotate {
+  from { transform: translate(-50%,-50%) rotate(0deg); }
+  to   { transform: translate(-50%,-50%) rotate(360deg); }
+}
+
+
+/* ── SMOOTH TRANSITION LAYER ─────────────────────────────────── */
+/* Applied always on the homepage to smooth color jumps */
+body:not([class*="theme-"]) {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* ── PROJECT PANEL TRANSITION ────────────────────────────────── */
+.project-panel {
+  transition:
+    box-shadow 0.35s ease,
+    border-color 0.35s ease,
+    background-color 0.35s ease;
+}
+
+.project-panel__title,
+.project-panel__number,
+.project-panel__description,
+.case-link,
+.tag,
+.badge {
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease,
+    text-shadow 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* ================================================================
+   UNFINISHED BUSINESS
+   Primary: #00F5D4 (cyan-mint)  Secondary: #FF3C28 (signal red)
+   ================================================================ */
+body[data-active-theme="ub"] {
+  --accent:    #00F5D4;
+  --secondary: #FF3C28;
+  --bg:        #080A09;
+  --surface:   #0C0F0D;
+  --text-primary: #E8EDE8;
+  --border:    rgba(255,255,255,0.05);
+  --glow-purple: rgba(0,245,212,0.12);
+  background-color: #080A09;
+  color: #E8EDE8;
+}
+
+body[data-active-theme="ub"] .nav {
+  background: rgba(8,10,9,0.95);
+  border-bottom-color: rgba(0,245,212,0.1);
+}
+body[data-active-theme="ub"] .nav__logo {
+  color: #00F5D4;
+  text-shadow: 0 0 20px rgba(0,245,212,0.5);
+}
+body[data-active-theme="ub"] #navProgress {
+  background: linear-gradient(to right, #00F5D4, #FF3C28) !important;
+  box-shadow: 0 0 8px rgba(0,245,212,0.6) !important;
+}
+body[data-active-theme="ub"] .section__label {
+  color: #00F5D4;
+}
+body[data-active-theme="ub"] .tag--accent {
+  color: #00F5D4;
+  border-color: rgba(0,245,212,0.3);
+}
+body[data-active-theme="ub"] .case-link {
+  color: #00F5D4;
+  border-color: rgba(0,245,212,0.35);
+}
+body[data-active-theme="ub"] .case-link:hover {
+  background: rgba(0,245,212,0.07);
+  box-shadow: 0 0 24px rgba(0,245,212,0.15);
+}
+body[data-active-theme="ub"] [data-project-theme="ub"] {
+  box-shadow: 0 0 60px rgba(0,245,212,0.08), 0 0 0 1px rgba(0,245,212,0.08);
+}
+body[data-active-theme="ub"] [data-project-theme="ub"] .project-panel__title {
+  text-shadow: 0 0 30px rgba(0,245,212,0.25);
+}
+body[data-active-theme="ub"] [data-project-theme="ub"] .project-panel__media-overlay {
+  background: radial-gradient(ellipse at 60% 50%, rgba(0,245,212,0.08) 0%, transparent 70%);
+}
+/* ── UB CURSOR ──── */
+body[data-active-theme="ub"] .cursor__dot {
+  background: #00F5D4;
+  box-shadow: 0 0 10px #00F5D4, 0 0 20px rgba(0,245,212,0.4);
+}
+body[data-active-theme="ub"] .cursor__ring {
+  border-color: #00F5D4;
+  box-shadow: 0 0 12px rgba(0,245,212,0.6);
+}
+
+/* ================================================================
+   LEO & NORA
+   Primary: #FFB830 (amber gold)  Secondary: #FF4E8C (rose)
+   ================================================================ */
+body[data-active-theme="ln"] {
+  --accent:    #FFB830;
+  --secondary: #FF4E8C;
+  --bg:        #0D0806;
+  --surface:   #130E09;
+  --text-primary: #FFF4E0;
+  --border:    rgba(255,184,48,0.08);
+  --glow-purple: rgba(255,184,48,0.18);
+  background-color: #0D0806;
+  color: #FFF4E0;
+}
+body[data-active-theme="ln"] .nav {
+  background: rgba(13,8,6,0.95);
+  border-bottom-color: rgba(255,184,48,0.1);
+}
+body[data-active-theme="ln"] .nav__logo {
+  color: #FFB830;
+  text-shadow: 0 0 20px rgba(255,184,48,0.5);
+}
+body[data-active-theme="ln"] #navProgress {
+  background: linear-gradient(to right, #FFB830, #FF4E8C) !important;
+  box-shadow: 0 0 8px rgba(255,184,48,0.6) !important;
+}
+body[data-active-theme="ln"] .section__label {
+  color: #FFB830;
+}
+body[data-active-theme="ln"] .tag--accent {
+  color: #FFB830;
+  border-color: rgba(255,184,48,0.3);
+}
+body[data-active-theme="ln"] .case-link {
+  color: #FFB830;
+  border-color: rgba(255,184,48,0.35);
+}
+body[data-active-theme="ln"] .case-link:hover {
+  background: rgba(255,184,48,0.07);
+  box-shadow: 0 0 24px rgba(255,184,48,0.15);
+}
+body[data-active-theme="ln"] [data-project-theme="ln"] {
+  box-shadow: 0 0 60px rgba(255,184,48,0.08), 0 0 0 1px rgba(255,184,48,0.08);
+}
+body[data-active-theme="ln"] [data-project-theme="ln"] .project-panel__title {
+  text-shadow: 0 0 30px rgba(255,184,48,0.25);
+}
+body[data-active-theme="ln"] [data-project-theme="ln"] .project-panel__media-overlay {
+  background: radial-gradient(ellipse at 60% 50%, rgba(255,184,48,0.08) 0%, transparent 70%);
+}
+/* ── LN CURSOR ──── */
+body[data-active-theme="ln"] .cursor__dot {
+  background: #FFB830;
+  box-shadow: 0 0 10px #FFB830, 0 0 20px rgba(255,184,48,0.4);
+}
+body[data-active-theme="ln"] .cursor__ring {
+  border-color: #FFB830;
+  box-shadow: 0 0 12px rgba(255,184,48,0.6);
+}
+
+/* ================================================================
+   UNDEAD UNLEASHED
+   Primary: #50FF3C (biohazard green)  Secondary: #FF1A1A (blood)
+   ================================================================ */
+body[data-active-theme="uu"] {
+  --accent:    #50FF3C;
+  --secondary: #FF1A1A;
+  --bg:        #060806;
+  --surface:   #0A0E0A;
+  --text-primary: #D4F0D0;
+  --border:    rgba(80,255,60,0.06);
+  --glow-purple: rgba(80,255,60,0.14);
+  background-color: #060806;
+  color: #D4F0D0;
+}
+body[data-active-theme="uu"] .nav {
+  background: rgba(6,8,6,0.95);
+  border-bottom-color: rgba(80,255,60,0.08);
+}
+body[data-active-theme="uu"] .nav__logo {
+  color: #50FF3C;
+  text-shadow: 0 0 20px rgba(80,255,60,0.5);
+}
+body[data-active-theme="uu"] #navProgress {
+  background: linear-gradient(to right, #50FF3C, #FF1A1A) !important;
+  box-shadow: 0 0 8px rgba(80,255,60,0.6) !important;
+}
+body[data-active-theme="uu"] .section__label {
+  color: #50FF3C;
+}
+body[data-active-theme="uu"] .tag--accent {
+  color: #50FF3C;
+  border-color: rgba(80,255,60,0.3);
+}
+body[data-active-theme="uu"] .case-link {
+  color: #50FF3C;
+  border-color: rgba(80,255,60,0.35);
+}
+body[data-active-theme="uu"] .case-link:hover {
+  background: rgba(80,255,60,0.06);
+  box-shadow: 0 0 24px rgba(80,255,60,0.12);
+}
+body[data-active-theme="uu"] [data-project-theme="uu"] {
+  box-shadow: 0 0 60px rgba(80,255,60,0.06), 0 0 0 1px rgba(80,255,60,0.08);
+}
+body[data-active-theme="uu"] [data-project-theme="uu"] .project-panel__title {
+  text-shadow: 0 0 30px rgba(80,255,60,0.2);
+  color: #D4F0D0;
+}
+body[data-active-theme="uu"] [data-project-theme="uu"] .project-panel__media-overlay {
+  background: radial-gradient(ellipse at 60% 50%, rgba(80,255,60,0.06) 0%, transparent 70%);
+}
+/* ── UU CURSOR ──── */
+body[data-active-theme="uu"] .cursor__dot {
+  background: #50FF3C;
+  box-shadow: 0 0 10px #50FF3C, 0 0 20px rgba(80,255,60,0.4);
+}
+body[data-active-theme="uu"] .cursor__ring {
+  border-color: #50FF3C;
+  box-shadow: 0 0 12px rgba(80,255,60,0.6);
+}
+
+/* ================================================================
+   YAMI
+   Primary: #E8E0D0 (aged parchment)  Secondary: #C0001A (blood red)
+   ================================================================ */
+body[data-active-theme="yami"] {
+  --accent:    #E8E0D0;
+  --secondary: #C0001A;
+  --bg:        #030303;
+  --surface:   #060608;
+  --text-primary: #D8D0C0;
+  --border:    rgba(255,255,255,0.04);
+  --glow-purple: rgba(192,0,26,0.14);
+  background-color: #030303;
+  color: #D8D0C0;
+}
+body[data-active-theme="yami"] .nav {
+  background: rgba(3,3,3,0.97);
+  border-bottom-color: rgba(255,255,255,0.04);
+}
+body[data-active-theme="yami"] .nav__logo {
+  color: #C0001A;
+  text-shadow: 0 0 20px rgba(192,0,26,0.4);
+}
+body[data-active-theme="yami"] #navProgress {
+  background: linear-gradient(to right, #C0001A, #E8E0D0) !important;
+  box-shadow: 0 0 8px rgba(192,0,26,0.5) !important;
+}
+body[data-active-theme="yami"] .section__label {
+  color: #E8E0D0;
+  text-shadow: none;
+  letter-spacing: 0.2em;
+}
+body[data-active-theme="yami"] .tag--accent {
+  color: #D8D0C0;
+  border-color: rgba(255,255,255,0.1);
+}
+body[data-active-theme="yami"] .case-link {
+  color: #D8D0C0;
+  border-color: rgba(255,255,255,0.12);
+}
+body[data-active-theme="yami"] .case-link:hover {
+  background: rgba(192,0,26,0.08);
+  box-shadow: 0 0 24px rgba(192,0,26,0.15);
+  color: #C0001A;
+}
+body[data-active-theme="yami"] [data-project-theme="yami"] {
+  box-shadow: 0 0 60px rgba(192,0,26,0.06), 0 0 0 1px rgba(255,255,255,0.04);
+}
+body[data-active-theme="yami"] [data-project-theme="yami"] .project-panel__title {
+  text-shadow: 0 0 40px rgba(192,0,26,0.2);
+}
+body[data-active-theme="yami"] [data-project-theme="yami"] .project-panel__media-overlay {
+  background: radial-gradient(ellipse at 60% 50%, rgba(192,0,26,0.06) 0%, transparent 70%);
+}
+/* ── YAMI CURSOR ──── */
+body[data-active-theme="yami"] .cursor__dot {
+  background: #C0001A;
+  box-shadow: 0 0 10px #C0001A, 0 0 20px rgba(192,0,26,0.4);
+}
+body[data-active-theme="yami"] .cursor__ring {
+  border-color: #E8E0D0;
+  box-shadow: 0 0 8px rgba(232,224,208,0.3);
+  /* Slow pulse to feel like breathing in the dark */
+  animation: yamiBreathe 2s ease-in-out infinite;
+}
+@keyframes yamiBreathe {
+  0%, 100% { opacity: 0.6; transform: translate(-50%,-50%) scale(1); }
+  50%       { opacity: 1;   transform: translate(-50%,-50%) scale(1.08); }
+}
+
+/* ================================================================
+   NEON VEIL
+   Primary: #4A9EFF (ice blue)  Secondary: #FF2D78 (hot magenta)
+   Tertiary: #00FFD1 (cold teal)
+   ================================================================ */
+body[data-active-theme="nv"] {
+  --accent:    #4A9EFF;
+  --secondary: #FF2D78;
+  --bg:        #030308;
+  --surface:   #07070F;
+  --text-primary: #C8D8F0;
+  --border:    rgba(74,158,255,0.06);
+  --glow-purple: rgba(74,158,255,0.12);
+  background-color: #030308;
+  color: #C8D8F0;
+}
+body[data-active-theme="nv"] .nav {
+  background: rgba(3,3,8,0.97);
+  border-bottom-color: rgba(74,158,255,0.08);
+}
+body[data-active-theme="nv"] .nav__logo {
+  color: #4A9EFF;
+  text-shadow: 0 0 20px rgba(74,158,255,0.6);
+}
+body[data-active-theme="nv"] #navProgress {
+  background: linear-gradient(to right, #4A9EFF, #FF2D78, #00FFD1) !important;
+  box-shadow: 0 0 10px rgba(74,158,255,0.7) !important;
+}
+body[data-active-theme="nv"] .section__label {
+  color: #4A9EFF;
+  text-shadow: 0 0 12px rgba(74,158,255,0.5);
+}
+body[data-active-theme="nv"] .tag--accent {
+  color: #4A9EFF;
+  border-color: rgba(74,158,255,0.3);
+}
+body[data-active-theme="nv"] .case-link {
+  color: #4A9EFF;
+  border-color: rgba(74,158,255,0.35);
+}
+body[data-active-theme="nv"] .case-link:hover {
+  background: rgba(74,158,255,0.07);
+  box-shadow: 0 0 24px rgba(74,158,255,0.15);
+  text-shadow: -1px 0 rgba(255,45,120,0.8), 1px 0 rgba(0,255,209,0.8);
+}
+body[data-active-theme="nv"] [data-project-theme="nv"] {
+  box-shadow: 0 0 60px rgba(74,158,255,0.08), 0 0 0 1px rgba(74,158,255,0.08);
+}
+body[data-active-theme="nv"] [data-project-theme="nv"] .project-panel__title {
+  text-shadow: 0 0 30px rgba(74,158,255,0.3);
+}
+body[data-active-theme="nv"] [data-project-theme="nv"] .project-panel__media-overlay {
+  background: radial-gradient(ellipse at 60% 50%, rgba(74,158,255,0.08) 0%, rgba(255,45,120,0.04) 50%, transparent 75%);
+}
+/* ── NV CURSOR ──── */
+body[data-active-theme="nv"] .cursor__dot {
+  background: #FF2D78;
+  box-shadow: 0 0 10px #FF2D78, 0 0 20px rgba(255,45,120,0.4);
+}
+body[data-active-theme="nv"] .cursor__ring {
+  border-color: #4A9EFF;
+  box-shadow: 0 0 14px rgba(74,158,255,0.7), 0 0 28px rgba(74,158,255,0.2);
+  animation: nvRingScan 1.5s linear infinite;
+}
+@keyframes nvRingScan {
+  0%   { border-color: #4A9EFF; box-shadow: 0 0 14px rgba(74,158,255,0.7); }
+  50%  { border-color: #FF2D78; box-shadow: 0 0 14px rgba(255,45,120,0.7); }
+  100% { border-color: #4A9EFF; box-shadow: 0 0 14px rgba(74,158,255,0.7); }
+}
+
+/* ================================================================
+   INACTIVE CARD DIMMING
+   When a theme is active, all OTHER cards (not the hovered one)
+   subtly dim so the active project stands out.
+   ================================================================ */
+body[data-active-theme] .project-panel:not([data-project-theme]) {
+  opacity: 0.4;
+  filter: grayscale(0.3);
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+body[data-active-theme] .project-panel[data-project-theme] {
+  opacity: 1;
+  filter: none;
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+/* The currently active one is full brightness */
+body[data-active-theme="ub"]   [data-project-theme]:not([data-project-theme="ub"])   { opacity: 0.35; filter: grayscale(0.4) brightness(0.7); }
+body[data-active-theme="ln"]   [data-project-theme]:not([data-project-theme="ln"])   { opacity: 0.35; filter: grayscale(0.4) brightness(0.7); }
+body[data-active-theme="uu"]   [data-project-theme]:not([data-project-theme="uu"])   { opacity: 0.35; filter: grayscale(0.4) brightness(0.7); }
+body[data-active-theme="yami"] [data-project-theme]:not([data-project-theme="yami"]) { opacity: 0.35; filter: grayscale(0.4) brightness(0.7); }
+body[data-active-theme="nv"]   [data-project-theme]:not([data-project-theme="nv"])   { opacity: 0.35; filter: grayscale(0.4) brightness(0.7); }

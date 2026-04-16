@@ -1,0 +1,289 @@
+/* ============================================================
+   interactions.css — Cinematic Page Transitions & Button Effects
+   ============================================================ */
+
+/* ── Page Transition Panel ─────────────────────────────────── */
+.transition-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #050508;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Initial state: covered */
+.transition-panel--active {
+    pointer-events: all;
+    opacity: 1;
+    visibility: visible;
+    clip-path: inset(0 0% 0 0);
+}
+
+/* Title on the panel */
+.transition-panel__title {
+    font-family: var(--font-display);
+    font-size: 8vw;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    opacity: 0;
+    letter-spacing: 0.1em;
+}
+
+.transition-panel__title--visible {
+    animation: slam-in 0.15s forwards;
+}
+
+@keyframes slam-in {
+    0%   { opacity: 0; transform: scale(1.2); filter: blur(10px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+/* Horizontal line on panel */
+.transition-panel__line {
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    margin-top: var(--sp-2);
+}
+
+.transition-panel__line--draw {
+    animation: draw-line 0.2s forwards;
+}
+
+@keyframes draw-line {
+    to { width: 30vw; }
+}
+
+/* Loading bar at bottom */
+.transition-panel__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(to right, var(--accent), var(--secondary));
+    transition: width 0.6s linear;
+}
+
+/* ── Ripples ───────────────────────────────────────────────── */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--secondary);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    animation: ripple-fx 0.5s ease-out forwards;
+}
+
+@keyframes ripple-fx {
+    from { width: 0; height: 0; opacity: 0.4; }
+    to   { width: 300px; height: 300px; opacity: 0; }
+}
+
+/* ── Ghost Button Flood ─────────────────────────────────────── */
+.btn--secondary.btn-flood-active::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0.2;
+    z-index: -1;
+    clip-path: inset(0 100% 0 0);
+    animation: flood-fx 0.3s forwards, flood-out 0.3s 0.4s forwards;
+}
+
+@keyframes flood-fx {
+    to { clip-path: inset(0 0% 0 0); }
+}
+
+@keyframes flood-out {
+    to { clip-path: inset(0 0 0 100%); }
+}
+
+/* ── Shockwaves (Sonar Ping) ────────────────────────────────── */
+.shockwave {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 2px solid var(--secondary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.shockwave--animate {
+    animation: sonar-ping 0.6s ease-out forwards;
+}
+
+@keyframes sonar-ping {
+    0%   { width: 100%; height: 100%; opacity: 1; }
+    100% { width: 400%; height: 400%; opacity: 0; }
+}
+
+/* ── Arrow Shoot ───────────────────────────────────────────── */
+.case-link--shoot .case-link__arrow {
+    transform: translateX(100vw);
+    transition: transform 0.2s ease-in;
+}
+
+/* ── Screen Shake ──────────────────────────────────────────── */
+.screen-shake {
+    animation: shake-fx 0.3s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake-fx {
+    10%, 90% { transform: translateX(-4px); }
+    20%, 80% { transform: translateX(4px); }
+    30%, 50%, 70% { transform: translateX(-2px); }
+    40%, 60% { transform: translateX(2px); }
+}
+
+/* ── Haptic Press ──────────────────────────────────────────── */
+.interactive-tap {
+    transform: scale(0.97);
+}
+
+/* ── Tooltip Transitions ───────────────────────────────────── */
+[data-tooltip] {
+    transition: opacity 0.15s ease 0.2s;
+}
+
+/* ── Focus States ───────────────────────────────────────────── */
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px var(--glow-purple);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* ── NUCLEAR FAILSAFE (Override Everything) ────────────────── */
+#transition-panel.is-hidden,
+#transition-panel[data-state="hidden"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
+/* ── NEW CINEMATIC KEYFRAMES ────────────────────────────── */
+@keyframes rippleOut {
+  to { transform: scale(1); opacity: 0; }
+}
+
+@keyframes sonarRing {
+  from { transform: scale(1); opacity: 1; }
+  to   { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes terminalSlideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes screenShake {
+  0%  { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+  100%{ transform: translateX(0); }
+}
+
+@keyframes heroVideoBreath {
+  from { transform: scale(1); }
+  to   { transform: scale(1.08); }
+}
+
+@keyframes bracketSnap {
+  0%   { opacity: 0; transform: scale(2.5); }
+  15%  { opacity: 1; transform: scale(1); }
+  70%  { opacity: 1; }
+  100% { opacity: 0; transform: scale(0.7); }
+}
+
+@keyframes squareShock {
+  0%   { width: 0px; height: 0px; opacity: 1; }
+  60%  { opacity: 0.6; }
+  100% { width: 80px; height: 80px; opacity: 0; }
+}
+
+@keyframes centerFlash {
+  0%   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%,-50%) scale(0); }
+}
+
+/* ── Project Panel Interaction Expansion ────────────────────── */
+.project-panel:hover .project-panel__image {
+  transform: scale(1.06);
+  filter: brightness(0.6) saturate(0.7);
+  transition: all 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.project-panel:hover .project-panel__title {
+  color: #7B61FF !important;
+  text-shadow: 0 0 40px rgba(123,97,255,0.8), 0 0 80px rgba(123,97,255,0.4);
+  transition: all 0.4s ease;
+}
+
+.project-panel:hover {
+  border-color: rgba(123,97,255,0.4);
+  box-shadow: 0 0 60px rgba(123,97,255,0.15), 0 0 120px rgba(0,245,212,0.08);
+  transition: all 0.4s ease;
+}
+
+/* ── Project Title Glitch Upgrade ───────────────────────────── */
+.project-panel__title {
+  position: relative;
+}
+
+.project-panel:hover .project-panel__title::before,
+.project-panel:hover .project-panel__title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.project-panel:hover .project-panel__title::before {
+  color: #00F5D4; /* Cyan */
+  z-index: -1;
+  animation: projectGlitchAnim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+}
+
+.project-panel:hover .project-panel__title::after {
+  color: #FF2D6B; /* Magenta */
+  z-index: -2;
+  animation: projectGlitchAnim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+}
+
+@keyframes projectGlitchAnim {
+  0%   { transform: translate(0); }
+  20%  { transform: translate(-8px, 4px); }
+  40%  { transform: translate(-8px, -4px); }
+  60%  { transform: translate(8px, 4px); }
+  80%  { transform: translate(8px, -4px); }
+  100% { transform: translate(0); }
+}
+
+/* ── Selection Flash Effects ───────────────────────────── */
+@keyframes selectionTag {
+  0%   { opacity: 0; transform: translate(-50%, -50%) translateY(8px); }
+  15%  { opacity: 1; transform: translate(-50%, -50%) translateY(-16px); }
+  70%  { opacity: 1; transform: translate(-50%, -50%) translateY(-20px); }
+  100% { opacity: 0; transform: translate(-50%, -50%) translateY(-28px); }
+}
+
+@keyframes selectionBox {
+  0%   { width: 0px; height: 0px; opacity: 1; }
+  100% { width: 120px; height: 60px; opacity: 0; }
+}

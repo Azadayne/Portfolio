@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#060806" />
+
+  <title>Undead Unleashed — Adithya Raghavan</title>
+  <meta name="description" content="Undead Unleashed — A survival-horror shooter built in Unreal Engine 5. Fight relentless undead hordes with visceral gunplay and biohazard atmosphere." />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://adithyaraghavan.dev/undead-unleashed.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>" />
+  <link rel="apple-touch-icon" href="assets/img/Undead-Unleashed.png" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://adithyaraghavan.dev/undead-unleashed.html" />
+  <meta property="og:title" content="Undead Unleashed — Adithya Raghavan" />
+  <meta property="og:description" content="Survival-horror shooter in UE5. Relentless undead hordes, visceral gunplay, biohazard atmosphere." />
+  <meta property="og:image" content="https://adithyaraghavan.dev/assets/img/Undead-Unleashed.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Undead Unleashed — Adithya Raghavan" />
+  <meta name="twitter:image" content="https://adithyaraghavan.dev/assets/img/Undead-Unleashed.png" />
+
+  <style>
+    :root {
+      --theme-accent: #50FF3C; /* Biohazard Green */
+    }
+  </style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/project-detail.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+  <link rel="stylesheet" href="css/interactions.css" />
+  <link rel="stylesheet" href="css/theme-uu.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="theme-uu">
+  <div id="transition-panel"
+    style="display:none; position:fixed; inset:0; z-index:9999; background:#060806; pointer-events:none;"
+    aria-hidden="true"></div>
+  <div class="theme-bleed"></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <div class="cursor__dot" aria-hidden="true"></div>
+  <div class="cursor__ring" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo" data-text="AR" data-title="BACK TO HOME">A<span>R</span></a>
+    <ul class="nav__links" role="list">
+      <li><a href="index.html#projects" class="nav__link" data-title="WORK">Work</a></li>
+      <li><a href="index.html#about" class="nav__link" data-title="ABOUT">About</a></li>
+      <li><a href="index.html#contact" class="nav__link" data-title="CONTACT">Contact</a></li>
+    </ul>
+
+    <button class="nav__hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav__progress-wrapper"
+      style="position:absolute; bottom:0; left:0; width:100%; height:2px; background:var(--border);">
+      <div id="navProgress"
+        style="height:100%; width:0%; background:linear-gradient(to right, #50FF3C, #FF1A1A); transition: width 0.1s linear;">
+        <div id="navProgressGlow"
+          style="position:absolute; right:0; top:-2px; width:20px; height:6px; background:white; filter:blur(4px); opacity:0; transition:opacity 0.3s;">
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile full-screen menu -->
+  <div class="nav__mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation" aria-modal="true">
+    <button class="nav__mobile-close" id="mobileClose" aria-label="Close menu">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/>
+      </svg>
+      Close
+    </button>
+    <a href="index.html#projects" class="nav__mobile-link" id="mob-work">Work</a>
+    <a href="index.html#about" class="nav__mobile-link" id="mob-about">About</a>
+    <a href="index.html#skills" class="nav__mobile-link" id="mob-skills">Skills</a>
+    <a href="index.html#contact" class="nav__mobile-link" id="mob-contact">Contact</a>
+    <a href="assets/docs/Adithya-Raghavan-CV.pdf" target="_blank" class="nav__mobile-link" id="mob-resume"
+      style="color:var(--accent);">Resume <i class="fa-solid fa-arrow-up-right-from-square"
+        style="font-size:0.7em;"></i></a>
+  </div>
+
+  <div class="uu-content-wrapper">
+    <main>
+    <!-- SECTION 1: CINEMATIC ENTRY PANEL -->
+    <section class="project-detail__hero" aria-label="Hero">
+      <div class="project-detail__hero-bg">
+        <img src="assets/img/Undead-Unleashed-1.png" alt="Undead Unleashed Screenshot"
+          style="width:100%; height:100%; object-fit:cover;" loading="lazy">
+      </div>
+      <div class="project-detail__hero-overlay"></div>
+
+      <div class="hero-watermark">UNDEAD UNLEASHED</div>
+
+      <div class="project-detail__hero-content">
+        <div class="project-breadcrumb">
+          <a href="index.html" data-title="BACK TO HOME">HOME</a> / <a href="index.html#projects"
+            data-title="WORK">WORK</a> / UNDEAD UNLEASHED
+        </div>
+        <p class="project-number">03 // 05</p>
+        <h1 class="project-title">Undead Unleashed</h1>
+        <p class="project-tagline">A sci-fi tactical shooter where destruction is a mechanic, not a visual trick.</p>
+
+        <div class="project-pills">
+          <span class="project-pill">FPS / Survival</span>
+          <span class="project-pill">PC</span>
+          <span class="project-pill">Game Developer</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: EXPERIENCE REEL -->
+    <section class="experience-reel">
+      <div class="reel-sticky">
+        <div class="reel-media-stack">
+          <div class="reel-media active"><img src="assets/img/Undead-Unleashed-2.png" alt="Concept Art"
+              style="width:100%; height:100%; object-fit:cover;" loading="lazy"></div>
+          <div class="reel-media"><img src="assets/img/Undead-Unleashed-3.png" alt="World"
+              style="width:100%; height:100%; object-fit:cover;" loading="lazy"></div>
+          <div class="reel-media"><img src="assets/img/Undead-Unleashed-4.png" alt="Gameplay"
+              style="width:100%; height:100%; object-fit:cover;" loading="lazy"></div>
+          <div class="reel-media">
+            <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
+              <source src="assets/video/Undead-Unleashed-Video.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="reel-overlay"></div>
+        </div>
+
+        <div class="reel-content-stack">
+          <div class="reel-text active">
+            <div class="reel-label">ACT I — CONCEPT</div>
+            <p class="reel-desc">The initiative was to create a relentless survival loop under extreme time constraints,
+              focusing on fast iteration and immediate gameplay impact within a high-pressure jam environment.</p>
+          </div>
+          <div class="reel-text">
+            <div class="reel-label">ACT II — WORLD</div>
+            <p class="reel-desc">A hostile, collapse-driven environment overrun by undead forces, designed with tight
+              spaces and limited visibility to amplify tension and constant threat awareness.</p>
+          </div>
+          <div class="reel-text">
+            <div class="reel-label">ACT III — GAMEPLAY</div>
+            <p class="reel-desc">Encounters are driven by continuous enemy pressure rather than scripted events, forcing
+              players to adapt positioning, manage space, and react instantly to unpredictable swarm behavior.</p>
+          </div>
+          <div class="reel-text">
+            <div class="reel-label">ACT IV — IN ACTION</div>
+            <p class="reel-desc">High-intensity combat scenarios unfold in real time, where rapid decision-making and
+              movement define survival against overwhelming odds.</p>
+          </div>
+        </div>
+
+        <div class="reel-progress">
+          <div class="reel-dot active"></div>
+          <div class="reel-dot"></div>
+          <div class="reel-dot"></div>
+          <div class="reel-dot"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: GAME DATA TERMINAL -->
+    <section class="data-terminal-section">
+      <div class="container" style="max-width:900px;">
+        <div class="terminal-box">
+          <p class="terminal-line" data-typewriter="> INITIALIZING PROJECT DATABASE..." data-speed="15"></p>
+          <p class="terminal-line"
+            data-typewriter="> LOADING GAME_ID: <span class='terminal-line--accent'>UNDEAD_UNLEASHED</span>"
+            data-speed="20"></p>
+          <p class="terminal-line" data-typewriter="> ROLE .................. <span>GAME DEVELOPER</span>"
+            data-speed="10"></p>
+          <p class="terminal-line" data-typewriter="> GENRE ................. <span>FPS / Survival</span>"
+            data-speed="10"></p>
+          <p class="terminal-line" data-typewriter="> PLATFORM .............. <span>PC</span>" data-speed="10"></p>
+          <p class="terminal-line" data-typewriter="> ENGINE ................ <span>UNREAL ENGINE 5</span>"
+            data-speed="10"></p>
+          <p class="terminal-line" data-typewriter="> CORE SYSTEM ........... <span>Swarm Survival</span>"
+            data-speed="10"></p>
+          <p class="terminal-line" data-typewriter="> STATUS ................ <span>Completed</span>" data-speed="10">
+          </p>
+          <p class="terminal-line"
+            data-typewriter="> STATUS CHECK .......... <span style='color:green;'>VOLATILE</span>" data-speed="30"></p>
+          <p class="terminal-line" data-typewriter="> SYSTEMS NOMINAL <span class='terminal-cursor'></span>"
+            data-speed="50"></p>
+        </div>
+
+        <div class="prose-desc">
+          <p>​As part of a collaborative team project with <a href="https://www.linkedin.com/in/dhiren-k/"
+              target="_blank" rel="noopener noreferrer"
+              style="color: var(--theme-accent); text-decoration: underline; text-underline-offset: 2px;">Dhiren K</a>,
+            I contributed to the development of enemy AI
+            systems, level design elements, lighting setup, sound effects (SFX) integration, and Skysphere
+            configuration. The project was shared equally, with both of us contributing a balanced 50-50 effort to
+            deliver a polished experience.</p>
+
+          <p>Survive the Undead: Unleashed is an immersive, high-intensity zombie survival game developed in Unreal
+            Engine as part of the Build Your Own Game (BYOG) Game Jam. The game places players in a relentless fight for
+            survival, challenging them to endure progressively difficult waves of zombie enemies. With increasing
+            intensity and pressure, players must adapt quickly, manage resources efficiently, and survive for as long as
+            possible.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: TECHNICAL BREAKDOWN (UNDER THE HOOD) -->
+    <section class="tech-breakdown">
+      <div class="container">
+        <span class="tech-label">UNDER THE HOOD</span>
+
+        <div class="tech-grid">
+          <!-- Card 1 -->
+          <div class="tech-card">
+            <div class="tech-card__num">01</div>
+            <div class="tech-card__icon"><i class="fa-solid fa-explosion"></i></div>
+            <h3 class="tech-card__title">SWARM AI SYSTEM</h3>
+            <p class="tech-card__desc">Enemy behavior is driven by continuous swarm logic, creating unpredictable
+              pressure through dynamic movement and density rather than scripted encounters.</p>
+            <div class="tech-card__tags">
+              <span class="tech-tag">#AI</span>
+              <span class="tech-tag">#SwarmLogic</span>
+              <span class="tech-tag">#Behaviour</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="tech-card">
+            <div class="tech-card__num">02</div>
+            <div class="tech-card__icon"><i class="fa-solid fa-crosshairs"></i></div>
+            <h3 class="tech-card__title">REAL-TIME GAMEPLAY LOOP</h3>
+            <p class="tech-card__desc">A fast-paced survival loop built for instant feedback, where player movement,
+              positioning, and reaction directly shape every encounter.</p>
+            <div class="tech-card__tags">
+              <span class="tech-tag">#Gameplay</span>
+              <span class="tech-tag">#Survival</span>
+              <span class="tech-tag">#RealTime</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="tech-card">
+            <div class="tech-card__num">03</div>
+            <div class="tech-card__icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <h3 class="tech-card__title">RAPID PROTOTYPING PIPELINE</h3>
+            <p class="tech-card__desc">Core systems were designed and iterated under extreme time constraints, focusing
+              on responsiveness, clarity, and immediate gameplay impact.</p>
+            <div class="tech-card__tags">
+              <span class="tech-tag">#GameJam</span>
+              <span class="tech-tag">#RapidPrototyping</span>
+              <span class="tech-tag">#IterativeDesign</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: NEXT PROJECT WARP -->
+    <div class="project-warp">
+      <div class="warp-bg"></div>
+      <div class="warp-left-col">
+        <a href="leo-and-nora.html" class="warp-link" data-title="LEO & NORA">
+          <i>←</i>
+          <h2 style="--theme-accent:#C0392B;">LEO & NORA</h2>
+        </a>
+      </div>
+      <div class="warp-center-col">YOU HAVE REACHED THE END OF THIS WORLD.</div>
+      <div class="warp-right-col">
+        <a href="yami.html" class="warp-link" data-title="YAMI">
+          <h2 style="--theme-accent:#8A2BE2;">YAMI</h2>
+          <i>→</i>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <script src="js/nav.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/cursor.js"></script>
+  <script defer src="js/transitions.js"></script>
+  <script defer src="js/ripple.js"></script>
+  <script defer src="js/scramble.js"></script>
+  <script defer src="js/project.js"></script>
+  <script defer src="js/selection.js"></script>
+  <script defer src="js/theme-uu.js"></script>
+  <script defer src="js/warp-cursor.js"></script>
+</body>
+
+</html>

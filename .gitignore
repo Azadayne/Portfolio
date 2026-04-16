@@ -1,0 +1,14 @@
+# ── Large video files (exceed GitHub's 100MB limit) ──────────────
+# Videos must be compressed to <100MB before committing.
+# Until then, exclude them so the site can be pushed/deployed.
+assets/video/
+
+# ── OS junk ───────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Debug/fix scripts (not needed in production) ──────────────────
+fix-imgs.ps1
+fix-nav.ps1
+patch-nav.ps1

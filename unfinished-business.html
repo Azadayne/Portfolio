@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080A09" />
+  
+  <title>Unfinished Business — Adithya Raghavan</title>
+  <meta name="description" content="Unfinished Business — A combat-driven third-person action prototype in Unreal Engine 5. Rain-soaked urban combat with fluid mechanics and enemy AI." />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://adithyaraghavan.dev/unfinished-business.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>" />
+  <link rel="apple-touch-icon" href="assets/img/Unfinished-Business.png" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://adithyaraghavan.dev/unfinished-business.html" />
+  <meta property="og:title" content="Unfinished Business — Adithya Raghavan" />
+  <meta property="og:description" content="Combat-driven third-person action in UE5. Rain-soaked urban combat, fluid mechanics, AI enemies." />
+  <meta property="og:image" content="https://adithyaraghavan.dev/assets/img/Unfinished-Business.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Unfinished Business — Adithya Raghavan" />
+  <meta name="twitter:image" content="https://adithyaraghavan.dev/assets/img/Unfinished-Business.png" />
+
+  <style>
+    :root {
+      --theme-accent: #00F5D4;
+    }
+  </style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/project-detail.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+  <link rel="stylesheet" href="css/interactions.css" />
+  <link rel="stylesheet" href="css/theme-ub.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="theme-ub">
+  <div id="transition-panel" style="display:none; position:fixed; inset:0; z-index:9999; background:#080A09; pointer-events:none;" aria-hidden="true"></div>
+  <!-- UB Rain Layer -->
+  <canvas id="rain-canvas" aria-hidden="true" style="position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none;"></canvas>
+  <div class="theme-bleed"></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <div class="cursor__dot"  aria-hidden="true"></div>
+  <div class="cursor__ring" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo" data-text="AR" data-title="BACK TO HOME">A<span>R</span></a>
+    <ul class="nav__links" role="list">
+      <li><a href="index.html#projects" class="nav__link" data-title="WORK">Work</a></li>
+      <li><a href="index.html#about"    class="nav__link" data-title="ABOUT">About</a></li>
+        </ul>
+
+    <button class="nav__hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <div class="nav__progress-wrapper" style="position:absolute; bottom:0; left:0; width:100%; height:2px; background:var(--border);">
+      <div id="navProgress" style="height:100%; width:0%; background:linear-gradient(to right, #00F5D4, #FF3C28); transition: width 0.1s linear;">
+        <div id="navProgressGlow" style="position:absolute; right:0; top:-2px; width:20px; height:6px; background:white; filter:blur(4px); opacity:0; transition:opacity 0.3s;"></div>
+      </div>
+    </div>
+    </nav>
+
+  <!-- Mobile full-screen menu -->
+  <div class="nav__mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation" aria-modal="true">
+    <button class="nav__mobile-close" id="mobileClose" aria-label="Close menu">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/>
+      </svg>
+      Close
+    </button>
+      <a href="index.html#projects" class="nav__mobile-link" id="mob-work">Work</a>
+      <a href="index.html#about" class="nav__mobile-link" id="mob-about">About</a>
+      <a href="index.html#skills" class="nav__mobile-link" id="mob-skills">Skills</a>
+      <a href="index.html#contact" class="nav__mobile-link" id="mob-contact">Contact</a>
+      <a href="assets/docs/Adithya-Raghavan-CV.pdf" target="_blank" class="nav__mobile-link" id="mob-resume"
+          style="color:var(--accent);">Resume <i class="fa-solid fa-arrow-up-right-from-square"
+              style="font-size:0.7em;"></i></a>
+  </div>
+
+  <main>
+    <!-- SECTION 1: CINEMATIC ENTRY PANEL -->
+    <section class="project-detail__hero" aria-label="Hero">
+      <div class="project-detail__hero-bg">
+        <img src="assets/img/Unfinished-Business-1.png" alt="Unfinished Business Screenshot" style="width:100%; height:100%; object-fit:cover;" loading="lazy">
+      </div>
+      <div class="project-detail__hero-overlay"></div>
+      
+      <div class="hero-watermark">UNFINISHED BUSINESS</div>
+
+      <div class="project-detail__hero-content">
+        <div class="project-breadcrumb">
+          <a href="index.html" data-title="BACK TO HOME">HOME</a> / <a href="index.html#projects" data-title="WORK">WORK</a> / UNFINISHED BUSINESS
+        </div>
+      <p class="project-number">01 // 05</p>
+      <h1 class="project-title">Unfinished Business</h1>
+      <p class="project-tagline">A rain-soaked urban setting that creates a tense and grounded atmosphere.</p>
+      <div class="project-pills">
+        <span class="project-pill">TPS</span>
+        <span class="project-pill">PC</span>
+        <span class="project-pill">Game Developer</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: EXPERIENCE REEL -->
+  <section class="experience-reel">
+    <div class="reel-sticky">
+      <div class="reel-media-stack">
+        <!-- TODO: Add proper Concept Art image -->
+        <div class="reel-media active"><img src="assets/img/Unfinished-Business-2.png" alt="Concept Art" style="width:100%; height:100%; object-fit:cover;" loading="lazy"></div>
+        <!-- TODO: Add proper World screenshot -->
+        <div class="reel-media"><img src="assets/img/Unfinished-Business-3.png" alt="World" style="width:100%; height:100%; object-fit:cover;" loading="lazy"></div>
+        <!-- TODO: Add proper Gameplay screenshot -->
+        <div class="reel-media"><img src="assets/img/Unfinished-Business-4.png" alt="Gameplay" style="width:100%; height:100%; object-fit:cover;" loading="lazy"></div>
+        <!-- TODO: Add proper Gameplay Trailer Video -->
+        <div class="reel-media">
+          <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
+            <source src="assets/video/Unfinished-Business-video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="reel-overlay"></div>
+      </div>
+      
+      <div class="reel-content-stack">
+        <div class="reel-text active">
+          <div class="reel-label">ACT I — CONCEPT</div>
+          <p class="reel-desc">Unfinished Business is a combat-driven action experience focused on grounded mechanics and a narrative built around betrayal and revenge.</p>
+        </div>
+        <div class="reel-text">
+          <div class="reel-label">ACT II — WORLD</div>
+          <p class="reel-desc">Set in a dark, rain-soaked urban environment where tight spaces, lighting, and atmosphere reinforce tension and immersion.</p>
+        </div>
+        <div class="reel-text">
+          <div class="reel-label">ACT III — GAMEPLAY</div>
+          <p class="reel-desc">The core loop revolves around fluid combat systems, enemy AI interactions, and responsive player mechanics built using Blueprint systems.</p>
+        </div>
+        <div class="reel-text">
+          <div class="reel-label">ACT IV — IN ACTION</div>
+          <p class="reel-desc">Combining real-time feedback, combat responsiveness, and cinematic presentation to deliver a focused and impactful gameplay experience.</p>
+        </div>
+      </div>
+
+      <div class="reel-progress">
+        <div class="reel-dot active"></div>
+        <div class="reel-dot"></div>
+        <div class="reel-dot"></div>
+        <div class="reel-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: GAME DATA TERMINAL -->
+  <section class="data-terminal-section">
+    <div class="container" style="max-width:900px;">
+      <div class="terminal-box">
+        <p class="terminal-line" data-typewriter="> INITIALIZING PROJECT DATABASE..." data-speed="15"></p>
+        <p class="terminal-line" data-typewriter="> LOADING GAME_ID: <span class='terminal-line--accent'>UNFINISHED_BUSINESS</span>" data-speed="20"></p>
+        <p class="terminal-line" data-typewriter="> ROLE .................. <span>GAME DEVELOPER</span>" data-speed="10"></p>
+        <p class="terminal-line" data-typewriter="> GENRE ................. <span>THIRD PERSON ACTION</span>" data-speed="10"></p>
+        <p class="terminal-line" data-typewriter="> PLATFORM .............. <span>PC</span>" data-speed="10"></p>
+        <p class="terminal-line" data-typewriter="> ENGINE ................ <span>UNREAL ENGINE 5</span>" data-speed="10"></p>
+        <p class="terminal-line" data-typewriter="> BUILD TIME ............ <span>6 MONTHS</span>" data-speed="10"></p>
+        <p class="terminal-line" data-typewriter="> TEAM SIZE ............. <span>SOLO</span>" data-speed="10"></p>
+        <p class="terminal-line" data-typewriter="> STATUS ................ <span>UNRELEASED</span>" data-speed="10"></p>
+        <p class="terminal-line" data-typewriter="> YEAR .................. <span>2024-2025</span>" data-speed="10"></p>
+        <p class="terminal-line" data-typewriter="> DESCRIPTION LOADED [OK]" data-speed="30"></p>
+        <p class="terminal-line" data-typewriter="> SYSTEMS NOMINAL <span class='terminal-cursor'></span>" data-speed="50"></p>
+      </div>
+
+      <div class="prose-desc">
+          <p>I developed a combat-focused gameplay prototype in Unreal Engine 5 with a strong emphasis on Blueprint scripting. 
+             I implemented core player systems, including movement, shooting, swimming, vehicle mechanics, a map system, and interaction mechanics, along with basic enemy AI and combat behaviors.
+             I also integrated UI elements and gameplay feedback to enhance the overall player experience. In addition to gameplay development, I handled the full voice acting for all characters, leveraging AI tools to modify gender and ethnicity for variety.\
+             I was also responsible for building the game’s city environment. My role primarily focused on designing, building, and refining the core gameplay loop while ensuring it aligned with the game’s linear, action-driven vision.</p>
+          <p>Unfinished Business is a linear, story-driven action-adventure game centered on a former special operations agent who is falsely accused of treason and imprisoned.
+             After escaping custody, the protagonist embarks on a relentless mission to uncover the truth and take revenge on the individual responsible for destroying their life.
+             The experience is designed to be focused and combat-driven, emphasizing tight gameplay and a strong narrative without the inclusion of stealth, puzzles, or branching choices. 
+             Through its straightforward design and emotionally driven premise, the project aims to deliver a concise yet impactful gameplay experience built around intensity, clarity, and purpose.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: TECHNICAL BREAKDOWN (UNDER THE HOOD) -->
+  <section class="tech-breakdown">
+    <div class="container">
+      <span class="tech-label">UNDER THE HOOD</span>
+      
+      <div class="tech-grid">
+        <!-- Card 1 -->
+        <div class="tech-card">
+          <div class="tech-card__num">01</div>
+          <div class="tech-card__icon"><i class="fa-solid fa-sun"></i></div>
+          <h3 class="tech-card__title">PRECISION COMBAT</h3>
+          <p class="tech-card__desc">Fluid, responsive gunplay built with Unreal Engine 5. Every shot, impact, and reaction is designed to feel weighty and immediate.</p>
+          <div class="tech-card__tags">
+            <span class="tech-tag">#Combat</span>
+            <span class="tech-tag">#Gunplay</span>
+            <span class="tech-tag">#UE5</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="tech-card">
+          <div class="tech-card__num">02</div>
+          <div class="tech-card__icon"><i class="fa-solid fa-microchip"></i></div>
+          <h3 class="tech-card__title">TACTICAL ENEMY AI</h3>
+          <p class="tech-card__desc">Enemies react dynamically to player actions using behavior trees, creating intense and unpredictable combat encounters.</p>
+          <div class="tech-card__tags">
+            <span class="tech-tag">#BehaviorTree</span>
+            <span class="tech-tag">#AI</span>
+            <span class="tech-tag">#Combat</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="tech-card">
+          <div class="tech-card__num">03</div>
+          <div class="tech-card__icon"><i class="fa-solid fa-layer-group"></i></div>
+          <h3 class="tech-card__title">CINEMATIC GAMEPLAY</h3>
+          <p class="tech-card__desc">A story-driven action experience blending fast-paced combat with immersive environments and seamless player control.</p>
+          <div class="tech-card__tags">
+            <span class="tech-tag">#Gameplay</span>
+            <span class="tech-tag">#Cinematic</span>
+            <span class="tech-tag">#Action</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: AWARDS -->
+  <!-- SECTION 5: RECOGNITION (UNFINISHED BUSINESS ONLY) -->
+  <section class="award-cinematic">
+    <div class="award-visuals">
+      <div class="award-rays"></div>
+      <div class="award-particles" id="awardParticles"></div>
+      <div class="award-glow-core"></div>
+    </div>
+
+    <div class="container" style="position:relative; z-index:2;">
+      <div class="award-trophy">
+        <i class="fa-solid fa-trophy"></i>
+      </div>
+      <div class="award-line"></div>
+      <p class="award-label">RECOGNITION</p>
+      <h2 class="award-title">GAME OF THE YEAR</h2>
+      <p class="award-uni">ICAT Design &amp; Media College</p>
+      
+      <div class="award-stats">
+        <div class="award-stat">1ST PLACE</div>
+        <div class="award-stat">2025</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: NEXT PROJECT WARP -->
+  <div class="project-warp">
+    <div class="warp-bg"></div>
+    <div class="warp-left-col">
+      <a href="neon-veil.html" class="warp-link" data-title="NEON VEIL">
+        <i>←</i>
+        <h2 style="--theme-accent:#4A9EFF;">NEON VEIL</h2>
+      </a>
+    </div>
+    <div class="warp-center-col">YOU HAVE REACHED THE END OF THIS WORLD.</div>
+    <div class="warp-right-col">
+      <a href="leo-and-nora.html" class="warp-link" data-title="LEO & NORA">
+        <h2 style="--theme-accent:#C0392B;">LEO & NORA</h2>
+        <i>→</i>
+      </a>
+    </div>
+  </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <script src="js/nav.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/cursor.js"></script>
+  <script defer src="js/transitions.js"></script>
+  <script defer src="js/ripple.js"></script>
+  <script defer src="js/scramble.js"></script>
+  <script defer src="js/project.js"></script>
+  <script defer src="js/selection.js"></script>
+  <script defer src="js/theme-ub.js"></script>
+  <script defer src="js/warp-cursor.js"></script>
+</body>
+</html>

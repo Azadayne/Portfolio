@@ -1,0 +1,489 @@
+/* ============================================================
+   mobile.css — Mobile Responsive Optimization
+   Additive overrides only. Preserves all desktop styles.
+   Breakpoints: 1280 / 1024 / 768 / 480
+   ============================================================ */
+
+
+/* ── TOUCH DEVICES: Restore native cursor everywhere ─────────── */
+@media (pointer: coarse) {
+  *,
+  *::before,
+  *::after {
+    cursor: auto !important;
+  }
+}
+
+
+/* ── PREFERS REDUCED MOTION ──────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   1280px — SMALL LAPTOPS
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1280px) {
+  .project-panel__info {
+    padding: var(--sp-8) var(--sp-6);
+  }
+  .project-panel__description {
+    max-width: 100%;
+  }
+  .about__grid {
+    gap: var(--sp-8);
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   1024px — TABLETS (LANDSCAPE) & BELOW
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  /* Tech DNA canvas shrinks */
+  .dna-canvas-container { height: 340px; }
+
+  /* Reel overlay angle flattens on narrower screens */
+  .reel-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(5,5,8,0.7) 0%,
+      rgba(5,5,8,0.3) 50%,
+      rgba(5,5,8,0.85) 100%
+    );
+  }
+
+  /* Award title doesn't overflow */
+  .award-title { font-size: clamp(48px, 12vw, 100px); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   768px — TABLETS (PORTRAIT) & PHONES
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── GLOBAL SCREEN RATIO & OVERFLOW LOCK ──────────────────── */
+  html, body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: clip !important; /* clip fixes horizontal flow WITHOUT breaking position:sticky! */
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+
+  * {
+    max-width: 100vw;
+  }
+
+  /* ── SCROLLYTELLING ACT 1–4 REEL (PORTRAIT MOBILE) ───────── */
+  /* Keep position:sticky fully active — only restyle for portrait */
+
+  /* Full-viewport background images fill the sticky container */
+  .reel-media img,
+  .reel-media video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  /* Gradient: transparent at top → dark at bottom so text reads over image */
+  .reel-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(5,5,8,0.95) 0%,
+      rgba(5,5,8,0.6)  45%,
+      transparent      100%
+    ) !important;
+  }
+
+  /* Text container: pin to bottom quarter of screen */
+  .reel-content-stack {
+    align-items: flex-end !important;
+    padding: 0 var(--sp-4) 10vh !important;
+  }
+
+  /* Text block: full width, left-aligned */
+  .reel-text {
+    position: absolute !important;
+    width: calc(100% - 56px) !important; /* leave room for progress dots */
+    max-width: 100% !important;
+    left: 0 !important;
+    padding: 0 var(--sp-4) !important;
+  }
+
+  .reel-label {
+    font-size: 12px !important;
+  }
+
+  .reel-desc {
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+  }
+
+  /* Progress dots: show on right edge */
+  .reel-progress {
+    display: flex !important;
+    right: 16px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+
+  /* ── NAVIGATION & HAMBURGER LOCK ───────────────────────── */
+  .nav__hamburger {
+    display: flex !important;
+    position: relative;
+    z-index: 100000 !important; /* Absolute top priority */
+    background: transparent !important;
+    border: none;
+    padding: 10px 0;
+    min-height: 28px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+  
+  .nav__hamburger span {
+    background: #FFF !important; /* Force stark white */
+    opacity: 1 !important;
+    display: block !important;
+  }
+  
+  .nav__hamburger.nav__hamburger--open span:nth-child(2) {
+    opacity: 0 !important; /* Hidden when open */
+  }
+
+  .nav__mobile-menu {
+    background: rgba(5, 5, 8, 0.98) !important;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    gap: 0;
+    padding: var(--sp-6) 0;
+    z-index: 99999 !important; /* Just below hamburger */
+  }
+
+  /* Close button inside the mobile menu */
+  .nav__mobile-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.5);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    cursor: pointer;
+    pointer-events: auto !important;
+    z-index: 100001 !important;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .nav__mobile-close:hover {
+    color: rgba(255,255,255,0.9);
+    border-color: rgba(255,255,255,0.35);
+  }
+
+  .nav__mobile-close svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Give links breathing room */
+  .nav__mobile-link {
+    padding: 14px 0;
+    font-size: 48px !important;
+  }
+
+
+  /* ── HERO ───────────────────────────────────────────────── */
+
+  /* Use 100svh (Safe Viewport Height) so the hero fills the
+     screen correctly on iOS Safari where the browser chrome
+     eats into 100vh */
+  .hero {
+    min-height: 100svh;
+    /* Progressive enhancement fallback */
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  /* Scale headline down so it doesn't overflow on mobile */
+  .hero__title {
+    font-size: clamp(38px, 12vw, 80px);
+    line-height: 0.95;
+    margin-bottom: var(--sp-2);
+  }
+
+  .hero__subtitle {
+    font-size: 16px;
+    max-width: 100%;
+    margin-bottom: var(--sp-4);
+  }
+
+  /* CTAs stack vertically, full-width */
+  .hero__cta-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .hero__cta-group .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 52px;
+  }
+
+  .scroll-indicator {
+    bottom: var(--sp-3);
+  }
+
+  /* ── NAVIGATION ─────────────────────────────────────────── */
+
+  /* Mobile menu: glassmorphic dark overlay */
+  .nav__mobile-menu {
+    background: rgba(5, 5, 8, 0.96);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    gap: 0;
+    padding: var(--sp-6) 0;
+  }
+
+  /* Enforce visibility. Revert to basic fade for links to prevent iOS disappearance bugs */
+  .nav__mobile-link {
+    font-size: clamp(32px, 9vw, 52px);
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: var(--sp-1) var(--sp-5);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+
+  /* ── SECTION HEADINGS ───────────────────────────────────── */
+  .section__title {
+    font-size: clamp(30px, 8vw, 56px);
+  }
+
+  /* ── PROJECTS SECTION ───────────────────────────────────── */
+  .projects__header {
+    padding: var(--sp-10) 0 var(--sp-5);
+  }
+
+  .project-panel__media {
+    min-height: 56vw;
+  }
+
+  .project-panel__info {
+    padding: var(--sp-5) var(--sp-3);
+  }
+
+  .project-panel__description {
+    max-width: 100%;
+    font-size: 15px;
+  }
+
+  .project-panel__title {
+    font-size: clamp(22px, 6vw, 36px);
+  }
+
+
+  /* ── ABOUT ──────────────────────────────────────────────── */
+  .about__pull-quote {
+    font-size: clamp(20px, 5.5vw, 36px);
+  }
+
+  .about__stats {
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+  }
+
+  .about__stats .stat {
+    flex: 1 1 calc(50% - var(--sp-3));
+  }
+
+
+  /* ── SKILLS ─────────────────────────────────────────────── */
+  /* Override the 1col from sections.css to 2col on tablets */
+  .skills__grid { grid-template-columns: repeat(2, 1fr); }
+  .skills__grid--3col { grid-template-columns: repeat(2, 1fr); }
+
+
+  /* ── CONTACT ────────────────────────────────────────────── */
+  .contact__email-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 18px var(--sp-4);
+    min-height: 56px;
+    box-sizing: border-box;
+    display: flex;
+  }
+
+  .contact__sub {
+    font-size: 16px;
+  }
+
+
+  /* ── PROJECT DETAIL PAGES ───────────────────────────────── */
+
+  /* Hero: use 100svh so iOS Safari chrome doesn't clip it */
+  .project-detail__hero {
+    height: 100svh;
+    height: 100vh; /* fallback */
+    height: 100svh;
+  }
+
+  .project-detail__hero-content {
+    padding: 0 var(--sp-3) 12vh;
+  }
+
+  .project-title {
+    font-size: clamp(38px, 10vw, 80px);
+  }
+
+  .project-tagline {
+    font-size: 15px;
+    max-width: 100%;
+  }
+
+  .hero-watermark {
+    font-size: 28vw;
+    opacity: 0.06;
+  }
+
+  /* Terminal section */
+  .data-terminal-section { padding: var(--sp-8) 0; }
+  .terminal-box { padding: var(--sp-4) var(--sp-3); overflow-x: auto; }
+  .terminal-line { font-size: 12px; white-space: nowrap; }
+
+  /* Tech DNA canvas */
+  .dna-canvas-container { height: 280px; }
+
+  /* Award cinematic section */
+  .award-cinematic { padding: 10vh 0; }
+  .award-title { font-size: clamp(36px, 13vw, 80px); }
+  .award-uni { font-size: 16px; }
+
+  /* Award highlight (homepage) */
+  .award__headline { font-size: clamp(36px, 8vw, 56px); }
+  .award__inner { padding: var(--sp-5) var(--sp-3); }
+
+  /* Warp navigation section */
+  .warp-link h2 {
+    font-size: clamp(18px, 6vw, 48px);
+    white-space: normal;
+    word-break: break-word;
+  }
+  .warp-center-col {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+  }
+
+  /* Loader monogram */
+  .loader__monogram { font-size: 14vw; }
+
+  /* Process steps */
+  .process-step { align-items: flex-start; text-align: left; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   480px — SMALL PHONES
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+
+  /* ── HERO ───────────────────────────────────────────────── */
+  .hero__title {
+    font-size: clamp(34px, 13vw, 60px);
+  }
+  .hero__label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── NAVIGATION ─────────────────────────────────────────── */
+  .nav__logo { font-size: 20px; }
+  .nav__mobile-link { font-size: clamp(28px, 9vw, 44px); min-height: 56px; }
+
+  /* ── SKILLS ─────────────────────────────────────────────── */
+  .skills__grid { grid-template-columns: 1fr; }
+  .skills__grid--3col { grid-template-columns: 1fr; }
+
+  /* ── ABOUT ──────────────────────────────────────────────── */
+  /* At 480px, even 2-col stats can be too tight */
+  .about__stats .stat {
+    flex: 1 1 100%;
+  }
+
+  /* ── SECTIONS ───────────────────────────────────────────── */
+  .section__title { font-size: clamp(26px, 9vw, 48px); }
+
+  /* ── BUTTONS ────────────────────────────────────────────── */
+  .btn { padding: 14px 20px; font-size: 12px; }
+  /* Touch target: every button stays at least 48px tall */
+  .btn { min-height: 48px; }
+
+  /* ── PROJECT DETAIL ─────────────────────────────────────── */
+  .project-title { font-size: clamp(32px, 12vw, 64px); }
+  .project-pills { gap: 6px; }
+  .project-pill { font-size: 9px; padding: 4px 8px; }
+  .project-breadcrumb { font-size: 10px; letter-spacing: 0.14em; }
+
+  /* ── AWARD ──────────────────────────────────────────────── */
+  .award-title { font-size: clamp(32px, 16vw, 64px); }
+
+  /* ── WARP SECTION ───────────────────────────────────────── */
+  .project-warp {
+    min-height: 38vh;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-2);
+  }
+  .warp-link h2 { font-size: clamp(16px, 7.5vw, 36px); }
+
+  /* ── CONTACT ────────────────────────────────────────────── */
+  .contact__sub { font-size: 14px; }
+  .contact__email-btn { font-size: 12px; padding: 16px var(--sp-3); }
+
+  /* ── FOOTER ─────────────────────────────────────────────── */
+  .footer { text-align: center; padding: var(--sp-3) var(--sp-2); }
+
+  /* ── TERMINAL ───────────────────────────────────────────── */
+  .terminal-line { font-size: 11px; }
+  .terminal-box { padding: var(--sp-3) var(--sp-2); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   KEYFRAMES
+   ═══════════════════════════════════════════════════════════════ */
+
+@keyframes mobileNavLinkIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

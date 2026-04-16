@@ -1,0 +1,301 @@
+/* =====================================================
+   THEME-YAMI — Yami Page Visual Identity
+   ALL rules prefixed .theme-yami — zero bleed elsewhere.
+   ===================================================== */
+
+/* ── 1. PALETTE OVERRIDE ────────────────────────────── */
+.theme-yami {
+  --color-bg:           #030303;
+  --color-surface:      #060608;
+  --color-surface-high: #0C0C10;
+  --color-border:       rgba(255,255,255,0.04);
+
+  --color-primary:      #E8E0D0;
+  --color-secondary:    #C0001A;
+  --color-tertiary:     #4A3F2F;
+
+  --color-glow-primary: rgba(232,224,208,0.06);
+  --color-glow-red:     rgba(192,0,26,0.14);
+  --color-glow-warm:    rgba(180,120,40,0.08);
+
+  --color-text-primary:   #D8D0C0;
+  --color-text-secondary: #4A4440;
+  --color-text-muted:     #1C1A18;
+
+  /* Override site accent tokens */
+  --accent:    #E8E0D0;
+  --secondary: #C0001A;
+  --bg:        #030303;
+  --surface:   #060608;
+  --text:      #D8D0C0;
+  --text-dim:  #4A4440;
+  --border:    rgba(255,255,255,0.04);
+
+  background-color: #030303;
+  color: #D8D0C0;
+  cursor: none;
+}
+
+/* ── 1.5 ATMOSPHERIC CANVAS ────────────────────────── */
+#yami-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* ── 2. VIGNETTE OVERLAY ────────────────────────────── */
+.theme-yami::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.75) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── 3. SHOJI GRID ─────────────────────────────────── */
+.theme-yami::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(232,224,208,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,224,208,0.018) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── 4. BREATHING DARKNESS ─────────────────────────── */
+@keyframes yamiBreath {
+  0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.4; }
+  50%       { transform: translate(-50%,-50%) scale(1.6); opacity: 0.9; }
+}
+
+/* ── 5. SHADOW FIGURE ──────────────────────────────── */
+@keyframes shadowFlash {
+  0%   { opacity: 0; }
+  40%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ── 6. HIDE GLOBAL CURSOR ─────────────────────────── */
+.theme-yami .cursor__dot,
+.theme-yami .cursor__ring {
+  display: none !important;
+}
+
+/* ── 7. NAV PROGRESS BAR ───────────────────────────── */
+.theme-yami #navProgress {
+  /* white fills with blood red as you scroll */
+  background: linear-gradient(to right, rgba(232,224,208,0.3), rgba(192,0,26,0.7)) !important;
+  height: 1px !important;
+}
+
+/* ── 8. HERO OVERRIDES ─────────────────────────────── */
+.theme-yami .project-detail__hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-yami .project-detail__hero-overlay {
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 50%,
+    rgba(3,3,3,0.3) 0%,
+    rgba(3,3,3,0.7) 50%,
+    rgba(3,3,3,0.97) 100%
+  ) !important;
+}
+
+.theme-yami .project-detail__hero-content {
+  position: relative;
+  z-index: 3;
+}
+
+/* Pale parchment watermark */
+.theme-yami .hero-watermark {
+  color: rgba(232,224,208,0.03);
+}
+
+/* Japanese subtitle */
+.theme-yami .yami-japanese-subtitle {
+  display: block;
+  font-family: serif;
+  font-size: 14px;
+  color: rgba(232,224,208,0.4);
+  letter-spacing: 0.2em;
+  margin-top: 8px;
+  font-weight: 400;
+}
+
+/* The swallowing title animation */
+.theme-yami .project-title {
+  animation: yamiTitleSwallow 2.4s ease-in-out forwards;
+}
+
+@keyframes yamiTitleSwallow {
+  0%    { color: inherit; text-shadow: none; }
+  30%   { color: rgba(3,3,3,0.9); text-shadow: 0 0 40px rgba(0,0,0,1); }
+  55%   { color: rgba(3,3,3,1); text-shadow: 0 0 60px rgba(0,0,0,1); }
+  75%   { color: rgba(3,3,3,0.6); }
+  100%  { color: inherit; text-shadow: none; }
+}
+
+/* Vertical red wound line */
+.theme-yami .yami-hero-wound {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 40%;
+  background: #C0001A;
+  z-index: 1;
+  pointer-events: none;
+  animation: yamiWoundPulse 4s ease-in-out infinite;
+}
+
+@keyframes yamiWoundPulse {
+  0%, 100% { opacity: 0.15; }
+  50%       { opacity: 0.4; }
+}
+
+/* ── 9. SECTION ACCENT OVERRIDES ────────────────────── */
+.theme-yami .section__label,
+.theme-yami .reel-label,
+.theme-yami .tech-label,
+.theme-yami .project-breadcrumb,
+.theme-yami .project-number {
+  color: rgba(232,224,208,0.5);
+}
+
+.theme-yami .project-pill {
+  border-color: rgba(232,224,208,0.12);
+  color: rgba(232,224,208,0.5);
+}
+
+.theme-yami .tech-tag {
+  color: rgba(232,224,208,0.4);
+  border-color: rgba(232,224,208,0.1);
+}
+
+.theme-yami .tech-card {
+  background: #060608;
+  border-color: rgba(232,224,208,0.05);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.theme-yami .tech-card:hover {
+  border-color: rgba(192,0,26,0.5);
+  box-shadow: 0 0 24px rgba(192,0,26,0.1);
+}
+
+.theme-yami .tech-card__num {
+  color: rgba(232,224,208,0.06);
+}
+
+.theme-yami .tech-card__icon i {
+  color: rgba(232,224,208,0.35);
+}
+
+.theme-yami .tech-card__title {
+  color: rgba(232,224,208,0.8);
+}
+
+.theme-yami .tech-card__desc {
+  color: rgba(232,224,208,0.35);
+}
+
+.theme-yami .reel-dot.active,
+.theme-yami .reel-dot:hover {
+  background: rgba(192,0,26,0.8);
+  box-shadow: 0 0 8px rgba(192,0,26,0.5);
+}
+
+.theme-yami .reel-desc {
+  color: rgba(232,224,208,0.4);
+}
+
+/* ── 10. TERMINAL OVERRIDE ─────────────────────────── */
+.theme-yami .terminal-box {
+  border-color: rgba(192,0,26,0.2) !important;
+  border-left-width: 2px !important;
+  border-top-width: 0 !important;
+  border-right-width: 0 !important;
+  border-bottom-width: 0 !important;
+  border-style: solid !important;
+  box-shadow: none !important;
+  background: rgba(6,6,8,0.8) !important;
+}
+
+.theme-yami .terminal-line {
+  color: rgba(232,224,208,0.8) !important;
+}
+
+.theme-yami .terminal-line--accent,
+.theme-yami .terminal-box .terminal-line span {
+  color: rgba(192,0,26,0.9) !important;
+}
+
+.theme-yami .terminal-cursor {
+  background: #C0001A !important;
+  box-shadow: none !important;
+  width: 6px !important;
+  height: 14px !important;
+}
+
+/* ── 11. TEXT SELECTION ────────────────────────────── */
+.theme-yami ::selection {
+  background: rgba(192,0,26,0.3);
+  color: #E8E0D0;
+  text-shadow: none;
+}
+
+.theme-yami ::-moz-selection {
+  background: rgba(192,0,26,0.3);
+  color: #E8E0D0;
+  text-shadow: none;
+}
+
+/* ── 12. CLICK ANIMATIONS ──────────────────────────── */
+@keyframes inkSpread {
+  0%   { width: 0; height: 0; opacity: 1; }
+  100% { width: var(--target-size, 80px); height: var(--target-size, 80px); opacity: 0; }
+}
+
+@keyframes inkMark {
+  0%   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  30%  { transform: translate(-50%,-50%) scale(2.5); }
+  100% { opacity: 0; transform: translate(-50%,-50%) scale(0.5); }
+}
+
+@keyframes kanjiWhisper {
+  0%   { opacity: 0; transform: translate(-50%,-50%) translateY(0px); }
+  20%  { opacity: 0.8; }
+  100% { opacity: 0; transform: translate(-50%,-50%) translateY(-30px); }
+}
+
+/* ── 13. WARP SECTION ──────────────────────────────── */
+.theme-yami .project-warp {
+  background: #030303;
+  border-top: 1px solid rgba(192,0,26,0.1);
+}
+
+.theme-yami .warp-center-col {
+  color: rgba(232,224,208,0.15);
+}
+
+/* ── 14. PROSE TEXT ────────────────────────────────── */
+.theme-yami .prose-desc p {
+  color: rgba(232,224,208,0.45);
+}
+
+.theme-yami .prose-desc a {
+  color: rgba(192,0,26,0.9) !important;
+}
+
+/* ── 15. CURSOR BLINK TRANSITION ───────────────────── */
+#yami-cursor {
+  transition: transform 0.08s ease;
+}

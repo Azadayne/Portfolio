@@ -1,0 +1,320 @@
+/* =====================================================
+   THEME-UB — Unfinished Business Page Visual Identity
+   ALL rules are prefixed with .theme-ub for strict scoping.
+   This file must NEVER affect any other page.
+   ===================================================== */
+
+/* ── 1. PALETTE OVERRIDE ────────────────────────────── */
+.theme-ub {
+  --color-bg:           #080A09;
+  --color-surface:      #0C0F0D;
+  --color-surface-high: #131813;
+  --color-border:       rgba(255,255,255,0.05);
+
+  --color-primary:      #00F5D4;
+  --color-secondary:    #FF3C28;
+  --color-tertiary:     #4A9EFF;
+
+  --color-glow-primary: rgba(0,245,212,0.12);
+  --color-glow-red:     rgba(255,60,40,0.12);
+  --color-glow-cyan:    rgba(0,245,212,0.10);
+
+  --color-text-primary:   #E8EDE8;
+  --color-text-secondary: #6B7A6B;
+  --color-text-muted:     #2A342A;
+
+  /* Override site accent tokens */
+  --accent:    #00F5D4;
+  --secondary: #FF3C28;
+  --bg:        #080A09;
+  --surface:   #0C0F0D;
+  --text:      #E8EDE8;
+  --text-dim:  #6B7A6B;
+  --border:    rgba(255,255,255,0.05);
+
+  background-color: #080A09;
+  color: #E8EDE8;
+}
+
+/* ── 2. BACKGROUND LAYERS ───────────────────────────── */
+
+/* City grid overlay */
+.theme-ub::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,245,212,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,245,212,0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── 3. NAV PROGRESS BAR ────────────────────────────── */
+.theme-ub #navProgress {
+  background: linear-gradient(to right, #00F5D4, #FF3C28) !important;
+}
+
+/* ── 4. HERO OVERRIDES ──────────────────────────────── */
+
+/* CLASSIFIED diagonal watermark over hero */
+.theme-ub .project-detail__hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-ub .hero-classified-stamp {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.theme-ub .hero-classified-stamp::after {
+  content: 'CLASSIFIED  CLASSIFIED  CLASSIFIED  CLASSIFIED  CLASSIFIED  CLASSIFIED  CLASSIFIED  CLASSIFIED  CLASSIFIED  CLASSIFIED  CLASSIFIED  CLASSIFIED  CLASSIFIED  CLASSIFIED  CLASSIFIED  CLASSIFIED';
+  position: absolute;
+  inset: -200px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  letter-spacing: 0.3em;
+  color: #00F5D4;
+  opacity: 0.03;
+  transform: rotate(-30deg);
+  line-height: 1.8;
+  word-break: break-all;
+  white-space: normal;
+  pointer-events: none;
+}
+
+/* Active operation blinker */
+.theme-ub .ub-active-op {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: #FF3C28;
+  margin-bottom: 12px;
+}
+
+.theme-ub .ub-active-op__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FF3C28;
+  box-shadow: 0 0 8px rgba(255,60,40,0.8);
+  animation: ubDotBlink 1s step-end infinite;
+  flex-shrink: 0;
+}
+
+@keyframes ubDotBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Hero title glitch on load */
+.theme-ub .project-title {
+  animation: ubTitleGlitch 0.6s ease-out forwards;
+}
+
+@keyframes ubTitleGlitch {
+  0%  {
+    text-shadow: -3px 0 #FF3C28, 3px 0 #00F5D4;
+    transform: skewX(-3deg);
+    opacity: 0.8;
+  }
+  15% {
+    text-shadow: 3px 0 #00F5D4, -3px 0 #FF3C28;
+    transform: skewX(2deg);
+  }
+  30% {
+    text-shadow: -2px 0 #FF3C28, 2px 0 #00F5D4;
+    transform: skewX(-1deg);
+    opacity: 1;
+  }
+  50% {
+    text-shadow: 2px 0 #00F5D4, -1px 0 #FF3C28;
+    transform: skewX(0.5deg);
+  }
+  70% {
+    text-shadow: -1px 0 #FF3C28, 1px 0 #00F5D4;
+    transform: skewX(0);
+  }
+  100% {
+    text-shadow: none;
+    transform: skewX(0);
+    opacity: 1;
+  }
+}
+
+/* ── 5. SECTION ACCENT OVERRIDES ────────────────────── */
+.theme-ub .section__label,
+.theme-ub .reel-label,
+.theme-ub .tech-label,
+.theme-ub .project-breadcrumb,
+.theme-ub .project-number {
+  color: #00F5D4;
+}
+
+.theme-ub .project-pill {
+  border-color: rgba(0,245,212,0.3);
+  color: #00F5D4;
+}
+
+.theme-ub .tech-tag {
+  color: #00F5D4;
+  border-color: rgba(0,245,212,0.25);
+}
+
+.theme-ub .tech-card:hover {
+  border-color: #00F5D4;
+  box-shadow: 0 0 24px rgba(0,245,212,0.08);
+}
+
+.theme-ub .reel-dot.active,
+.theme-ub .reel-dot:hover {
+  background: #00F5D4;
+  box-shadow: 0 0 8px rgba(0,245,212,0.6);
+}
+
+/* ── 6. TERMINAL OVERRIDE ───────────────────────────── */
+.theme-ub .terminal-box {
+  border-color: rgba(0,245,212,0.25) !important;
+  box-shadow: 0 0 32px rgba(0,245,212,0.06), inset 0 0 24px rgba(0,245,212,0.03) !important;
+}
+
+.theme-ub .terminal-line {
+  color: #A0B0C8 !important;
+}
+
+.theme-ub .terminal-line--accent,
+.theme-ub .terminal-box .terminal-line span {
+  color: #00F5D4 !important;
+}
+
+.theme-ub .terminal-cursor {
+  background: #00F5D4 !important;
+  box-shadow: 0 0 8px rgba(0,245,212,0.8) !important;
+}
+
+/* ── 7. CUSTOM CURSOR ───────────────────────────────── */
+.theme-ub {
+  cursor: none;
+}
+
+/* Hide global cursor elements on UB page */
+.theme-ub .cursor__dot,
+.theme-ub .cursor__ring {
+  display: none !important;
+}
+
+@keyframes reticlePulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%       { transform: translate(-50%, -50%) scale(1.06); }
+}
+
+@keyframes reticleRotate {
+  from { transform: translate(-50%, -50%) scale(1.06) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) scale(1.06) rotate(360deg); }
+}
+
+/* ── 8. CLICK EFFECTS ───────────────────────────────── */
+@keyframes impactFlash {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3); }
+}
+
+@keyframes crackShoot {
+  0%   { width: 0px; opacity: 1; }
+  60%  { opacity: 1; }
+  100% { width: 40px; opacity: 0; }
+}
+
+@keyframes ubShockwave {
+  0%   { width: 0; height: 0; opacity: 1; }
+  100% { width: 80px; height: 80px; opacity: 0; }
+}
+
+/* ── 9. HERO WATERMARK OVERRIDE ─────────────────────── */
+.theme-ub .hero-watermark {
+  color: rgba(0,245,212,0.06);
+}
+
+/* ── 10. WARP SECTION TINT ──────────────────────────── */
+.theme-ub .project-warp {
+  background: #080A09;
+  border-top: 1px solid rgba(0,245,212,0.08);
+}
+
+.theme-ub .warp-center-col {
+  color: rgba(0,245,212,0.3);
+}
+
+/* ── 11. AWARD SECTION TINT ─────────────────────────── */
+.theme-ub .award-cinematic {
+  background: #080A09;
+}
+
+.theme-ub .award-title {
+  color: #00F5D4;
+  text-shadow: 0 0 40px rgba(0,245,212,0.3);
+}
+
+.theme-ub .award-stat {
+  border-color: rgba(0,245,212,0.25);
+  color: #00F5D4;
+}
+
+.theme-ub .award-trophy i {
+  color: #00F5D4;
+  text-shadow: 0 0 40px rgba(0,245,212,0.5);
+}
+
+/* ── 12. SURFACE / CARD TINTS ───────────────────────── */
+.theme-ub .tech-card {
+  background: #0C0F0D;
+  border-color: rgba(200,255,0,0.1);
+}
+
+.theme-ub .tech-card__num {
+  color: rgba(200,255,0,0.2);
+}
+
+.theme-ub .tech-card__icon i {
+  color: #00F5D4;
+}
+
+.theme-ub .tech-card__title {
+  color: #E8EDE8;
+}
+
+/* ── 13. SCROLL PROGRESS BAR OVERRIDE ───────────────── */
+.theme-ub #navProgress {
+  background: linear-gradient(to right, #00F5D4, #FF3C28) !important;
+}
+
+/* ── 14. UB HERO LAYOUT ADJUST ──────────────────────── */
+.theme-ub .project-detail__hero-content {
+  position: relative;
+  z-index: 3;
+}
+
+/* Prose description green tint */
+.theme-ub .prose-desc p {
+  color: #A0B0C8;
+}
+/* ── 15. TEXT SELECTION ─────────────────────────────── */
+.theme-ub ::selection {
+  background: rgba(0, 245, 212, 0.3);
+  color: #E8EDE8;
+  text-shadow: 0 0 8px rgba(0, 245, 212, 0.7);
+}
+
+.theme-ub ::-moz-selection {
+  background: rgba(0, 245, 212, 0.3);
+  color: #E8EDE8;
+  text-shadow: 0 0 8px rgba(0, 245, 212, 0.7);
+}

@@ -1,0 +1,556 @@
+/* ============================================================
+   components.css — Reusable UI components
+   ============================================================ */
+
+/* ── Custom Cursor (Cyberpunk) ───────────────────────────────── */
+.cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  mix-blend-mode: screen; /* neon blend */
+}
+
+.cursor__dot {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent); /* default violet */
+  transform: translate(-50%, -50%);
+  transition: width 0.15s var(--ease-out), height 0.15s var(--ease-out), background 0.3s ease;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cursor__ring, .cursor__ghost {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.25s var(--ease-out),
+    height 0.25s var(--ease-out),
+    background 0.3s ease,
+    border-color 0.3s ease;
+  z-index: calc(var(--z-cursor) - 1);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cursor__ghost {
+  border-color: transparent;
+  background: transparent;
+}
+
+/* Base Violet Hover */
+.cursor--hover .cursor__ring, .cursor--hover-violet .cursor__ring {
+  width: 48px;
+  height: 48px;
+  background: var(--glow-purple);
+  border-color: var(--accent);
+}
+
+/* Cyan Hover */
+.cursor--hover-cyan .cursor__ring {
+  width: 48px;
+  height: 48px;
+  background: var(--glow-cyan);
+  border-color: var(--secondary);
+}
+.cursor--hover-cyan .cursor__dot { background: var(--secondary); }
+
+/* Magenta Hover */
+.cursor--hover-magenta .cursor__ring {
+  width: 48px;
+  height: 48px;
+  background: var(--glow-pink);
+  border-color: var(--tertiary);
+}
+.cursor--hover-magenta .cursor__dot { background: var(--tertiary); }
+
+
+.cursor--click .cursor__dot {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+@media (pointer: coarse) {
+  .cursor__dot, .cursor__ring, .cursor__ghost { display: none !important; }
+}
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border-radius: var(--radius-none);
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+  position: relative;
+  overflow: hidden;
+  cursor: none;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.05);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.btn:hover::before { transform: scaleX(1); }
+
+.btn:hover {
+  transform: scale(1.03);
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: #080A0F;
+}
+
+.btn--primary:hover {
+  box-shadow: var(--shadow-accent);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn--secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Tech Tags ───────────────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--size-micro);
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-tag);
+  padding: 4px 10px;
+  text-transform: uppercase;
+}
+
+.tag--accent {
+  color: var(--accent);
+  border-color: rgba(123, 97, 255, 0.25);
+  background: rgba(123, 97, 255, 0.06);
+}
+
+/* ── Badge / Pill ────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 100px;
+  border: 1px solid;
+}
+
+.badge--fp {
+  color: #4A9EFF;
+  border-color: rgba(74, 158, 255, 0.35);
+  background: rgba(74, 158, 255, 0.08);
+}
+
+.badge--tp {
+  color: var(--accent);
+  border-color: rgba(123, 97, 255, 0.35);
+  background: rgba(123, 97, 255, 0.08);
+}
+
+/* ── Loading Screen ──────────────────────────────────────────── */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-loader);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s var(--ease-out), visibility 0.6s var(--ease-out);
+}
+
+.loader.loader--hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader__monogram {
+  font-family: var(--font-display);
+  font-size: 64px;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.loader__monogram span {
+  color: var(--accent);
+}
+
+.loader__tagline {
+  font-family: var(--font-mono);
+  font-size: var(--size-micro);
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-top: var(--sp-2);
+  text-transform: uppercase;
+}
+
+.loader__progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  transition: width 1.6s var(--ease-out);
+}
+
+.loader__progress-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--border);
+}
+
+/* ── Navigation ──────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  padding: var(--sp-3) var(--sp-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition:
+    background var(--duration-base) ease,
+    backdrop-filter var(--duration-base) ease,
+    padding var(--duration-base) ease;
+}
+
+.nav--scrolled {
+  background: rgba(8, 10, 15, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: var(--sp-2) var(--sp-5);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav__logo {
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
+  cursor: none;
+}
+
+.nav__logo span {
+  color: var(--accent);
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+}
+
+.nav__link {
+  font-family: var(--font-body);
+  font-size: var(--size-label);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  cursor: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color var(--duration-fast) ease;
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s var(--ease-out);
+}
+
+.nav__link:hover {
+  color: var(--text-primary);
+}
+
+.nav__link:hover::after {
+  width: 100%;
+}
+
+/* ── Hamburger ───────────────────────────────────────────────── */
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 28px;
+  cursor: none;
+  z-index: 10;
+}
+
+.nav__hamburger span {
+  display: block;
+  height: 1.5px;
+  background: var(--text-primary);
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  transform-origin: center;
+}
+
+.nav__hamburger span:nth-child(2) { width: 70%; }
+
+.nav__hamburger.nav__hamburger--open span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.nav__hamburger.nav__hamburger--open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav__hamburger.nav__hamburger--open span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ── Mobile menu overlay ─────────────────────────────────────── */
+.nav__mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: calc(var(--z-nav) - 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s var(--ease-out), visibility 0.4s ease;
+}
+
+.nav__mobile-menu.nav__mobile-menu--open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav__mobile-link {
+  font-family: var(--font-display);
+  font-size: 56px;
+  letter-spacing: var(--tracking-display);
+  color: var(--text-secondary);
+  cursor: none;
+  transition: color 0.2s ease;
+}
+
+.nav__mobile-link:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .nav__links { display: none; }
+  .nav__hamburger { display: flex; }
+  .nav { padding: var(--sp-2) var(--sp-3); }
+  .nav--scrolled { padding: var(--sp-2) var(--sp-3); }
+}
+
+/* ── Scroll indicator ────────────────────────────────────────── */
+.scroll-indicator {
+  position: absolute;
+  bottom: var(--sp-5);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--size-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.scroll-indicator__line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scroll-pulse 2s ease-in-out infinite;
+}
+
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+  50%       { opacity: 1;   transform: scaleY(1); }
+}
+
+/* ── Case study link ─────────────────────────────────────────── */
+.case-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  cursor: none;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.case-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s var(--ease-out);
+}
+
+.case-link:hover::after { width: 100%; }
+
+.case-link__arrow {
+  transition: transform 0.25s var(--ease-out);
+}
+
+.case-link:hover .case-link__arrow {
+  transform: translateX(4px);
+}
+
+/* ── Stat counter ────────────────────────────────────────────── */
+.stat {
+  text-align: left;
+}
+
+.stat__number {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 5vw, 72px);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.stat__number span {
+  color: var(--accent);
+}
+
+.stat__label {
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: var(--tracking-label);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-top: var(--sp-1);
+}
+
+/* ── Social icon ─────────────────────────────────────────────── */
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  color: var(--text-secondary);
+  font-size: 18px;
+  cursor: none;
+  transition:
+    color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease,
+    transform var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) ease;
+}
+
+.social-link:hover {
+  color: var(--accent);
+  border-color: var(--border-accent);
+  background: var(--accent-hover);
+  transform: rotate(8deg);
+}
+
+/* ── Testimonial card ────────────────────────────────────────── */
+.testimonial-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--sp-6);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base) ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.testimonial-card__quote-mark {
+  font-family: Georgia, serif;
+  font-size: 96px;
+  line-height: 0.6;
+  color: var(--accent);
+  margin-bottom: var(--sp-3);
+  opacity: 0.6;
+}
+
+.testimonial-card__text {
+  font-size: 20px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-4);
+  font-style: italic;
+}
+
+.testimonial-card__name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
+}
+
+.testimonial-card__title {
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  color: var(--text-muted);
+  margin-top: 4px;
+}

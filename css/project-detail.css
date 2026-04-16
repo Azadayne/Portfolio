@@ -1,0 +1,788 @@
+/* ============================================================
+   project-detail.css — Deep Immersion Cyberpunk Layouts
+   ============================================================ */
+
+/* ── Global Theme Overrides ── */
+:root {
+  --theme-accent: var(--accent); /* Default to Violet, overridden per-page */
+}
+
+/* ── 1. Cinematic Entry Panel ── */
+.project-detail__hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #000;
+}
+
+.project-detail__hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.project-detail__hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: url('../assets/img/noise.png'), radial-gradient(circle at center, transparent 0%, var(--bg) 90%);
+  background-size: 100px, 100%;
+  opacity: 0.8;
+}
+
+/* Massive Watermark */
+.hero-watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: 15vw;
+  color: var(--text-primary);
+  opacity: 0.1;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 3;
+  line-height: 0.8;
+  text-align: center;
+  transition: letter-spacing 0.1s linear; /* Smooths JS updates */
+}
+
+.project-detail__hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: left;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  padding-bottom: 15vh;
+}
+
+.project-breadcrumb {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--theme-accent);
+  letter-spacing: 0.2em;
+  margin-bottom: var(--sp-4);
+  text-transform: uppercase;
+}
+
+.project-breadcrumb a {
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.project-breadcrumb a:hover { color: var(--text-primary); }
+
+.project-number {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: var(--sp-2);
+}
+
+.project-title {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 10vw, 120px);
+  color: var(--text-primary);
+  line-height: 0.9;
+  margin-bottom: var(--sp-2);
+  letter-spacing: var(--tracking-display);
+}
+
+.project-tagline {
+  font-family: var(--font-body);
+  font-size: 20px;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin-bottom: var(--sp-5);
+}
+
+.project-pills {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.project-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 6px 14px;
+  border: 1px solid var(--theme-accent);
+  color: var(--text-primary);
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  text-transform: uppercase;
+}
+
+
+/* ── 2. The Experience Reel (Scrollytelling) ── */
+.experience-reel {
+  position: relative;
+  width: 100%;
+  height: 400vh; /* 4 acts * 100vh */
+  background: var(--bg);
+  z-index: 20; /* Sit above the fixed watermark */
+}
+
+.reel-sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.reel-media-stack {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.reel-media {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.reel-media.active {
+  opacity: 1;
+}
+
+.reel-media img, .reel-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reel-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(5,5,8,0.9) 0%, rgba(5,5,8,0.4) 40%, transparent 100%);
+  z-index: 2;
+}
+
+.reel-content-stack {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.reel-text {
+  position: absolute;
+  max-width: 450px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+
+.reel-text.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.reel-label {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--theme-accent);
+  margin-bottom: var(--sp-2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.reel-label::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: var(--theme-accent);
+}
+
+.reel-desc {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.reel-progress {
+  position: absolute;
+  right: var(--sp-5);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.reel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.reel-dot.active {
+  background: var(--theme-accent);
+  box-shadow: 0 0 10px var(--theme-accent);
+}
+
+
+/* ── 3. Game Data Terminal ── */
+.data-terminal-section {
+  padding: var(--sp-16) 0;
+  position: relative;
+  z-index: 20;
+  background: var(--bg);
+}
+
+.terminal-box {
+  background: var(--surface);
+  border: 1px solid var(--theme-accent);
+  padding: var(--sp-6);
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.5);
+  margin-bottom: var(--sp-8);
+  position: relative;
+}
+.terminal-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px);
+  pointer-events: none;
+}
+
+.terminal-line {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 0;
+}
+.terminal-line span {
+  color: var(--text-primary);
+}
+.terminal-line--accent {
+  color: var(--theme-accent);
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 10px;
+  height: 14px;
+  background: #0f0;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+  margin-left: 4px;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+.prose-desc {
+  max-width: 800px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.prose-desc p { margin-bottom: var(--sp-3); }
+
+
+/* ── 4. Technical DNA (Node Graph) ── */
+.tech-dna-section {
+  padding: var(--sp-12) 0 var(--sp-20);
+  position: relative;
+  z-index: 20;
+  background: var(--bg);
+}
+
+.tech-dna-header {
+  text-align: center;
+  margin-bottom: var(--sp-8);
+}
+.dna-label {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+}
+
+.dna-canvas-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dna-tooltip {
+  position: absolute;
+  bottom: var(--sp-4);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface-high);
+  border: 1px solid var(--theme-accent);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: 4px;
+  text-align: center;
+  max-width: 400px;
+  opacity: 0;
+}
+/* ── 4. Technical Breakdown (Under the Hood) ── */
+.tech-breakdown {
+  padding: 12vh 0;
+  background: #050508;
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--secondary);
+  text-transform: uppercase;
+  margin-bottom: var(--sp-10);
+  display: block;
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+}
+
+.tech-card {
+  background: #0A0A12;
+  border: 1px solid rgba(123, 97, 255, 0.15);
+  border-radius: 8px;
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tech-card.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tech-card.reveal--visible:hover {
+  border-color: rgba(123, 97, 255, 0.6);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(123, 97, 255, 0.15);
+}
+
+.tech-card__num {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-family: var(--font-display);
+  font-size: 64px;
+  color: var(--primary);
+  opacity: 0.08;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tech-card__icon {
+  font-size: 24px;
+  color: var(--secondary);
+  margin-bottom: var(--sp-6);
+  position: relative;
+  z-index: 1;
+}
+
+.tech-card__title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: #fff;
+  margin-bottom: var(--sp-3);
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 1;
+}
+
+.tech-card__desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--sp-6);
+  position: relative;
+  z-index: 1;
+}
+
+.tech-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.tech-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+  border: 1px solid rgba(123, 97, 255, 0.3);
+  padding: 4px 10px;
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 992px) {
+  .tech-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .tech-grid { grid-template-columns: 1fr; }
+}
+
+
+/* ── 5. Awards (Veil Only) ── */
+.award-cinematic {
+  padding: 20vh 0;
+  background: #050508;
+  position: relative;
+  z-index: 20;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Atmospheric Visuals */
+.award-visuals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.award-rays {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150vmax;
+  height: 150vmax;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(123, 97, 255, 0.05) 15deg,
+    transparent 30deg,
+    rgba(123, 97, 255, 0.08) 45deg,
+    transparent 60deg
+  );
+  filter: blur(60px);
+  opacity: 0;
+  transition: opacity 3s ease;
+}
+
+.award-cinematic.reveal--visible .award-rays {
+  opacity: 1;
+  animation: rotate-rays 60s linear infinite;
+}
+
+@keyframes rotate-rays {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.award-particles {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 2s 1s ease;
+}
+
+.award-cinematic.reveal--visible .award-particles {
+  opacity: 1;
+}
+
+.award-glow-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, rgba(123, 97, 255, 0.2) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  filter: blur(40px);
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.award-cinematic.reveal--visible .award-glow-core {
+  opacity: 1;
+}
+
+/* Content Styling */
+.award-line {
+  width: 0%;
+  height: 1px;
+  background: var(--theme-accent);
+  margin: 0 auto var(--sp-10);
+  transition: width 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+}
+
+.award-cinematic.reveal--visible .award-line {
+  width: 200px;
+}
+
+.award-trophy {
+  font-size: 32px;
+  color: var(--theme-accent);
+  margin-bottom: var(--sp-6);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 1s 0.3s ease;
+}
+
+.award-cinematic.reveal--visible .award-trophy {
+  opacity: 1;
+  transform: translateY(0);
+  animation: trophy-pulse 4s ease-in-out infinite;
+}
+
+@keyframes trophy-pulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px var(--theme-accent)); }
+  50% { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--theme-accent)); }
+}
+
+.award-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  color: var(--secondary);
+  text-transform: uppercase;
+  margin-bottom: var(--sp-4);
+  opacity: 0;
+  transition: opacity 1s 0.6s;
+}
+
+.award-title {
+  font-family: var(--font-display);
+  font-size: 11vw;
+  line-height: 0.9;
+  margin-bottom: var(--sp-4);
+  opacity: 0;
+  transform: scale(0.95) translateY(20px);
+  transition: all 1.2s 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  
+  /* Crystal Shimmer Effect */
+  background: linear-gradient(
+    135deg,
+    #fff 20%,
+    #a290ff 40%,
+    #fff 50%,
+    #a290ff 60%,
+    #fff 80%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 10px 40px rgba(123, 97, 255, 0.3);
+}
+
+.award-cinematic.reveal--visible .award-title {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  animation: text-shimmer 8s linear infinite;
+}
+
+@keyframes text-shimmer {
+  to { background-position: 200% center; }
+}
+
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+  50% { transform: translateY(-40px) translateX(20px); opacity: 0.6; }
+}
+
+.award-uni {
+  font-size: 20px;
+  color: var(--text-secondary);
+  opacity: 0;
+  margin-bottom: var(--sp-10);
+  transition: opacity 1s 1.2s;
+}
+
+.award-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-4);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 1s 1.5s ease;
+}
+
+.award-stat {
+  padding: 0.6rem 1.5rem;
+  background: rgba(123, 97, 255, 0.05);
+  border: 1px solid rgba(123, 97, 255, 0.2);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: #fff;
+  backdrop-filter: blur(10px);
+}
+
+.award-cinematic.reveal--visible .award-label,
+.award-cinematic.reveal--visible .award-uni,
+.award-cinematic.reveal--visible .award-stats {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ── 6. Next Project Warp ── */
+.project-warp {
+  height: 50vh;
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--sp-10);
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.warp-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.02) 0%, transparent 70%);
+  opacity: 0.5;
+  transition: opacity 0.5s, transform 5s linear;
+  pointer-events: none;
+}
+
+.project-warp:hover .warp-bg {
+  opacity: 1;
+  transform: scale(1.1) rotate(5deg);
+  background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
+}
+
+.warp-left-col, .warp-right-col {
+  flex: 1.5;
+  height: 100%;
+  display: flex;
+  position: relative;
+  z-index: 2;
+}
+
+.warp-left-col { justify-content: flex-start; }
+.warp-right-col { justify-content: flex-end; }
+
+.warp-center-col {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s;
+  text-transform: uppercase;
+  pointer-events: none; /* Let background hover happen? No, maybe keep it. */
+}
+
+.warp-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.warp-left-col .warp-link { justify-content: flex-start; }
+.warp-right-col .warp-link { justify-content: flex-end; }
+
+.warp-link h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 6vw, 80px);
+  color: var(--text-secondary);
+  transition: color 0.3s, text-shadow 0.3s, transform 0.3s;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.warp-link i {
+  font-size: clamp(24px, 4vw, 48px);
+  color: var(--text-secondary);
+  transition: transform 0.3s, color 0.3s;
+  font-style: normal;
+}
+
+.project-warp:hover .warp-center-col { color: var(--text-secondary); }
+
+.warp-link:hover h2 { 
+  color: #fff; 
+  text-shadow: 0 0 30px var(--theme-accent);
+}
+
+.warp-left-col .warp-link:hover i {
+  color: #fff;
+  transform: translateX(-15px);
+}
+
+.warp-right-col .warp-link:hover i {
+  color: #fff;
+  transform: translateX(15px);
+}
+
+@media (max-width: 768px) {
+  .project-warp {
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--sp-6);
+    text-align: center;
+    padding: var(--sp-6) var(--sp-4);
+    height: auto;
+    min-height: 50vh;
+  }
+}
+
+/* ── Color Bleed Loader transition ── */
+.theme-bleed {
+  position: fixed;
+  inset: 0;
+  background: var(--theme-accent);
+  opacity: 0;
+  z-index: 150;
+  pointer-events: none;
+  mix-blend-mode: color;
+  transition: opacity 0.8s ease-out;
+}
+.theme-bleed.flash {
+  opacity: 0.08;
+}

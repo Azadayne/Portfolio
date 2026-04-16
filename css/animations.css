@@ -1,0 +1,198 @@
+/* ============================================================
+   animations.css — Keyframes, transition utilities, reveal classes
+   ============================================================ */
+
+/* ── Hero entrance animations ────────────────────────────────── */
+.hero-animate {
+  animation: hero-in 0.9s var(--ease-out) forwards;
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Scroll-reveal base state ────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+}
+
+.reveal.reveal--left {
+  transform: translateX(-60px);
+}
+
+.reveal.reveal--right {
+  transform: translateX(60px);
+}
+
+.reveal.reveal--visible {
+  opacity: 1;
+  transform: translate(0);
+}
+
+/* ── Stagger delays ──────────────────────────────────────────── */
+.delay-1 { transition-delay: 0.08s; }
+.delay-2 { transition-delay: 0.16s; }
+.delay-3 { transition-delay: 0.24s; }
+.delay-4 { transition-delay: 0.32s; }
+.delay-5 { transition-delay: 0.40s; }
+
+/* Skill card stagger applied via JS */
+.skill-card.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Loader monogram reveal ──────────────────────────────────── */
+@keyframes loader-char-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.loader__monogram {
+  animation: loader-char-in 0.5s var(--ease-out) 0.2s both;
+}
+
+.loader__tagline {
+  animation: loader-char-in 0.5s var(--ease-out) 0.45s both;
+}
+
+/* ── Process step entrance ───────────────────────────────────── */
+.process-step {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
+}
+
+.process-step.process-step--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Blinking cursor (text cursor effect) ────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor-blink::after {
+  content: '|';
+  color: var(--accent);
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+}
+
+/* ── Amber line underline reveal on link hover ───────────────── */
+@keyframes underline-in {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+
+/* ── Parallax handled by JS ──────────────────────────────────── */
+
+/* ── Page transition fade ────────────────────────────────────── */
+@keyframes page-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+body {
+  animation: page-in 0.4s ease 0.1s both;
+}
+
+/* ── Hover: project number pulse ─────────────────────────────── */
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+.project-panel:hover .project-panel__number {
+  animation: subtle-pulse 1.5s ease-in-out infinite;
+}
+
+/* ── Testimonial card accent strip ──────────────────────────── */
+.testimonial-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.testimonial-card:hover::after {
+  opacity: 1;
+}
+
+/* ── Footer hover accent ─────────────────────────────────────── */
+.footer__copy a {
+  color: var(--accent);
+  cursor: none;
+}
+
+/* ── Reduced motion overrides ────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .marquee__track {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .process-step {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Glitch effect on hover for logo (very subtle) ──────────── */
+@keyframes glitch-shift {
+  0%   { clip-path: inset(0 0 98% 0); transform: translateX(-2px); }
+  20%  { clip-path: inset(50% 0 30% 0); transform: translateX(2px); }
+  40%  { clip-path: inset(80% 0 5% 0); transform: translateX(-1px); }
+  60%  { clip-path: inset(20% 0 60% 0); transform: translateX(1px); }
+  80%  { clip-path: inset(70% 0 10% 0); transform: translateX(-2px); }
+  100% { clip-path: inset(0 0 100% 0); transform: translateX(0); }
+}
+
+.nav__logo:hover::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent-alt);
+  animation: glitch-shift 0.4s steps(1, end);
+}
+
+.nav__logo { position: relative; }
+
+/* ── Process line fill animation ─────────────────────────────── */
+.process__line-fill.animate {
+  width: 100%;
+}

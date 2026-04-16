@@ -1,0 +1,150 @@
+/* ============================================================
+   main.css — Global base styles
+   ============================================================ */
+
+::selection {
+  background: rgba(123,97,255,0.35);
+  color: #F0F0FF;
+  text-shadow: 0 0 8px rgba(123,97,255,0.8);
+}
+
+::-moz-selection {
+  background: rgba(123,97,255,0.35);
+  color: #F0F0FF;
+  text-shadow: 0 0 8px rgba(123,97,255,0.8);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  color: var(--text-primary);
+  background-color: var(--bg);
+  line-height: 1.6;
+  cursor: none;
+  overflow-x: hidden;
+}
+
+/* Touch devices show default cursor */
+@media (pointer: coarse) {
+  body { cursor: auto; }
+}
+
+/* ── Noise overlay ─────────────────────────────────────────── */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  opacity: 0.050;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+}
+
+/* ── Typography globals ────────────────────────────────────── */
+.display { font-family: var(--font-display); letter-spacing: var(--tracking-display); }
+.mono    { font-family: var(--font-mono); }
+
+.text-primary   { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted     { color: var(--text-muted); }
+.text-accent    { color: var(--accent); }
+
+/* ── Layout containers ─────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 var(--sp-3); }
+}
+
+/* ── Section wrapper ─────────────────────────────────────────── */
+.section {
+  padding: var(--sp-16) 0;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .section { padding: var(--sp-10) 0; }
+}
+
+/* ── Section label ───────────────────────────────────────────── */
+.section__label {
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: var(--tracking-label);
+  color: var(--accent);
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: var(--sp-2);
+}
+
+/* ── Section title ───────────────────────────────────────────── */
+.section__title {
+  font-family: var(--font-display);
+  font-size: var(--size-section);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
+  line-height: 1.0;
+  margin-bottom: var(--sp-8);
+}
+
+/* ── Divider ─────────────────────────────────────────────────── */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-divider::after {
+  content: '';
+  position: absolute;
+  left: -100%;
+  top: 0;
+  height: 100%;
+  width: 60%;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: divider-sweep 3s ease-in-out infinite;
+}
+
+@keyframes divider-sweep {
+  0%   { left: -60%; }
+  100% { left: 110%; }
+}
+
+/* ── Topo texture background ─────────────────────────────────── */
+.topo-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 39px,
+      rgba(123, 97, 255, 0.5) 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 39px,
+      rgba(123, 97, 255, 0.2) 40px
+    );
+  background-size: 80px 80px;
+}
+
+/* ── Link reset ──────────────────────────────────────────────── */
+a:hover { opacity: 1; }
+
+/* ── Selection ───────────────────────────────────────────────── */
+::selection {
+  background: rgba(123, 97, 255, 0.2);
+  color: var(--text-primary);
+}

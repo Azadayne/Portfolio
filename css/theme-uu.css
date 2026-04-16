@@ -1,0 +1,314 @@
+/* =====================================================
+   THEME-UU — Undead Unleashed Page Visual Identity
+   ALL rules prefixed .theme-uu — zero bleed elsewhere.
+   ===================================================== */
+
+/* ── 1. PALETTE OVERRIDE ────────────────────────────── */
+.theme-uu {
+  --color-bg:           #060806;
+  --color-surface:      #0A0E0A;
+  --color-surface-high: #101610;
+  --color-border:       rgba(80,255,60,0.06);
+
+  --color-primary:      #50FF3C;
+  --color-secondary:    #FF1A1A;
+  --color-tertiary:     #FFB800;
+
+  --color-glow-primary: rgba(80,255,60,0.14);
+  --color-glow-red:     rgba(255,26,26,0.16);
+  --color-glow-amber:   rgba(255,184,0,0.10);
+
+  --color-text-primary:   #D4F0D0;
+  --color-text-secondary: #5A7A56;
+  --color-text-muted:     #243020;
+
+  /* Override site accent tokens */
+  --accent:    #50FF3C;
+  --secondary: #FF1A1A;
+  --bg:        #060806;
+  --surface:   #0A0E0A;
+  --text:      #D4F0D0;
+  --text-dim:  #5A7A56;
+  --border:    rgba(80,255,60,0.06);
+
+  background-color: #060806;
+  color: #D4F0D0;
+  /* Sickly fungal glow pooling at the corners */
+  background-image:
+    radial-gradient(ellipse at 0% 100%, rgba(40,100,30,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 100% 100%, rgba(40,100,30,0.06) 0%, transparent 60%);
+}
+
+/* ── 2. SCANLINES OVERLAY ───────────────────────────── */
+.theme-uu::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ── 3. HIDE GLOBAL CURSOR ──────────────────────────── */
+.theme-uu { cursor: none; }
+
+.theme-uu .cursor__dot,
+.theme-uu .cursor__ring {
+  display: none !important;
+}
+
+/* ── 4. NAV PROGRESS BAR ────────────────────────────── */
+.theme-uu #navProgress {
+  background: linear-gradient(to right, #50FF3C, #FF1A1A) !important;
+}
+
+/* ── 5. HERO OVERRIDES ──────────────────────────────── */
+.theme-uu .project-detail__hero-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(6,8,6,0.97) 0%,
+    rgba(30,80,20,0.06) 50%,
+    rgba(6,8,6,0.4) 100%
+  ) !important;
+}
+
+.theme-uu .project-detail__hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-uu .project-detail__hero-content {
+  position: relative;
+  z-index: 3;
+}
+
+/* Biohazard watermark tint */
+.theme-uu .hero-watermark {
+  color: rgba(80,255,60,0.04);
+}
+
+/* Emergency badge */
+.theme-uu .uu-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: #FF1A1A;
+  margin-bottom: 14px;
+}
+
+.theme-uu .uu-hero-badge__indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 0; /* square, broken indicator */
+  animation: uuBadgeBlink 0.6s step-end infinite;
+}
+
+@keyframes uuBadgeBlink {
+  0%, 49%  { background: #FF1A1A; box-shadow: 0 0 6px #FF1A1A; }
+  50%, 100%{ background: #50FF3C; box-shadow: 0 0 6px #50FF3C; }
+}
+
+/* Emergency ticker at bottom of hero */
+.theme-uu .uu-ticker-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 28px;
+  background: rgba(6,8,6,0.92);
+  border-top: 1px solid rgba(255,26,26,0.25);
+  overflow: hidden;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+}
+
+.theme-uu .uu-ticker {
+  display: flex;
+  white-space: nowrap;
+  animation: uuTickerScroll 25s linear infinite;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #FF1A1A;
+  letter-spacing: 0.1em;
+}
+
+@keyframes uuTickerScroll {
+  0%   { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ── 6. HERO TITLE GLITCH ENTRANCE ─────────────────── */
+.theme-uu .project-title {
+  animation: uuTitleSlam 0.8s cubic-bezier(0.2, 1.4, 0.4, 1) forwards;
+}
+
+@keyframes uuTitleSlam {
+  0%   { transform: translateY(-30px); opacity: 0; }
+  60%  { transform: translateY(20px); opacity: 1; }
+  75%  {
+    transform: translateY(0);
+    text-shadow: -4px 0 #FF1A1A, 4px 0 #50FF3C;
+    filter: blur(1px);
+  }
+  88%  {
+    text-shadow: 2px 0 #50FF3C, -2px 0 #FF1A1A;
+    filter: none;
+  }
+  100% { transform: translateY(0); text-shadow: none; opacity: 1; }
+}
+
+/* ── 7. SECTION ACCENT OVERRIDES ────────────────────── */
+.theme-uu .section__label,
+.theme-uu .reel-label,
+.theme-uu .tech-label,
+.theme-uu .project-breadcrumb,
+.theme-uu .project-number {
+  color: #50FF3C;
+}
+
+.theme-uu .project-pill {
+  border-color: rgba(80,255,60,0.3);
+  color: #50FF3C;
+}
+
+.theme-uu .tech-tag {
+  color: #50FF3C;
+  border-color: rgba(80,255,60,0.25);
+}
+
+.theme-uu .tech-card {
+  background: #0A0E0A;
+  border-color: rgba(80,255,60,0.08);
+}
+
+.theme-uu .tech-card:hover {
+  border-color: #50FF3C;
+  box-shadow: 0 0 32px rgba(80,255,60,0.18);
+}
+
+.theme-uu .tech-card__num {
+  color: rgba(80,255,60,0.18);
+}
+
+.theme-uu .tech-card__icon i {
+  color: #50FF3C;
+}
+
+.theme-uu .tech-card__title {
+  color: #D4F0D0;
+}
+
+.theme-uu .reel-dot.active,
+.theme-uu .reel-dot:hover {
+  background: #50FF3C;
+  box-shadow: 0 0 8px rgba(80,255,60,0.8);
+}
+
+/* ── 8. TERMINAL OVERRIDE ───────────────────────────── */
+.theme-uu .terminal-box {
+  border-color: rgba(80,255,60,0.25) !important;
+  box-shadow: 0 0 32px rgba(80,255,60,0.08), inset 0 0 24px rgba(80,255,60,0.04) !important;
+}
+
+.theme-uu .terminal-line {
+  color: #4A7A44 !important;
+}
+
+.theme-uu .terminal-line--accent,
+.theme-uu .terminal-box .terminal-line span {
+  color: #50FF3C !important;
+}
+
+/* Flickering terminal cursor */
+.theme-uu .terminal-cursor {
+  background: #50FF3C !important;
+  animation: uuTermCursor 0.8s ease-in-out infinite !important;
+  box-shadow: 0 0 8px rgba(80,255,60,0.9) !important;
+}
+
+@keyframes uuTermCursor {
+  0%, 100% { opacity: 1; }
+  33%       { opacity: 0.2; }
+  66%       { opacity: 1; }
+  80%       { opacity: 0.5; }
+}
+
+/* ── 9. TEXT SELECTION ──────────────────────────────── */
+.theme-uu ::selection {
+  background: rgba(80,255,60,0.25);
+  color: #D4F0D0;
+  text-shadow: 0 0 8px rgba(80,255,60,0.8);
+}
+
+.theme-uu ::-moz-selection {
+  background: rgba(80,255,60,0.25);
+  color: #D4F0D0;
+  text-shadow: 0 0 8px rgba(80,255,60,0.8);
+}
+
+/* ── 10. CLICK ANIMATIONS ───────────────────────────── */
+@keyframes uuImpact {
+  0%   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%,-50%) scale(5); }
+}
+
+@keyframes uuSplat {
+  0%   { width: 0px; opacity: 1; }
+  50%  { opacity: 1; }
+  100% { width: var(--len, 30px); opacity: 0; }
+}
+
+@keyframes uuRing {
+  0%   { width: 0; height: 0; opacity: 1; }
+  100% { width: 100px; height: 100px; opacity: 0; }
+}
+
+/* ── 11. WARP SECTION ───────────────────────────────── */
+.theme-uu .project-warp {
+  background: #060806;
+  border-top: 1px solid rgba(80,255,60,0.1);
+}
+
+.theme-uu .warp-center-col {
+  color: rgba(80,255,60,0.3);
+}
+
+/* ── 12. PROSE DESCRIPTION ──────────────────────────── */
+.theme-uu .prose-desc p {
+  color: #5A7A56;
+}
+
+.theme-uu .prose-desc a {
+  color: #50FF3C !important;
+}
+
+/* ── 13. BIOHAZARD WATERMARK IN HERO ────────────────── */
+.theme-uu .uu-biohazard-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 220px;
+  opacity: 0.03;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── 14. LAYOUT STABILIZATION ───────────────────────── */
+.uu-content-wrapper {
+  transition: transform 0.08s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  width: 100%;
+  min-height: 100vh;
+}
+

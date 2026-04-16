@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#030308" />
+
+  <title>Neon Veil — Adithya Raghavan</title>
+  <meta name="description" content="Neon Veil — A stealth-horror experience built in Unreal Engine 5. Featuring cinematic lighting, tension-driven gameplay, and cutting-edge Lumen GI." />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://adithyaraghavan.dev/neon-veil.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>" />
+  <link rel="apple-touch-icon" href="assets/img/Neon-Veil.png" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://adithyaraghavan.dev/neon-veil.html" />
+  <meta property="og:title" content="Neon Veil — Adithya Raghavan" />
+  <meta property="og:description" content="A stealth-horror experience built in Unreal Engine 5. Cinematic lighting, tension-driven gameplay." />
+  <meta property="og:image" content="https://adithyaraghavan.dev/assets/img/Neon-Veil.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Neon Veil — Adithya Raghavan" />
+  <meta name="twitter:image" content="https://adithyaraghavan.dev/assets/img/Neon-Veil.png" />
+
+  <style>
+    :root {
+      --theme-accent: #4A9EFF; /* Ice Blue Neon */
+    }
+  </style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/project-detail.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+  <link rel="stylesheet" href="css/interactions.css" />
+  <link rel="stylesheet" href="css/theme-nv.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="theme-nv">
+  <div id="transition-panel"
+    style="display:none; position:fixed; inset:0; z-index:9999; background:#030308; pointer-events:none;"
+    aria-hidden="true"></div>
+  <div class="theme-bleed"></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <canvas id="nv-canvas" aria-hidden="true"></canvas>
+  <div class="cursor__dot" aria-hidden="true"></div>
+  <div class="cursor__ring" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo" data-text="AR" data-title="BACK TO HOME">A<span>R</span></a>
+    <ul class="nav__links" role="list">
+      <li><a href="index.html#projects" class="nav__link" data-title="WORK">Work</a></li>
+      <li><a href="index.html#about" class="nav__link" data-title="ABOUT">About</a></li>
+      <li><a href="index.html#contact" class="nav__link" data-title="CONTACT">Contact</a></li>
+    </ul>
+
+    <button class="nav__hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav__progress-wrapper"
+      style="position:absolute; bottom:0; left:0; width:100%; height:2px; background:var(--border);">
+      <div id="navProgress"
+        style="height:100%; width:0%; background:linear-gradient(to right, var(--accent), var(--secondary)); transition: width 0.1s linear;">
+        <div id="navProgressGlow"
+          style="position:absolute; right:0; top:-2px; width:20px; height:6px; background:white; filter:blur(4px); opacity:0; transition:opacity 0.3s;">
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile full-screen menu -->
+  <div class="nav__mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation" aria-modal="true">
+    <button class="nav__mobile-close" id="mobileClose" aria-label="Close menu">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/>
+      </svg>
+      Close
+    </button>
+    <a href="index.html#projects" class="nav__mobile-link" id="mob-work">Work</a>
+    <a href="index.html#about" class="nav__mobile-link" id="mob-about">About</a>
+    <a href="index.html#skills" class="nav__mobile-link" id="mob-skills">Skills</a>
+    <a href="index.html#contact" class="nav__mobile-link" id="mob-contact">Contact</a>
+    <a href="assets/docs/Adithya-Raghavan-CV.pdf" target="_blank" class="nav__mobile-link" id="mob-resume"
+      style="color:var(--accent);">Resume <i class="fa-solid fa-arrow-up-right-from-square"
+        style="font-size:0.7em;"></i></a>
+  </div>
+
+  <main>
+    <!-- SECTION 1: CINEMATIC ENTRY PANEL -->
+    <section class="project-detail__hero" aria-label="Hero">
+      <div class="project-detail__hero-bg">
+        <img src="assets/img/Neon-Veil-1.png" alt="Neon Veil Screenshot"
+          style="width:100%; height:100%; object-fit:cover;" loading="lazy">
+      </div>
+      <div class="project-detail__hero-overlay"></div>
+
+      <div class="hero-watermark">NEON VEIL</div>
+
+      <div class="project-detail__hero-content">
+        <div class="project-breadcrumb">
+          <a href="index.html" data-title="BACK TO HOME">HOME</a> / <a href="index.html#projects"
+            data-title="WORK">WORK</a> / NEON VEIL
+        </div>
+        <p class="project-number">05 // 05</p>
+        <h1 class="project-title">Neon Veil</h1>
+        <p class="project-tagline">A stealth-horror experience driven by concealment, tension, and a single decisive
+          kill.</p>
+
+        <div class="project-pills">
+          <span class="project-pill">Stealth Horror</span>
+          <span class="project-pill">PC</span>
+          <span class="project-pill">Game Developer</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: EXPERIENCE REEL -->
+    <section class="experience-reel">
+      <div class="reel-sticky">
+        <div class="reel-media-stack">
+          <div class="reel-media active"><img src="assets/img/Neon-Veil-2.png" alt="Concept Art"
+              style="width:100%; height:100%; object-fit:cover;" loading="lazy"></div>
+          <div class="reel-media"><img src="assets/img/Neon-Veil-3.png" alt="World"
+              style="width:100%; height:100%; object-fit:cover;" loading="lazy"></div>
+          <div class="reel-media"><img src="assets/img/Neon-Veil-1.png" alt="Gameplay"
+              style="width:100%; height:100%; object-fit:cover;" loading="lazy"></div>
+          <div class="reel-media">
+            <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
+              <source src="assets/video/Neon-Veil-Video.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="reel-overlay"></div>
+        </div>
+
+        <div class="reel-content-stack">
+          <div class="reel-text active">
+            <div class="reel-label">ACT I — CONCEPT</div>
+            <p class="reel-desc">A stealth-driven horror experience built around vulnerability, where survival depends
+              on hiding, timing, and precision.</p>
+          </div>
+          <div class="reel-text">
+            <div class="reel-label">ACT II — WORLD</div>
+            <p class="reel-desc">A confined cyberpunk environment illuminated by harsh neon lighting, designed to expose
+              movement while offering limited spaces to conceal.</p>
+          </div>
+          <div class="reel-text">
+            <div class="reel-label">ACT III — GAMEPLAY</div>
+            <p class="reel-desc">Players evade a persistent entity, using closets as safe zones while searching for a
+              hidden weapon required to eliminate the threat.</p>
+          </div>
+          <div class="reel-text">
+            <div class="reel-label">ACT IV — IN ACTION</div>
+            <p class="reel-desc">Encounters unfold through stalking and evasion, where a single opportunity to strike
+              determines whether the player escapes or is caught.</p>
+          </div>
+        </div>
+
+        <div class="reel-progress">
+          <div class="reel-dot active"></div>
+          <div class="reel-dot"></div>
+          <div class="reel-dot"></div>
+          <div class="reel-dot"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: GAME DATA TERMINAL -->
+    <section class="data-terminal-section">
+      <div class="container" style="max-width:900px;">
+        <div class="terminal-box">
+          <p class="terminal-line" data-typewriter="> INITIALIZING PROJECT DATABASE..." data-speed="15"></p>
+          <p class="terminal-line"
+            data-typewriter="> LOADING GAME_ID: <span class='terminal-line--accent'>NEON_VEIL</span>" data-speed="20">
+          </p>
+          <p class="terminal-line" data-typewriter="> ROLE .................. <span>GAME DEVELOPER</span>"
+            data-speed="10"></p>
+          <p class="terminal-line" data-typewriter="> GENRE ................. <span>STEALTH HORROR</span>"
+            data-speed="10"></p>
+          <p class="terminal-line" data-typewriter="> ENGINE ................ <span>UNREAL ENGINE 5</span>"
+            data-speed="10"></p>
+          <p class="terminal-line" data-typewriter="> STATUS ................ <span>PROTOTYPING</span>" data-speed="10">
+          </p>
+          <p class="terminal-line" data-typewriter="> SYSTEMS NOMINAL <span class='terminal-cursor'></span>"
+            data-speed="50"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: TECHNICAL BREAKDOWN (UNDER THE HOOD) -->
+    <section class="tech-breakdown">
+      <div class="container">
+        <span class="tech-label">UNDER THE HOOD</span>
+
+        <div class="tech-grid">
+          <!-- Card 1 -->
+          <div class="tech-card">
+            <div class="tech-card__num">01</div>
+            <div class="tech-card__icon"><i class="fa-solid fa-bullseye"></i></div>
+            <h3 class="tech-card__title">STEALTH DETECTION SYSTEM</h3>
+            <p class="tech-card__desc">Visibility-based detection ensures players remain hidden when concealed, creating
+              a clear risk–reward dynamic between movement and safety.</p>
+            <div class="tech-card__tags">
+              <span class="tech-tag">#Visibility</span>
+              <span class="tech-tag">#Concealment</span>
+              <span class="tech-tag">#RiskReward</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="tech-card">
+            <div class="tech-card__num">02</div>
+            <div class="tech-card__icon"><i class="fa-solid fa-code-branch"></i></div>
+            <h3 class="tech-card__title">PERSISTENT ENTITY AI</h3>
+            <p class="tech-card__desc">A constantly roaming enemy that searches, patrols, and reacts to player presence,
+              maintaining continuous pressure.</p>
+            <div class="tech-card__tags">
+              <span class="tech-tag">#AI</span>
+              <span class="tech-tag">#Stealth</span>
+              <span class="tech-tag">#Consequences</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="tech-card">
+            <div class="tech-card__num">03</div>
+            <div class="tech-card__icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3 class="tech-card__title">OBJECTIVE-DRIVEN LOOP</h3>
+            <p class="tech-card__desc">Progression is tied to discovering a single critical item, transforming
+              exploration into a high-stakes objective.</p>
+            <div class="tech-card__tags">
+              <span class="tech-tag">#Objective</span>
+              <span class="tech-tag">#Exploration</span>
+              <span class="tech-tag">#Tactics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: NEXT PROJECT WARP -->
+    <div class="project-warp">
+      <div class="warp-bg"></div>
+      <div class="warp-left-col">
+        <a href="yami.html" class="warp-link" data-title="YAMI">
+          <i>←</i>
+          <h2 style="--theme-accent:#8A2BE2;">YAMI</h2>
+        </a>
+      </div>
+      <div class="warp-center-col">LOOPING BACK TO ORIGINS.</div>
+      <div class="warp-right-col">
+        <a href="unfinished-business.html" class="warp-link" data-title="UNFINISHED BUSINESS">
+          <h2 style="--theme-accent:#7B61FF;">UNFINISHED BUSINESS</h2>
+          <i>→</i>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <script src="js/nav.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/cursor.js"></script>
+  <script defer src="js/transitions.js"></script>
+  <script defer src="js/ripple.js"></script>
+  <script defer src="js/scramble.js"></script>
+  <script defer src="js/project.js"></script>
+  <script defer src="js/selection.js"></script>
+  <script defer src="js/theme-nv.js"></script>
+  <script defer src="js/warp-cursor.js"></script>
+</body>
+
+</html>
