@@ -52,31 +52,101 @@ document.addEventListener('DOMContentLoaded', () => {
     const reel = document.querySelector('.experience-reel');
     if (reel) {
         const medias = document.querySelectorAll('.reel-media');
-        const texts = document.querySelectorAll('.reel-text');
-        const dots = document.querySelectorAll('.reel-dot');
+        const texts  = document.querySelectorAll('.reel-text');
+        const dots   = document.querySelectorAll('.reel-dot');
 
-        window.addEventListener('scroll', () => {
-            let rect = reel.getBoundingClientRect();
-            // If reel top is past screen top, and bottom is still below screen top
-            if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
-                let traveled = Math.abs(rect.top);
-                let totalScrollable = rect.height - window.innerHeight;
-                let progress = traveled / totalScrollable; // 0 to 1
-                
-                // Map progress to 4 acts (0,1,2,3)
-                let act = Math.min(3, Math.floor(progress * 4));
-                
-                medias.forEach((m, i) => m.classList.toggle('active', i === act));
-                texts.forEach((t, i) => t.classList.toggle('active', i === act));
-                dots.forEach((d, i) => d.classList.toggle('active', i === act));
-            } else if (rect.top > 0) {
-                // Above the reel
-                medias.forEach((m, i) => m.classList.toggle('active', i === 0));
-                texts.forEach((t, i) => t.classList.toggle('active', i === 0));
-                dots.forEach((d, i) => d.classList.toggle('active', i === 0));
+        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
+        if (!isTouchDevice) {
+            // ── DESKTOP: scroll-driven ───────────────────────────────
+            window.addEventListener('scroll', () => {
+                let rect = reel.getBoundingClientRect();
+                if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
+                    let traveled = Math.abs(rect.top);
+                    let totalScrollable = rect.height - window.innerHeight;
+                    let progress = traveled / totalScrollable;
+                    let act = Math.min(3, Math.floor(progress * 4));
+                    medias.forEach((m, i) => m.classList.toggle('active', i === act));
+                    texts.forEach((t, i)  => t.classList.toggle('active', i === act));
+                    dots.forEach((d, i)   => d.classList.toggle('active', i === act));
+                } else if (rect.top > 0) {
+                    medias.forEach((m, i) => m.classList.toggle('active', i === 0));
+                    texts.forEach((t, i)  => t.classList.toggle('active', i === 0));
+                    dots.forEach((d, i)   => d.classList.toggle('active', i === 0));
+                }
+            }, { passive: true });
+
+        } else {
+            // ── MOBILE: swipe-per-act (one swipe = one act) ──────────
+            // Reel height is set to 100vh in mobile.css so no scroll-space exists.
+            let touchStartY    = 0;
+            let currentAct     = 0;
+            let isTransitioning = false;
+            let isSwiping      = false;
+
+            const stickyEl = reel.querySelector('.reel-sticky');
+
+            function goToAct(n) {
+                n = Math.max(0, Math.min(3, n));
+                currentAct = n;
+                medias.forEach((m, i) => m.classList.toggle('active', i === n));
+                texts.forEach((t, i)  => t.classList.toggle('active', i === n));
+                dots.forEach((d, i)   => d.classList.toggle('active', i === n));
+                // Update swipe hint text
+                if (hint) {
+                    hint.textContent = n === 3 ? '↓  Scroll to continue' : '↑  Swipe to explore';
+                }
             }
-        }, {passive:true});
+
+            // Inject swipe hint label
+            const hint = document.createElement('div');
+            hint.className = 'reel-swipe-hint';
+            hint.textContent = '↑  Swipe to explore';
+            if (stickyEl) stickyEl.appendChild(hint);
+
+            goToAct(0); // Init act 1
+
+            if (stickyEl) {
+                stickyEl.addEventListener('touchstart', (e) => {
+                    touchStartY = e.touches[0].clientY;
+                    isSwiping   = false;
+                }, { passive: true });
+
+                // Prevent page scroll while mid-swipe inside the reel
+                // (unless on last act swiping up, or first act swiping down)
+                stickyEl.addEventListener('touchmove', (e) => {
+                    if (isTransitioning) return;
+                    const delta = touchStartY - e.touches[0].clientY;
+                    if (Math.abs(delta) > 12) {
+                        const atEdge = (delta > 0 && currentAct >= 3) ||
+                                       (delta < 0 && currentAct <= 0);
+                        if (!atEdge) {
+                            e.preventDefault(); // Lock scroll while changing act
+                            isSwiping = true;
+                        }
+                    }
+                }, { passive: false });
+
+                stickyEl.addEventListener('touchend', (e) => {
+                    if (isTransitioning || !isSwiping) return;
+                    const delta = touchStartY - e.changedTouches[0].clientY;
+                    if (Math.abs(delta) < 35) { isSwiping = false; return; }
+
+                    if (delta > 0 && currentAct < 3) {
+                        isTransitioning = true;
+                        goToAct(currentAct + 1);
+                        setTimeout(() => isTransitioning = false, 650);
+                    } else if (delta < 0 && currentAct > 0) {
+                        isTransitioning = true;
+                        goToAct(currentAct - 1);
+                        setTimeout(() => isTransitioning = false, 650);
+                    }
+                    isSwiping = false;
+                }, { passive: true });
+            }
+        }
     }
+
 
     // 4. Fake Terminal Output
     const terminalLines = document.querySelectorAll('.terminal-line[data-typewriter]');
