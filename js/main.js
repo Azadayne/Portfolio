@@ -291,6 +291,25 @@
     }, {passive:true});
   }
 
+  /* ── Universal Back to Top Handler ────────────────────── */
+  function initBackToTop() {
+    document.querySelectorAll('.back-to-top-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Populate current year across all footer year elements
+    const currentYear = new Date().getFullYear();
+    document.querySelectorAll('#footerYear, .footer-year, .footerYear').forEach(function (el) {
+      el.textContent = currentYear;
+    });
+  }
+
   /* ── Run on DOMContentLoaded ─────────────────────────────── */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAll);
@@ -307,6 +326,7 @@
     initTickerTooltips();
     initKonami();
     initGlobalScrollHUD();
+    initBackToTop();
   }
 
 })();

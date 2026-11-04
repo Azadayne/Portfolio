@@ -24,7 +24,7 @@
     var ctx = canvas.getContext('2d');
 
     function setSize() {
-      canvas.width  = window.innerWidth;
+      canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
     setSize();
@@ -75,7 +75,7 @@
 
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-        
+
         if (s.isRed) {
           ctx.fillStyle = 'rgba(255, 45, 120, ' + currentAlpha + ')';
           ctx.shadowColor = 'rgba(255, 0, 50, ' + currentAlpha + ')';
@@ -84,7 +84,7 @@
           ctx.fillStyle = 'rgba(15, 10, 20, ' + (currentAlpha * 2) + ')';
           ctx.shadowBlur = 0;
         }
-        
+
         ctx.fill();
 
         if (s.life > s.maxLife) {
@@ -109,9 +109,9 @@
     if (!document.body.classList.contains('theme-nv')) return;
 
     var auroraConfigs = [
-      { color: '74,158,255', size: '50vmax', speed: 0.00012, ox: 0.5,  oy: 0.3,  opacity: 0.04, phase: 0 },
-      { color: '255,45,120', size: '40vmax', speed: 0.00018, ox: 0.25, oy: 0.7,  opacity: 0.03, phase: Math.PI * 0.66 },
-      { color: '0,255,209',  size: '35vmax', speed: 0.00010, ox: 0.75, oy: 0.5,  opacity: 0.02, phase: Math.PI * 1.33 },
+      { color: '74,158,255', size: '50vmax', speed: 0.00012, ox: 0.5, oy: 0.3, opacity: 0.04, phase: 0 },
+      { color: '255,45,120', size: '40vmax', speed: 0.00018, ox: 0.25, oy: 0.7, opacity: 0.03, phase: Math.PI * 0.66 },
+      { color: '0,255,209', size: '35vmax', speed: 0.00010, ox: 0.75, oy: 0.5, opacity: 0.02, phase: Math.PI * 1.33 },
     ];
 
     var auroras = auroraConfigs.map(function (cfg) {
@@ -137,12 +137,12 @@
       var t = (Date.now() - startTime);
       auroras.forEach(function (a) {
         var angle = t * a.cfg.speed + a.cfg.phase;
-        var rx    = 0.28 * window.innerWidth;
-        var ry    = 0.22 * window.innerHeight;
-        var cx    = a.cfg.ox * window.innerWidth  + Math.cos(angle) * rx;
-        var cy    = a.cfg.oy * window.innerHeight + Math.sin(angle * 1.3) * ry;
+        var rx = 0.28 * window.innerWidth;
+        var ry = 0.22 * window.innerHeight;
+        var cx = a.cfg.ox * window.innerWidth + Math.cos(angle) * rx;
+        var cy = a.cfg.oy * window.innerHeight + Math.sin(angle * 1.3) * ry;
         a.el.style.left = cx + 'px';
-        a.el.style.top  = cy + 'px';
+        a.el.style.top = cy + 'px';
       });
       requestAnimationFrame(animateAurora);
     }
@@ -176,7 +176,7 @@
     function sweep() {
       var h = window.innerHeight;
       sweeper.style.transition = 'none';
-      sweeper.style.top  = '-20px';
+      sweeper.style.top = '-20px';
       sweeper.style.opacity = '0';
 
       setTimeout(function () {
@@ -299,14 +299,14 @@
 
     hud.innerHTML = [
       '<svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;">',
-        '<circle cx="28" cy="28" r="26" fill="none" stroke="rgba(74,158,255,0.1)" stroke-width="1"/>',
-        '<circle cx="28" cy="28" r="18" fill="none" stroke="rgba(74,158,255,0.06)" stroke-width="0.7"/>',
-        '<circle cx="28" cy="28" r="10" fill="none" stroke="rgba(74,158,255,0.04)" stroke-width="0.5"/>',
-        '<line x1="28" y1="2" x2="28" y2="54" stroke="rgba(74,158,255,0.04)" stroke-width="0.5"/>',
-        '<line x1="2" y1="28" x2="54" y2="28" stroke="rgba(74,158,255,0.04)" stroke-width="0.5"/>',
-        /* Rotating sweep arm */
-        '<line id="nv-sweep-arm" x1="28" y1="28" x2="28" y2="2" stroke="rgba(74,158,255,0.6)" stroke-width="1" style="transform-origin:28px 28px;"/>',
-        '<circle cx="28" cy="28" r="2" fill="rgba(74,158,255,0.8)"/>',
+      '<circle cx="28" cy="28" r="26" fill="none" stroke="rgba(74,158,255,0.1)" stroke-width="1"/>',
+      '<circle cx="28" cy="28" r="18" fill="none" stroke="rgba(74,158,255,0.06)" stroke-width="0.7"/>',
+      '<circle cx="28" cy="28" r="10" fill="none" stroke="rgba(74,158,255,0.04)" stroke-width="0.5"/>',
+      '<line x1="28" y1="2" x2="28" y2="54" stroke="rgba(74,158,255,0.04)" stroke-width="0.5"/>',
+      '<line x1="2" y1="28" x2="54" y2="28" stroke="rgba(74,158,255,0.04)" stroke-width="0.5"/>',
+      /* Rotating sweep arm */
+      '<line id="nv-sweep-arm" x1="28" y1="28" x2="28" y2="2" stroke="rgba(74,158,255,0.6)" stroke-width="1" style="transform-origin:28px 28px;"/>',
+      '<circle cx="28" cy="28" r="2" fill="rgba(74,158,255,0.8)"/>',
       '</svg>'
     ].join('');
 
@@ -404,7 +404,7 @@
     document.body.style.cursor = 'none';
 
     var cursor = document.createElement('div');
-    cursor.id  = 'nv-cursor';
+    cursor.id = 'nv-cursor';
     cursor.classList.add('theme-cursor-element');
     cursor.style.cssText = [
       'position:fixed',
@@ -416,41 +416,41 @@
 
     cursor.innerHTML = [
       '<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;transform-origin:center;">',
-        /* Outer dashed ring — blue */
-        '<circle id="nv-ring-outer" cx="32" cy="32" r="28"',
-          'fill="none" stroke="rgba(74,158,255,0.7)" stroke-width="1"',
-          'stroke-dasharray="5 4"',
-          'style="transform-origin:32px 32px;"/>',
-        /* Inner dashed ring — magenta, rotates opposite */
-        '<circle id="nv-ring-inner" cx="32" cy="32" r="18"',
-          'fill="none" stroke="rgba(255,45,120,0.6)" stroke-width="0.8"',
-          'stroke-dasharray="3 5"',
-          'style="transform-origin:32px 32px;"/>',
-        /* Cardinal crosshair lines — teal */
-        '<line x1="32" y1="0"  x2="32" y2="10" stroke="rgba(0,255,209,0.9)" stroke-width="1.2"/>',
-        '<line x1="32" y1="54" x2="32" y2="64" stroke="rgba(0,255,209,0.9)" stroke-width="1.2"/>',
-        '<line x1="0"  y1="32" x2="10" y2="32" stroke="rgba(0,255,209,0.9)" stroke-width="1.2"/>',
-        '<line x1="54" y1="32" x2="64" y2="32" stroke="rgba(0,255,209,0.9)" stroke-width="1.2"/>',
-        /* Corner brackets */
-        '<path d="M20 14 L14 14 L14 20" fill="none" stroke="rgba(74,158,255,0.8)" stroke-width="1.2"/>',
-        '<path d="M44 14 L50 14 L50 20" fill="none" stroke="rgba(74,158,255,0.8)" stroke-width="1.2"/>',
-        '<path d="M20 50 L14 50 L14 44" fill="none" stroke="rgba(74,158,255,0.8)" stroke-width="1.2"/>',
-        '<path d="M44 50 L50 50 L50 44" fill="none" stroke="rgba(74,158,255,0.8)" stroke-width="1.2"/>',
-        /* Diamond center */
-        '<rect id="nv-diamond" x="29" y="29" width="6" height="6"',
-          'fill="none" stroke="rgba(255,45,120,0.9)" stroke-width="1.2"',
-          'transform="rotate(45 32 32)"/>',
-        /* Hot center dot */
-        '<circle cx="32" cy="32" r="2" fill="#FF2D78"',
-          'style="filter:drop-shadow(0 0 6px #FF2D78);"/>',
+      /* Outer dashed ring — blue */
+      '<circle id="nv-ring-outer" cx="32" cy="32" r="28"',
+      'fill="none" stroke="rgba(74,158,255,0.7)" stroke-width="1"',
+      'stroke-dasharray="5 4"',
+      'style="transform-origin:32px 32px;"/>',
+      /* Inner dashed ring — magenta, rotates opposite */
+      '<circle id="nv-ring-inner" cx="32" cy="32" r="18"',
+      'fill="none" stroke="rgba(255,45,120,0.6)" stroke-width="0.8"',
+      'stroke-dasharray="3 5"',
+      'style="transform-origin:32px 32px;"/>',
+      /* Cardinal crosshair lines — teal */
+      '<line x1="32" y1="0"  x2="32" y2="10" stroke="rgba(0,255,209,0.9)" stroke-width="1.2"/>',
+      '<line x1="32" y1="54" x2="32" y2="64" stroke="rgba(0,255,209,0.9)" stroke-width="1.2"/>',
+      '<line x1="0"  y1="32" x2="10" y2="32" stroke="rgba(0,255,209,0.9)" stroke-width="1.2"/>',
+      '<line x1="54" y1="32" x2="64" y2="32" stroke="rgba(0,255,209,0.9)" stroke-width="1.2"/>',
+      /* Corner brackets */
+      '<path d="M20 14 L14 14 L14 20" fill="none" stroke="rgba(74,158,255,0.8)" stroke-width="1.2"/>',
+      '<path d="M44 14 L50 14 L50 20" fill="none" stroke="rgba(74,158,255,0.8)" stroke-width="1.2"/>',
+      '<path d="M20 50 L14 50 L14 44" fill="none" stroke="rgba(74,158,255,0.8)" stroke-width="1.2"/>',
+      '<path d="M44 50 L50 50 L50 44" fill="none" stroke="rgba(74,158,255,0.8)" stroke-width="1.2"/>',
+      /* Diamond center */
+      '<rect id="nv-diamond" x="29" y="29" width="6" height="6"',
+      'fill="none" stroke="rgba(255,45,120,0.9)" stroke-width="1.2"',
+      'transform="rotate(45 32 32)"/>',
+      /* Hot center dot */
+      '<circle cx="32" cy="32" r="2" fill="#FF2D78"',
+      'style="filter:drop-shadow(0 0 6px #FF2D78);"/>',
       '</svg>'
     ].join('');
 
     document.body.appendChild(cursor);
 
-    var svg        = cursor.querySelector('svg');
-    var outerRing  = cursor.querySelector('#nv-ring-outer');
-    var innerRing  = cursor.querySelector('#nv-ring-inner');
+    var svg = cursor.querySelector('svg');
+    var outerRing = cursor.querySelector('#nv-ring-outer');
+    var innerRing = cursor.querySelector('#nv-ring-inner');
     var outerAngle = 0;
     var innerAngle = 0;
 
@@ -475,13 +475,22 @@
     var mx = 0, my = 0;
     document.addEventListener('mousemove', function (e) {
       mx = e.clientX; my = e.clientY;
-      cursor.style.left    = mx + 'px';
-      cursor.style.top     = my + 'px';
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
       cursor.style.transform = 'translate(-50%,-50%)';
       cursor.style.opacity = '1';
+      cursor.style.visibility = 'visible';
     });
-    document.addEventListener('mouseleave', function () { cursor.style.opacity = '0'; });
-    document.addEventListener('mouseenter', function () { cursor.style.opacity = '1'; });
+    document.addEventListener('mouseleave', function (e) {
+      if (!e.relatedTarget && !e.toElement) {
+        const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement);
+        if (!isFs) cursor.style.opacity = '0';
+      }
+    });
+    document.addEventListener('mouseenter', function () {
+      cursor.style.opacity = '1';
+      cursor.style.visibility = 'visible';
+    });
 
     document.querySelectorAll('a, button, .btn').forEach(function (el) {
       el.addEventListener('mouseenter', function () {
@@ -505,9 +514,9 @@
     if (!document.body.classList.contains('theme-nv')) return;
 
     var configs = [
-      { delay: 50,  col: 'rgba(74,158,255,0.22)',  blur: 0,   size: 64 },
-      { delay: 110, col: 'rgba(255,45,120,0.14)',   blur: 1,   size: 56 },
-      { delay: 200, col: 'rgba(0,255,209,0.08)',    blur: 2.5, size: 48 },
+      { delay: 50, col: 'rgba(74,158,255,0.22)', blur: 0, size: 64 },
+      { delay: 110, col: 'rgba(255,45,120,0.14)', blur: 1, size: 56 },
+      { delay: 200, col: 'rgba(0,255,209,0.08)', blur: 2.5, size: 48 },
     ];
 
     configs.forEach(function (cfg) {
@@ -524,17 +533,17 @@
       ].join(';');
       t.innerHTML = [
         '<svg width="' + cfg.size + '" height="' + cfg.size + '"',
-          'viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">',
-          '<circle cx="32" cy="32" r="28" fill="none"',
-            'stroke="' + cfg.col + '" stroke-width="0.8" stroke-dasharray="5 4"/>',
-          '<circle cx="32" cy="32" r="2.5" fill="' + cfg.col + '"/>',
+        'viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">',
+        '<circle cx="32" cy="32" r="28" fill="none"',
+        'stroke="' + cfg.col + '" stroke-width="0.8" stroke-dasharray="5 4"/>',
+        '<circle cx="32" cy="32" r="2.5" fill="' + cfg.col + '"/>',
         '</svg>'
       ].join('');
       document.body.appendChild(t);
 
       document.addEventListener('mousemove', function (e) {
         t.style.left = e.clientX + 'px';
-        t.style.top  = e.clientY + 'px';
+        t.style.top = e.clientY + 'px';
       });
     });
   }
@@ -572,9 +581,9 @@
 
     /* Chromatic rings */
     [
-      { col: 'rgba(74,158,255,0.9)',  delay: 0,   dur: '0.7s', maxW: 160 },
-      { col: 'rgba(255,45,120,0.7)',  delay: 60,  dur: '0.6s', maxW: 120 },
-      { col: 'rgba(0,255,209,0.5)',   delay: 130, dur: '0.5s', maxW: 80  },
+      { col: 'rgba(74,158,255,0.9)', delay: 0, dur: '0.7s', maxW: 160 },
+      { col: 'rgba(255,45,120,0.7)', delay: 60, dur: '0.6s', maxW: 120 },
+      { col: 'rgba(0,255,209,0.5)', delay: 130, dur: '0.5s', maxW: 80 },
     ].forEach(function (cfg) {
       var ring = document.createElement('div');
       ring.style.cssText = [
@@ -597,16 +606,16 @@
     });
 
     /* 8 neon shards */
-    var colors = ['#4A9EFF','#FF2D78','#00FFD1','#8250FF','#4A9EFF','#FF2D78','#00FFD1','#ff9f2d'];
+    var colors = ['#4A9EFF', '#FF2D78', '#00FFD1', '#8250FF', '#4A9EFF', '#FF2D78', '#00FFD1', '#ff9f2d'];
     for (var i = 0; i < 8; i++) {
-      (function(idx) {
-        var deg  = idx * 45 + (Math.random() - 0.5) * 20;
-        var rad  = deg * Math.PI / 180;
+      (function (idx) {
+        var deg = idx * 45 + (Math.random() - 0.5) * 20;
+        var rad = deg * Math.PI / 180;
         var dist = 40 + Math.random() * 50;
-        var tx   = Math.cos(rad) * dist;
-        var ty   = Math.sin(rad) * dist;
-        var w    = 2 + Math.random() * 3;
-        var h    = 10 + Math.random() * 14;
+        var tx = Math.cos(rad) * dist;
+        var ty = Math.sin(rad) * dist;
+        var w = 2 + Math.random() * 3;
+        var h = 10 + Math.random() * 14;
         var shard = document.createElement('div');
         shard.style.cssText = [
           'position:fixed',
@@ -625,13 +634,13 @@
         document.body.appendChild(shard);
         shard.offsetHeight;
         shard.style.transform = 'translate(calc(-50% + ' + tx + 'px), calc(-50% + ' + ty + 'px)) rotate(' + deg + 'deg) scaleY(0.1)';
-        shard.style.opacity   = '0';
+        shard.style.opacity = '0';
         setTimeout(function () { shard.remove(); }, 550);
       })(i);
     }
 
     /* Hex code whisper */
-    var hexChars  = '0123456789ABCDEF';
+    var hexChars = '0123456789ABCDEF';
     var hexString = '';
     for (var h = 0; h < 6; h++) hexString += hexChars[Math.floor(Math.random() * 16)];
     var whisper = document.createElement('div');
@@ -722,21 +731,20 @@
 
     document.addEventListener('mousemove', function (e) {
       bloom.style.left = e.clientX + 'px';
-      bloom.style.top  = e.clientY + 'px';
+      bloom.style.top = e.clientY + 'px';
     });
   }
 
   /* ══════════════════════════════════════════════════════
-     12. OVERRIDE GLOBAL CLICK EFFECTS
+     12. THEME CLICK EFFECTS
   ══════════════════════════════════════════════════════ */
   function initClickOverride() {
     document.addEventListener('click', function (e) {
       if (!document.body.classList.contains('theme-nv')) return;
-      // Never intercept nav/hamburger/mobile-menu clicks
-      if (e.target.closest('.nav__hamburger, .nav__mobile-menu, .nav__mobile-link, .nav')) return;
-      e.stopImmediatePropagation();
+      // Do not trigger or intercept interactive elements
+      if (e.target.closest('button, a, input, textarea, select, [role="button"], .custom-video-controls, .video-ctrl-btn, .nav, .nav__hamburger, .nav__mobile-menu, .nav__mobile-link')) return;
       nvClickEffect(e);
-    }, true);
+    });
   }
 
   /* ══════════════════════════════════════════════════════

@@ -23,6 +23,7 @@
   --color-text-muted:     #1C1A18;
 
   /* Override site accent tokens */
+  --theme-accent: #C0001A;
   --accent:    #E8E0D0;
   --secondary: #C0001A;
   --bg:        #030303;

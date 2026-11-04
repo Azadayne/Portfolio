@@ -554,3 +554,431 @@
   color: var(--text-muted);
   margin-top: 4px;
 }
+
+/* ════════════════════════════════════════════════════════════
+   BACK TO THE TOP BUTTON (UNIVERSAL CYBERPUNK HUD COMPONENT)
+   ════════════════════════════════════════════════════════════ */
+.footer__btt-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: var(--sp-6) var(--sp-4) var(--sp-5);
+  position: relative;
+  z-index: 25;
+}
+
+.back-to-top-btn {
+  /* Default / Core Portfolio Tokens (Cyber Obsidian & Molten Gold) */
+  --btt-accent: #E8A020;
+  --btt-accent-sec: #7B61FF;
+  --btt-glow: rgba(232, 160, 32, 0.45);
+  --btt-glow-sec: rgba(123, 97, 255, 0.25);
+  --btt-bg: rgba(12, 10, 16, 0.92);
+  --btt-border: rgba(232, 160, 32, 0.35);
+  --btt-border-hover: #E8A020;
+  --btt-icon-bg: rgba(232, 160, 32, 0.1);
+  --btt-icon-color: #E8A020;
+  --btt-icon-hover-bg: #E8A020;
+  --btt-icon-hover-color: #07070A;
+  --btt-meta-color: #E8A020;
+  --btt-text-glow: rgba(232, 160, 32, 0.85);
+  --btt-clip: polygon(14px 0%, 100% 0%, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0% 100%, 0% 14px);
+  --btt-sheen: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 42%, #E8A020 50%, #7B61FF 55%, transparent 60%);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 14px 34px;
+  background: var(--btt-bg);
+  border: 1px solid var(--btt-border);
+  border-radius: 4px;
+  clip-path: var(--btt-clip);
+  color: var(--text-primary, #F0F0FF);
+  cursor: pointer;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 6px 26px rgba(0, 0, 0, 0.65), inset 0 0 16px rgba(0, 0, 0, 0.5);
+  transition: transform 0.35s cubic-bezier(0.2, 0, 0, 1),
+              border-color 0.35s ease,
+              box-shadow 0.35s ease,
+              background 0.35s ease;
+  user-select: none;
+  text-decoration: none;
+  outline: none;
+}
+
+.back-to-top-btn:focus-visible {
+  outline: 2px solid var(--btt-accent);
+  outline-offset: 4px;
+}
+
+/* Tactical Corner Brackets */
+.btt-corner {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-style: solid;
+  border-color: var(--btt-accent);
+  pointer-events: none;
+  transition: all 0.3s ease;
+  opacity: 0.75;
+}
+
+.btt-corner--tl {
+  top: 3px;
+  left: 3px;
+  border-width: 2px 0 0 2px;
+}
+
+.btt-corner--tr {
+  top: 3px;
+  right: 3px;
+  border-width: 2px 2px 0 0;
+}
+
+.btt-corner--bl {
+  bottom: 3px;
+  left: 3px;
+  border-width: 0 0 2px 2px;
+}
+
+.btt-corner--br {
+  bottom: 3px;
+  right: 3px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Kinetic Ascent Icon */
+.btt-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--btt-border);
+  background: var(--btt-icon-bg);
+  color: var(--btt-icon-color);
+  font-size: 14px;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: all 0.35s cubic-bezier(0.2, 0, 0, 1);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5), inset 0 0 8px var(--btt-glow);
+}
+
+/* Text & Telemetry Content */
+.btt-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.btt-text {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: clamp(22px, 2.2vw, 28px);
+  letter-spacing: 0.14em;
+  line-height: 1;
+  color: #FFFFFF;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.btt-meta {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--btt-meta-color);
+  opacity: 0.9;
+  text-transform: uppercase;
+  margin-top: 4px;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+/* Subtle Shimmer Sheen */
+.btt-glow {
+  position: absolute;
+  inset: -100%;
+  background: var(--btt-sheen);
+  opacity: 0;
+  transform: rotate(25deg);
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.6s ease;
+}
+
+/* Hover States (Universal) */
+.back-to-top-btn:hover {
+  transform: translateY(-4px);
+  border-color: var(--btt-border-hover);
+  background: var(--btt-bg);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.9),
+              0 0 30px var(--btt-glow),
+              inset 0 0 16px rgba(255, 255, 255, 0.05);
+}
+
+.back-to-top-btn:hover .btt-corner {
+  opacity: 1;
+  border-color: var(--btt-border-hover);
+  box-shadow: 0 0 10px var(--btt-accent);
+}
+
+.back-to-top-btn:hover .btt-icon {
+  transform: translateY(-4px);
+  border-color: var(--btt-border-hover);
+  background: var(--btt-icon-hover-bg);
+  color: var(--btt-icon-hover-color);
+  box-shadow: 0 0 20px var(--btt-glow);
+}
+
+.back-to-top-btn:hover .btt-text {
+  text-shadow: 0 0 16px var(--btt-text-glow);
+}
+
+.back-to-top-btn:hover .btt-meta {
+  opacity: 1;
+}
+
+.back-to-top-btn:hover .btt-glow {
+  opacity: 0.28;
+  transform: rotate(25deg) translateY(-20%);
+}
+
+.back-to-top-btn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* ════════════════════════════════════════════════════════════
+   THEME-SPECIFIC BACK TO THE TOP OVERRIDES
+   ════════════════════════════════════════════════════════════ */
+
+/* 1. Main Portfolio Hub (Cyber Gold / Amber & Sovereign Violet) */
+body:not([class*="theme-"]) .back-to-top-btn {
+  --btt-accent: #E8A020;
+  --btt-accent-sec: #7B61FF;
+  --btt-glow: rgba(232, 160, 32, 0.55);
+  --btt-glow-sec: rgba(123, 97, 255, 0.35);
+  --btt-bg: rgba(14, 11, 18, 0.94);
+  --btt-border: rgba(232, 160, 32, 0.4);
+  --btt-border-hover: #E8A020;
+  --btt-icon-bg: rgba(232, 160, 32, 0.12);
+  --btt-icon-color: #E8A020;
+  --btt-icon-hover-bg: #E8A020;
+  --btt-icon-hover-color: #08060B;
+  --btt-meta-color: #E8A020;
+  --btt-text-glow: rgba(232, 160, 32, 0.9);
+  --btt-clip: polygon(14px 0%, 100% 0%, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0% 100%, 0% 14px);
+  --btt-sheen: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 42%, #E8A020 50%, #7B61FF 55%, transparent 60%);
+}
+body:not([class*="theme-"]) .back-to-top-btn:hover {
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.92),
+              0 0 35px rgba(232, 160, 32, 0.6),
+              0 0 55px rgba(123, 97, 255, 0.35),
+              inset 0 0 18px rgba(232, 160, 32, 0.15);
+}
+
+/* 2. Rock Paper Scissors (Volcanic Crimson & Molten Magma Arcade) */
+.theme-rps .back-to-top-btn {
+  --btt-accent: #E63946;
+  --btt-accent-sec: #FFB627;
+  --btt-glow: rgba(230, 57, 70, 0.6);
+  --btt-glow-sec: rgba(255, 182, 39, 0.35);
+  --btt-bg: rgba(18, 6, 8, 0.95);
+  --btt-border: rgba(230, 57, 70, 0.45);
+  --btt-border-hover: #E63946;
+  --btt-icon-bg: rgba(230, 57, 70, 0.15);
+  --btt-icon-color: #E63946;
+  --btt-icon-hover-bg: #E63946;
+  --btt-icon-hover-color: #0A0304;
+  --btt-meta-color: #FFB627;
+  --btt-text-glow: rgba(230, 57, 70, 0.95);
+  --btt-clip: polygon(14px 0%, 100% 0%, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0% 100%, 0% 14px);
+  --btt-sheen: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 42%, #E63946 50%, #FFB627 55%, transparent 60%);
+}
+.theme-rps .back-to-top-btn:hover {
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.95),
+              0 0 35px rgba(230, 57, 70, 0.75),
+              0 0 65px rgba(255, 107, 53, 0.4),
+              inset 0 0 20px rgba(230, 57, 70, 0.2);
+}
+
+/* 3. Unfinished Business (Neo-Noir Detective / Phosphor Cyan & Police Red) */
+.theme-ub .back-to-top-btn {
+  --btt-accent: #00F5D4;
+  --btt-accent-sec: #FF3C28;
+  --btt-glow: rgba(0, 245, 212, 0.6);
+  --btt-glow-sec: rgba(255, 60, 40, 0.35);
+  --btt-bg: rgba(6, 14, 11, 0.95);
+  --btt-border: rgba(0, 245, 212, 0.45);
+  --btt-border-hover: #00F5D4;
+  --btt-icon-bg: rgba(0, 245, 212, 0.12);
+  --btt-icon-color: #00F5D4;
+  --btt-icon-hover-bg: #00F5D4;
+  --btt-icon-hover-color: #030806;
+  --btt-meta-color: #00F5D4;
+  --btt-text-glow: rgba(0, 245, 212, 0.95);
+  --btt-clip: polygon(0% 0%, calc(100% - 16px) 0%, 100% 16px, 100% 100%, 16px 100%, 0% calc(100% - 16px));
+  --btt-sheen: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 42%, #00F5D4 50%, #4A9EFF 55%, transparent 60%);
+}
+.theme-ub .back-to-top-btn:hover {
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.95),
+              0 0 35px rgba(0, 245, 212, 0.75),
+              0 0 55px rgba(255, 60, 40, 0.35),
+              inset 0 0 20px rgba(0, 245, 212, 0.2);
+}
+
+/* 4. Leo & Nora (Sacred Runic Hearth / Sunfire Gold & Hearth Rose) */
+.theme-ln .back-to-top-btn {
+  --btt-accent: #FFB830;
+  --btt-accent-sec: #FF4E8C;
+  --btt-glow: rgba(255, 184, 48, 0.6);
+  --btt-glow-sec: rgba(255, 78, 140, 0.35);
+  --btt-bg: rgba(18, 10, 6, 0.95);
+  --btt-border: rgba(255, 184, 48, 0.45);
+  --btt-border-hover: #FFB830;
+  --btt-icon-bg: rgba(255, 184, 48, 0.14);
+  --btt-icon-color: #FFB830;
+  --btt-icon-hover-bg: #FFB830;
+  --btt-icon-hover-color: #0E0704;
+  --btt-meta-color: #FF4E8C;
+  --btt-text-glow: rgba(255, 184, 48, 0.9);
+  --btt-clip: polygon(10px 0%, calc(100% - 10px) 0%, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0% calc(100% - 10px), 0% 10px);
+  --btt-sheen: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 42%, #FFB830 50%, #FF4E8C 55%, transparent 60%);
+}
+.theme-ln .back-to-top-btn:hover {
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.95),
+              0 0 35px rgba(255, 184, 48, 0.7),
+              0 0 60px rgba(255, 78, 140, 0.45),
+              inset 0 0 20px rgba(255, 184, 48, 0.2);
+}
+
+/* 5. Undead Unleashed (Toxic Biohazard Lab / Radioactive Green & Hazard Red) */
+.theme-uu .back-to-top-btn {
+  --btt-accent: #50FF3C;
+  --btt-accent-sec: #FF1A1A;
+  --btt-glow: rgba(80, 255, 60, 0.6);
+  --btt-glow-sec: rgba(255, 26, 26, 0.35);
+  --btt-bg: rgba(6, 14, 6, 0.95);
+  --btt-border: rgba(80, 255, 60, 0.45);
+  --btt-border-hover: #50FF3C;
+  --btt-icon-bg: rgba(80, 255, 60, 0.15);
+  --btt-icon-color: #50FF3C;
+  --btt-icon-hover-bg: #50FF3C;
+  --btt-icon-hover-color: #030803;
+  --btt-meta-color: #50FF3C;
+  --btt-text-glow: rgba(80, 255, 60, 0.95);
+  --btt-clip: polygon(16px 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 16px);
+  --btt-sheen: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 42%, #50FF3C 50%, #FF1A1A 55%, transparent 60%);
+}
+.theme-uu .back-to-top-btn:hover {
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.95),
+              0 0 35px rgba(80, 255, 60, 0.8),
+              0 0 65px rgba(255, 26, 26, 0.4),
+              inset 0 0 20px rgba(80, 255, 60, 0.22);
+}
+
+/* 6. Neon Veil (Ultra-Synthwave Cyber Grid / High-Voltage Blue & Neon Magenta) */
+.theme-nv .back-to-top-btn {
+  --btt-accent: #4A9EFF;
+  --btt-accent-sec: #FF2D78;
+  --btt-glow: rgba(74, 158, 255, 0.65);
+  --btt-glow-sec: rgba(255, 45, 120, 0.45);
+  --btt-bg: rgba(5, 5, 18, 0.95);
+  --btt-border: rgba(74, 158, 255, 0.5);
+  --btt-border-hover: #4A9EFF;
+  --btt-icon-bg: rgba(74, 158, 255, 0.15);
+  --btt-icon-color: #4A9EFF;
+  --btt-icon-hover-bg: #4A9EFF;
+  --btt-icon-hover-color: #03030A;
+  --btt-meta-color: #FF2D78;
+  --btt-text-glow: rgba(74, 158, 255, 0.95);
+  --btt-clip: polygon(18px 0%, 100% 0%, calc(100% - 18px) 100%, 0% 100%);
+  --btt-sheen: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 42%, #4A9EFF 50%, #FF2D78 55%, transparent 60%);
+}
+.theme-nv .back-to-top-btn:hover {
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.95),
+              0 0 35px rgba(74, 158, 255, 0.8),
+              0 0 70px rgba(255, 45, 120, 0.5),
+              inset 0 0 20px rgba(74, 158, 255, 0.22);
+}
+
+/* 7. Yami (Feudal Japanese Dark Samurai / Blood Crimson & Sumi-e Obsidian) */
+.theme-yami .back-to-top-btn {
+  --btt-accent: #C0001A;
+  --btt-accent-sec: #E8E0D0;
+  --btt-glow: rgba(192, 0, 26, 0.65);
+  --btt-glow-sec: rgba(232, 224, 208, 0.25);
+  --btt-bg: rgba(10, 3, 5, 0.96);
+  --btt-border: rgba(192, 0, 26, 0.5);
+  --btt-border-hover: #C0001A;
+  --btt-icon-bg: rgba(192, 0, 26, 0.16);
+  --btt-icon-color: #C0001A;
+  --btt-icon-hover-bg: #C0001A;
+  --btt-icon-hover-color: #E8E0D0;
+  --btt-meta-color: #E8E0D0;
+  --btt-text-glow: rgba(192, 0, 26, 0.95);
+  --btt-clip: polygon(12px 0%, calc(100% - 12px) 0%, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0% calc(100% - 12px), 0% 12px);
+  --btt-sheen: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 42%, #C0001A 50%, #E8E0D0 55%, transparent 60%);
+}
+.theme-yami .back-to-top-btn:hover {
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.98),
+              0 0 35px rgba(192, 0, 26, 0.8),
+              0 0 60px rgba(180, 120, 40, 0.35),
+              inset 0 0 20px rgba(192, 0, 26, 0.22);
+}
+
+/* Project Detail Footer */
+.project-detail__footer {
+  position: relative;
+  z-index: 25;
+  background: var(--bg, #050508);
+  border-top: 1px solid var(--border, rgba(255, 255, 255, 0.06));
+  padding: var(--sp-4) var(--sp-5) var(--sp-8);
+  text-align: center;
+}
+
+.project-detail__footer-copy {
+  margin-top: var(--sp-3);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  color: var(--text-muted, #6B6B8A);
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+}
+
+.project-detail__footer-copy p {
+  margin: 0;
+}
+
+.project-detail__footer-copy .footer-sub {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.project-detail__footer-copy .footer-sub span {
+  color: var(--theme-accent, var(--accent, #7B61FF));
+}
+
+@media (max-width: 768px) {
+  .back-to-top-btn {
+    padding: 12px 20px;
+    gap: 12px;
+    width: calc(100% - 32px);
+    max-width: 360px;
+  }
+  .btt-text {
+    font-size: 20px;
+  }
+  .btt-meta {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+  }
+  .btt-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+}

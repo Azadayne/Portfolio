@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#080A0F" />
 
     <!-- ── SEO & Meta ──────────────────────────────────────────── -->
@@ -99,7 +99,7 @@
         </a>
 
         <ul class="nav__links" role="list">
-            <li><a href="#projects" class="nav__link" id="nav-work">Work</a></li>
+            <li><a href="#featured-project" class="nav__link" id="nav-work">Work</a></li>
             <li><a href="#about" class="nav__link" id="nav-about">About</a></li>
             <li><a href="#skills" class="nav__link" id="nav-skills">Skills</a></li>
             <li><a href="#contact" class="nav__link" id="nav-contact">Contact</a></li>
@@ -133,7 +133,7 @@
             </svg>
             Close
         </button>
-        <a href="#projects" class="nav__mobile-link" id="mob-work">Work</a>
+        <a href="#featured-project" class="nav__mobile-link" id="mob-work">Work</a>
         <a href="#about" class="nav__mobile-link" id="mob-about">About</a>
         <a href="#skills" class="nav__mobile-link" id="mob-skills">Skills</a>
         <a href="#contact" class="nav__mobile-link" id="mob-contact">Contact</a>
@@ -154,7 +154,7 @@
                 </video>
 
                 <!-- Fallback image displayed while video loads or if no video src is set -->
-                <img src="assets/img/hero-bg.png" alt="" class="hero__bg-img"
+                <img src="assets/img/RPS.png" alt="Showcase Reel Poster" class="hero__bg-img"
                     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.45;z-index:0;"
                     aria-hidden="true" fetchpriority="high" />
                 <div class="hero__bg-inner" style="z-index:0;"></div>
@@ -181,7 +181,7 @@
                     </p>
 
                     <div class="hero__cta-group" id="heroCta">
-                        <a href="#projects" class="btn btn--primary" id="cta-work">
+                        <a href="#featured-project" class="btn btn--primary" id="cta-work">
                             View My Work
                         </a>
                         <a href="assets/docs/Adithya-Raghavan-CV.pdf" class="btn btn--secondary" id="cta-cv"
@@ -262,62 +262,202 @@
         </div>
 
         <!-- ══════════════════════════════════════════════════════════
-         [5] FEATURED PROJECTS
-         CHANGE 3: "View Project →" links to individual pages
-         CHANGE 4: 5 panels total, counters updated to X / 05
-    ══════════════════════════════════════════════════════════ -->
-        <section class="projects" id="projects" aria-label="Featured projects">
+         [4b] FEATURED PROJECT 01 — Rock, Paper & Scissors
+        ══════════════════════════════════════════════════════════ -->
+        <section class="section" id="featured-project" aria-label="Featured project — Rock, Paper & Scissors"
+            style="padding:var(--sp-10) 0 var(--sp-6);">
+            <div class="container">
+
+                <!-- Featured Label -->
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:var(--sp-4);">
+                    <span
+                        style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#E63946; box-shadow:0 0 10px rgba(230,57,70,0.8); animation: featuredPulse 1.5s ease-in-out infinite;"></span>
+                    <span class="section__label" style="margin-bottom:0; color:#E63946;">Featured Project · 01</span>
+                </div>
+
+                <a href="rock-paper-scissors.html" data-title="ROCK, PAPER & SCISSORS"
+                    style="display:block; position:relative; border-radius:var(--radius-card); overflow:hidden; border:1px solid rgba(230,57,70,0.2); transition:border-color 0.4s, box-shadow 0.4s, transform 0.4s;"
+                    id="featured-rps-card" data-project-theme="rps" aria-label="Rock, Paper & Scissors — View Project">
+                    <!-- Background with Cinematic Battle Royale Art -->
+                    <div
+                        style="position:relative; width:100%; aspect-ratio:16/9; min-height:480px; overflow:hidden; background:#0A0406;">
+                        <img src="assets/img/RPS-1.png" alt="Rock, Paper & Scissors Battle Royale Key Art"
+                            style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; filter:brightness(0.75); transition:transform 0.5s ease;"
+                            loading="lazy">
+                        <div
+                            style="position:absolute; inset:0; background:linear-gradient(to right, rgba(10,4,6,0.95) 0%, rgba(10,4,6,0.65) 45%, rgba(10,4,6,0.2) 80%); z-index:2;">
+                        </div>
+                        <div
+                            style="position:absolute; inset:0; background:linear-gradient(to top, rgba(10,4,6,0.95) 0%, transparent 50%); z-index:2;">
+                        </div>
+
+                        <!-- Content Overlay -->
+                        <div
+                            style="position:absolute; bottom:0; left:0; z-index:3; padding:var(--sp-8); max-width:700px;">
+                            <h2
+                                style="font-family:var(--font-display); font-size:clamp(44px,5.5vw,76px); color:#F5E6E8; line-height:0.95; letter-spacing:var(--tracking-display); margin-bottom:var(--sp-2);">
+                                Rock, Paper &amp; Scissors</h2>
+
+                            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:var(--sp-4);">
+                                <span
+                                    style="font-family:var(--font-mono); font-size:10px; padding:5px 12px; border:1px solid rgba(230,57,70,0.35); color:#E63946; text-transform:uppercase; letter-spacing:0.08em; border-radius:2px;">Gameplay
+                                    Programming</span>
+                                <span
+                                    style="font-family:var(--font-mono); font-size:10px; padding:5px 12px; border:1px solid rgba(230,57,70,0.35); color:#E63946; text-transform:uppercase; letter-spacing:0.08em; border-radius:2px;">Battle
+                                    Royale</span>
+                                <span
+                                    style="font-family:var(--font-mono); font-size:10px; padding:5px 12px; border:1px solid rgba(230,57,70,0.35); color:#E63946; text-transform:uppercase; letter-spacing:0.08em; border-radius:2px;">Multiplayer
+                                    Netcode</span>
+                                <span
+                                    style="font-family:var(--font-mono); font-size:10px; padding:5px 12px; border:1px solid rgba(230,57,70,0.35); color:#E63946; text-transform:uppercase; letter-spacing:0.08em; border-radius:2px;">Combat
+                                    Systems</span>
+                                <span
+                                    style="font-family:var(--font-mono); font-size:10px; padding:5px 12px; border:1px solid rgba(230,57,70,0.35); color:#E63946; text-transform:uppercase; letter-spacing:0.08em; border-radius:2px;">Level
+                                    Design</span>
+                                <span
+                                    style="font-family:var(--font-mono); font-size:10px; padding:5px 12px; border:1px solid rgba(255,182,39,0.4); color:#FFB627; text-transform:uppercase; letter-spacing:0.08em; border-radius:2px;">UE
+                                    5.5</span>
+                                <span
+                                    style="font-family:var(--font-mono); font-size:10px; padding:5px 12px; border:1px solid rgba(255,182,39,0.4); color:#FFB627; text-transform:uppercase; letter-spacing:0.08em; border-radius:2px;">C++</span>
+                            </div>
+
+                        </div>
+
+                        <!-- Corner hover cue -->
+                        <div class="featured-card__hover-cue"
+                            style="position:absolute; bottom:24px; right:24px; z-index:3; padding:10px 22px; background:rgba(10,4,6,0.85); border:1px solid rgba(230,57,70,0.4); border-radius:4px; font-family:var(--font-mono); font-size:12px; color:#E63946; letter-spacing:0.1em; display:inline-flex; align-items:center; gap:8px; opacity:0; transform:translateY(8px); transition:opacity 0.3s, transform 0.3s; pointer-events:none; backdrop-filter:blur(8px);">
+                            EXPLORE PROJECT <span style="font-size:15px;">→</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════
+         [4c] FEATURED PROJECT 02 — Unfinished Business
+        ══════════════════════════════════════════════════════════ -->
+        <section class="section" id="featured-ub" aria-label="Featured project — Unfinished Business"
+            style="padding:var(--sp-6) 0 var(--sp-12);">
+            <div class="container">
+
+                <!-- Featured Label -->
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:var(--sp-4);">
+                    <span
+                        style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#00F5D4; box-shadow:0 0 10px rgba(0,245,212,0.8); animation: featuredPulseUB 1.5s ease-in-out infinite;"></span>
+                    <span class="section__label" style="margin-bottom:0; color:#00F5D4;">Featured Project · 02</span>
+                </div>
+
+                <a href="unfinished-business.html" data-title="UNFINISHED BUSINESS"
+                    style="display:block; position:relative; border-radius:var(--radius-card); overflow:hidden; border:1px solid rgba(0,245,212,0.2); transition:border-color 0.4s, box-shadow 0.4s, transform 0.4s;"
+                    id="featured-ub-card" data-project-theme="ub" aria-label="Unfinished Business — View Project">
+                    <!-- Background with Cinematic City Art -->
+                    <div
+                        style="position:relative; width:100%; aspect-ratio:16/9; min-height:480px; overflow:hidden; background:#080A09;">
+                        <img src="assets/img/Unfinished-Business-2.png" alt="Unfinished Business Cinematic Key Art"
+                            style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; filter:brightness(0.75); transition:transform 0.5s ease;"
+                            loading="lazy">
+                        <div
+                            style="position:absolute; inset:0; background:linear-gradient(to right, rgba(8,10,9,0.95) 0%, rgba(8,10,9,0.65) 45%, rgba(8,10,9,0.2) 80%); z-index:2;">
+                        </div>
+                        <div
+                            style="position:absolute; inset:0; background:linear-gradient(to top, rgba(8,10,9,0.95) 0%, transparent 50%); z-index:2;">
+                        </div>
+
+                        <!-- Content Overlay -->
+                        <div
+                            style="position:absolute; bottom:0; left:0; z-index:3; padding:var(--sp-8); max-width:700px;">
+                            <div style="display:flex; align-items:center; gap:8px; margin-bottom:var(--sp-2);">
+
+
+                            </div>
+                            <h2
+                                style="font-family:var(--font-display); font-size:clamp(44px,5.5vw,76px); color:#E8EDE8; line-height:0.95; letter-spacing:var(--tracking-display); margin-bottom:var(--sp-2);">
+                                Unfinished Business</h2>
+
+                            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:var(--sp-4);">
+                                <span
+                                    style="font-family:var(--font-mono); font-size:10px; padding:5px 12px; border:1px solid rgba(0,245,212,0.3); color:#00F5D4; text-transform:uppercase; letter-spacing:0.08em; border-radius:2px;">Gameplay
+                                    Programming</span>
+                                <span
+                                    style="font-family:var(--font-mono); font-size:10px; padding:5px 12px; border:1px solid rgba(0,245,212,0.3); color:#00F5D4; text-transform:uppercase; letter-spacing:0.08em; border-radius:2px;">Blueprints</span>
+                                <span
+                                    style="font-family:var(--font-mono); font-size:10px; padding:5px 12px; border:1px solid rgba(0,245,212,0.3); color:#00F5D4; text-transform:uppercase; letter-spacing:0.08em; border-radius:2px;">Combat
+                                    Systems</span>
+                                <span
+                                    style="font-family:var(--font-mono); font-size:10px; padding:5px 12px; border:1px solid rgba(0,245,212,0.3); color:#00F5D4; text-transform:uppercase; letter-spacing:0.08em; border-radius:2px;">Level
+                                    Design</span>
+                                <span
+                                    style="font-family:var(--font-mono); font-size:10px; padding:5px 12px; border:1px solid rgba(0,245,212,0.3); color:#00F5D4; text-transform:uppercase; letter-spacing:0.08em; border-radius:2px;">Lumen
+                                    &amp; VFX</span>
+                                <span
+                                    style="font-family:var(--font-mono); font-size:10px; padding:5px 12px; border:1px solid rgba(255,60,40,0.3); color:#FF3C28; text-transform:uppercase; letter-spacing:0.08em; border-radius:2px;">UE
+                                    5</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <style>
+            @keyframes featuredPulse {
+
+                0%,
+                100% {
+                    opacity: 1;
+                    box-shadow: 0 0 10px rgba(230, 57, 70, 0.8);
+                }
+
+                50% {
+                    opacity: 0.5;
+                    box-shadow: 0 0 4px rgba(230, 57, 70, 0.3);
+                }
+            }
+
+            @keyframes featuredPulseUB {
+
+                0%,
+                100% {
+                    opacity: 1;
+                    box-shadow: 0 0 10px rgba(0, 245, 212, 0.8);
+                }
+
+                50% {
+                    opacity: 0.5;
+                    box-shadow: 0 0 4px rgba(0, 245, 212, 0.3);
+                }
+            }
+
+            #featured-rps-card:hover {
+                border-color: rgba(230, 57, 70, 0.5) !important;
+                box-shadow: 0 0 60px rgba(230, 57, 70, 0.15) !important;
+            }
+
+            #featured-rps-card:hover .featured-card__hover-cue {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+
+            #featured-ub-card:hover {
+                border-color: rgba(0, 245, 212, 0.5) !important;
+                box-shadow: 0 0 60px rgba(0, 245, 212, 0.15) !important;
+            }
+        </style>
+
+        <!-- ══════════════════════════════════════════════════════════
+         [5] OTHER PROJECTS
+         4 panels total (01 / 04 to 04 / 04)
+        ══════════════════════════════════════════════════════════ -->
+        <section class="projects" id="projects" aria-label="Other projects">
 
             <div class="projects__header container">
                 <span class="section__label">Selected Work</span>
-                <h2 class="section__title display">Featured Projects</h2>
+                <h2 class="section__title display">Other Projects</h2>
             </div>
 
-            <!-- ── Project 01: Unfinished Business ── -->
-            <article class="project-panel" id="unfinished-business" aria-label="Unfinished Business"
-                data-project-theme="ub">
-                <div class="project-panel__media">
-                    <div class="project-placeholder project-placeholder--1">
-                        <img src="assets/img/Unfinished-Business.png"
-                            alt="Unfinished Business — linear, story-driven action-adventure game, happening in a metropolitan city"
-                            class="project-panel__image" loading="lazy"
-                            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
-                        <div class="project-placeholder__overlay" aria-hidden="true"></div>
-                    </div>
-                    <div class="project-panel__media-overlay" aria-hidden="true"></div>
-                </div>
-
-                <div class="project-panel__info">
-                    <p class="project-panel__number mono">01 / 05</p>
-                    <div class="project-panel__badge-row">
-                        <span class="badge badge--fp">Third Person</span>
-                    </div>
-                    <h3 class="project-panel__title display" data-text="Unfinished Business">Unfinished Business</h3>
-                    <p class="project-panel__description">
-                        Combat-focused action-adventure third person prototype developed in Unreal Engine 5 using
-                        Blueprint scripting.
-                        Implements core gameplay systems including player movement, shooting mechanics, vehicle
-                        interaction, and basic enemy AI behavior.
-                    </p>
-                    <div class="project-panel__tags">
-                        <span class="tag tag--accent">#UE5</span>
-                        <span class="tag">#Lumen</span>
-                        <span class="tag tag--accent">#Blueprints</span>
-                        <span class="tag tag--accent">#LevelDesign</span>
-                        <span class="tag tag--accent">#VFX</span>
-                        <span class="tag tag--accent">#SoundDesign</span>
-                    </div>
-                    <a href="unfinished-business.html" class="case-link" id="unfinished-business-link"
-                        aria-label="View Unfinished Business details" data-title="UNFINISHED BUSINESS">
-                        View Project
-                        <span class="case-link__arrow" aria-hidden="true">→</span>
-                    </a>
-                </div>
-            </article>
-
-            <!-- ── Project 02: Leo & Nora ── -->
-            <article class="project-panel project-panel--reverse" id="project-leo-nora" aria-label="Leo &amp; Nora"
-                data-project-theme="ln">
+            <!-- ── Project 01: Leo & Nora ── -->
+            <article class="project-panel" id="project-leo-nora" aria-label="Leo &amp; Nora" data-project-theme="ln">
                 <div class="project-panel__media">
                     <div class="project-placeholder project-placeholder--2">
                         <img src="assets/img/Leo-Nora.jpg"
@@ -330,7 +470,7 @@
                 </div>
 
                 <div class="project-panel__info">
-                    <p class="project-panel__number mono">02 / 05</p>
+                    <p class="project-panel__number mono">01 / 04</p>
                     <div class="project-panel__badge-row">
                         <span class="badge badge--tp">Third Person</span>
                     </div>
@@ -359,9 +499,9 @@
                 </div>
             </article>
 
-            <!-- ── Project 03: Undead Unleashed ── -->
-            <article class="project-panel" id="project-undead-unleashed" aria-label="Undead Unleashed"
-                data-project-theme="uu">
+            <!-- ── Project 02: Undead Unleashed ── -->
+            <article class="project-panel project-panel--reverse" id="project-undead-unleashed"
+                aria-label="Undead Unleashed" data-project-theme="uu">
                 <div class="project-panel__media">
                     <div class="project-placeholder project-placeholder--3">
                         <img src="assets/img/Undead-Unleashed.png"
@@ -374,7 +514,7 @@
                 </div>
 
                 <div class="project-panel__info">
-                    <p class="project-panel__number mono">03 / 05</p>
+                    <p class="project-panel__number mono">02 / 04</p>
                     <div class="project-panel__badge-row">
                         <span class="badge badge--fp">First Person</span>
                     </div>
@@ -401,9 +541,8 @@
                 </div>
             </article>
 
-            <!-- ── Project 04: Yami ── (CHANGE 4) -->
-            <article class="project-panel project-panel--reverse" id="project-yami" aria-label="Yami"
-                data-project-theme="yami">
+            <!-- ── Project 03: Yami ── -->
+            <article class="project-panel" id="project-yami" aria-label="Yami" data-project-theme="yami">
                 <div class="project-panel__media">
                     <div class="project-placeholder project-placeholder--4">
                         <img src="assets/img/Yami.png"
@@ -416,7 +555,7 @@
                 </div>
 
                 <div class="project-panel__info">
-                    <p class="project-panel__number mono">04 / 05</p>
+                    <p class="project-panel__number mono">03 / 04</p>
                     <div class="project-panel__badge-row">
                         <span class="badge badge--tp">First Person</span>
                     </div>
@@ -443,8 +582,9 @@
                 </div>
             </article>
 
-            <!-- ── Project 05: Neon Veil ── (CHANGE 4) -->
-            <article class="project-panel" id="project-neon-veil" aria-label="Neon Veil" data-project-theme="nv">
+            <!-- ── Project 04: Neon Veil ── -->
+            <article class="project-panel project-panel--reverse" id="project-neon-veil" aria-label="Neon Veil"
+                data-project-theme="nv">
                 <div class="project-panel__media">
                     <div class="project-placeholder project-placeholder--5">
                         <img src="assets/img/Neon-Veil.png"
@@ -457,7 +597,7 @@
                 </div>
 
                 <div class="project-panel__info">
-                    <p class="project-panel__number mono">05 / 05</p>
+                    <p class="project-panel__number mono">04 / 04</p>
                     <div class="project-panel__badge-row">
                         <span class="badge badge--fp">First Person</span>
                     </div>
@@ -515,13 +655,12 @@
                         </blockquote>
 
                         <p class="about__bio">
-                            I'm Adithya Raghavan, A gameplay focused Unreal Engine developer with a strong foundation in
-                            Blueprint systems, now expanding into C++ and online multiplayer architecture. My work spans
-                            single-player, cooperative, and competitive experiences, from cinematic action prototypes to
-                            split-screen co-op and rapid game jam projects, each built with an emphasis on core gameplay
-                            feel, system design, and player immersion. Currently focused on mastering networking and
-                            scalable gameplay systems, I aim to create responsive, engaging experiences that blend
-                            technical depth with meaningful player interaction.
+                            I’m Adithya Raghavan, a gameplay-focused Unreal Engine developer. I build in Blueprints and
+                            I’m expanding into C++ and online multiplayer architecture. My semi-open-world third-person
+                            game, Unfinished Business, won Game of the Year at ICAT 2025, and I’ve also built a
+                            split-screen co-op game, Leo & Nora, along with horror and thriller projects. What I care
+                            about most is how a game feels to play: responsive controls, solid systems, and clear
+                            feedback. I’m currently open to Unreal developer roles.
                         </p>
 
 
@@ -536,7 +675,7 @@
                         <div class="about__stats">
                             <div class="stat">
                                 <div class="stat__number display">
-                                    <span data-counter="2" data-suffix="+" data-duration="1600">0+</span>
+                                    <span data-counter="3" data-suffix="+" data-duration="1600">0+</span>
                                 </div>
                                 <div class="stat__label">Years Experience</div>
                             </div>
@@ -746,6 +885,20 @@
          FOOTER
     ══════════════════════════════════════════════════════════ -->
     <footer class="footer" aria-label="Site footer">
+        <div class="footer__btt-wrap">
+            <button type="button" class="back-to-top-btn" id="backToTopBtn" aria-label="Back to the top">
+                <span class="btt-corner btt-corner--tl" aria-hidden="true"></span>
+                <span class="btt-corner btt-corner--tr" aria-hidden="true"></span>
+                <span class="btt-corner btt-corner--bl" aria-hidden="true"></span>
+                <span class="btt-corner btt-corner--br" aria-hidden="true"></span>
+                <span class="btt-icon" aria-hidden="true">▲</span>
+                <span class="btt-content">
+                    <span class="btt-text">BACK TO THE TOP</span>
+                    <span class="btt-meta">[ LEVEL 00 // SURFACE COORD ]</span>
+                </span>
+                <span class="btt-glow" aria-hidden="true"></span>
+            </button>
+        </div>
         <p class="footer__copy">
             © <span id="footerYear"></span> Adithya Raghavan. All rights reserved.
         </p>

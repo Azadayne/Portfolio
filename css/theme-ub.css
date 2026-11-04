@@ -24,6 +24,7 @@
   --color-text-muted:     #2A342A;
 
   /* Override site accent tokens */
+  --theme-accent: #00F5D4;
   --accent:    #00F5D4;
   --secondary: #FF3C28;
   --bg:        #080A09;

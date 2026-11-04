@@ -18,7 +18,7 @@
   'use strict';
 
   // Only run on the homepage — project pages handle their own cursor & theme
-  var projectThemes = ['theme-ub', 'theme-ln', 'theme-uu', 'theme-yami', 'theme-nv'];
+  var projectThemes = ['theme-ub', 'theme-ln', 'theme-uu', 'theme-yami', 'theme-nv', 'theme-rps'];
   var onProjectPage = projectThemes.some(function (t) {
     return document.body.classList.contains(t);
   });
@@ -33,7 +33,10 @@
   if (!document.getElementById('portal-cursor-hide-rule')) {
     var portalStyle = document.createElement('style');
     portalStyle.id = 'portal-cursor-hide-rule';
-    portalStyle.textContent = 'body.hide-native-cursor .theme-cursor-element { opacity: 0 !important; }';
+    portalStyle.textContent = [
+      'body.hide-native-cursor, body.hide-native-cursor * { cursor: none !important; }',
+      'body.hide-native-cursor .theme-cursor-element, body.hide-native-cursor .cursor__dot, body.hide-native-cursor .cursor__ring, body.hide-native-cursor .cursor__ghost { opacity: 0 !important; }'
+    ].join('\n');
     document.head.appendChild(portalStyle);
   }
 
@@ -337,13 +340,82 @@
     };
   }
 
+  /* ── RPS: Custom Blade Cursor ─────────────────────────────── */
+  function createRPSCursor() {
+    var hotspotX = 4.24;
+    var hotspotY = 4.78;
+
+    var cursor = document.createElement('div');
+    cursor.setAttribute('data-portal-cursor', 'rps');
+    cursor.id = 'portal-rps-cursor';
+    cursor.className = 'rps-portal-cursor';
+    cursor.style.cssText = [
+      'position:fixed',
+      'top:0',
+      'left:0',
+      'pointer-events:none',
+      'z-index:2147483647',
+      'opacity:0',
+      'will-change:transform',
+      'transition:opacity 0.15s ease',
+      'width:56px',
+      'height:auto'
+    ].join(';');
+
+    var img = document.createElement('img');
+    img.className = 'rps-cursor-img';
+    img.src = 'public/cursor/rps-cursor.png';
+    img.srcset = 'public/cursor/rps-cursor@1x.png 1x, public/cursor/rps-cursor.png 2x';
+    img.alt = '';
+    img.style.cssText = [
+      'display:block',
+      'width:100%',
+      'height:auto',
+      'pointer-events:none',
+      'user-select:none',
+      '-webkit-user-drag:none',
+      'transform-origin:' + hotspotX + 'px ' + hotspotY + 'px',
+      'transition:transform 120ms cubic-bezier(0.2,0,0,1), filter 120ms ease',
+      'filter:drop-shadow(0 0 6px rgba(80,150,255,0.7))'
+    ].join(';');
+
+    cursor.appendChild(img);
+    document.body.appendChild(cursor);
+
+    function onMouseDown() {
+      img.style.transform = 'scale(0.9)';
+      img.style.filter = 'drop-shadow(0 0 8px rgba(230,57,70,0.85))';
+    }
+    function onMouseUp() {
+      img.style.transform = 'scale(1)';
+      img.style.filter = 'drop-shadow(0 0 6px rgba(80,150,255,0.7))';
+    }
+
+    window.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mouseup', onMouseUp);
+
+    return {
+      el: cursor,
+      move: function (x, y) {
+        cursor.style.transform = 'translate3d(' + (x - hotspotX) + 'px,' + (y - hotspotY) + 'px,0)';
+        cursor.style.opacity = '1';
+      },
+      destroy: function () {
+        window.removeEventListener('mousedown', onMouseDown);
+        window.removeEventListener('mouseup', onMouseUp);
+        cursor.remove();
+      }
+    };
+  }
+
   // ── CURSOR MAP ─────────────────────────────────────────────────
   var cursorFactories = {
     'ub':   createUBCursor,
     'ln':   createLNCursor,
     'uu':   createUUCursor,
     'yami': createYamiCursor,
-    'nv':   createNVCursor
+    'nv':   createNVCursor,
+    'rps':  createRPSCursor
   };
 
   // ── GLOBAL CURSOR HIDE/RESTORE ────────────────────────────────
@@ -358,71 +430,109 @@
     document.body.classList.remove('hide-native-cursor');
   }
 
-  // ── MOUSE MOVE HANDLER (shared, updated per-card) ─────────────
-  var currentMoveHandler = null;
+  // ── UNIFIED THEME & CURSOR CONTROLLER ─────────────────────────
+  var currentActiveTheme = null;
+  var mouseX = window.innerWidth / 2;
+  var mouseY = window.innerHeight / 2;
+  var scrollRafPending = false;
 
   function destroyActiveCursor() {
     if (activeCursorEl) {
       activeCursorEl.destroy();
       activeCursorEl = null;
     }
-    if (currentMoveHandler) {
-      document.removeEventListener('mousemove', currentMoveHandler);
-      currentMoveHandler = null;
+  }
+
+  function activateTheme(theme, x, y) {
+    if (!theme) return;
+    clearTimeout(leaveTimeout);
+
+    if (currentActiveTheme === theme) {
+      if (activeCursorEl) activeCursorEl.move(x, y);
+      return;
+    }
+
+    currentActiveTheme = theme;
+    document.body.setAttribute('data-active-theme', theme);
+
+    destroyActiveCursor();
+
+    var factory = cursorFactories[theme];
+    if (!factory) return;
+
+    hideGlobalCursor();
+    activeCursorEl = factory();
+    if (activeCursorEl) {
+      activeCursorEl.move(x, y);
     }
   }
 
+  function deactivateTheme() {
+    clearTimeout(leaveTimeout);
+    leaveTimeout = setTimeout(function () {
+      currentActiveTheme = null;
+      document.body.removeAttribute('data-active-theme');
+      destroyActiveCursor();
+      restoreGlobalCursor();
+    }, 60);
+  }
+
+  // Track cursor position globally and move custom cursor smoothly
+  document.addEventListener('mousemove', function (e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (activeCursorEl) {
+      activeCursorEl.move(mouseX, mouseY);
+    }
+  }, { passive: true });
+
   // ── CARD LISTENERS ────────────────────────────────────────────
   cards.forEach(function (card) {
-
-    card.addEventListener('mouseenter', function () {
-      clearTimeout(leaveTimeout);
-
-      var theme = card.dataset.projectTheme;
-
-      // Apply color theme
-      document.body.setAttribute('data-active-theme', theme);
-
-      // Tear down previous cursor if switching between cards
-      destroyActiveCursor();
-
-      // Spawn the new cursor
-      var factory = cursorFactories[theme];
-      if (!factory) return;
-
-      hideGlobalCursor();
-      activeCursorEl = factory();
-
-      // Attach move handler
-      currentMoveHandler = function (e) {
-        if (activeCursorEl) activeCursorEl.move(e.clientX, e.clientY);
-      };
-      document.addEventListener('mousemove', currentMoveHandler);
+    card.addEventListener('mouseenter', function (e) {
+      activateTheme(card.dataset.projectTheme, e.clientX, e.clientY);
     });
 
     card.addEventListener('mouseleave', function () {
-      leaveTimeout = setTimeout(function () {
-        document.body.removeAttribute('data-active-theme');
-        destroyActiveCursor();
-        restoreGlobalCursor();
-      }, 80);
+      deactivateTheme();
     });
 
-    // Keyboard focus support
     card.addEventListener('focusin', function () {
-      clearTimeout(leaveTimeout);
-      document.body.setAttribute('data-active-theme', card.dataset.projectTheme);
+      activateTheme(card.dataset.projectTheme, mouseX, mouseY);
     });
 
     card.addEventListener('focusout', function (e) {
       if (!card.contains(e.relatedTarget)) {
-        leaveTimeout = setTimeout(function () {
-          document.body.removeAttribute('data-active-theme');
-          destroyActiveCursor();
-          restoreGlobalCursor();
-        }, 80);
+        deactivateTheme();
       }
     });
   });
+
+  // ── SCROLL-AWARE THEME UPDATE ─────────────────────────────────
+  // When scrolling, checks whatever project card is currently positioned
+  // under the cursor and updates the theme & cursor immediately without
+  // waiting for the user to move the mouse.
+  function checkCardUnderPointer() {
+    var checkY = mouseY;
+    // If cursor is parked on the fixed navbar, check the content area directly below it
+    if (checkY < 90) checkY = 120;
+
+    var el = document.elementFromPoint(mouseX, checkY);
+    var card = el ? el.closest('[data-project-theme]') : null;
+
+    if (card) {
+      activateTheme(card.dataset.projectTheme, mouseX, mouseY);
+    } else if (currentActiveTheme) {
+      deactivateTheme();
+    }
+  }
+
+  window.addEventListener('scroll', function () {
+    if (scrollRafPending) return;
+    scrollRafPending = true;
+    requestAnimationFrame(function () {
+      scrollRafPending = false;
+      checkCardUnderPointer();
+    });
+  }, { passive: true });
 
 })();

@@ -23,6 +23,7 @@
   --color-text-muted:     #243020;
 
   /* Override site accent tokens */
+  --theme-accent: #50FF3C;
   --accent:    #50FF3C;
   --secondary: #FF1A1A;
   --bg:        #060806;
@@ -310,5 +311,303 @@
   transition: transform 0.08s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   width: 100%;
   min-height: 100vh;
+}
+
+/* ── 15. PLAYABLE BUILD (ITCH.IO DISPATCH) ──────────── */
+.uu-playable-section {
+  position: relative;
+  z-index: 10;
+  padding: 8vh 0 10vh;
+  background: linear-gradient(180deg, #060806 0%, #080D08 50%, #060806 100%);
+}
+
+.uu-playable-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #080D09;
+  border: 1px solid rgba(80, 255, 60, 0.28);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(80, 255, 60, 0.12);
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.uu-playable-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(80, 255, 60, 0.65);
+  box-shadow: 0 22px 65px rgba(0, 0, 0, 0.9), 0 0 45px rgba(80, 255, 60, 0.28);
+}
+
+.uu-playable-card__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.uu-playable-card__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.45) contrast(1.15) saturate(0.9);
+  transform: scale(1.02);
+  transition: transform 0.8s cubic-bezier(0.2, 0, 0, 1), filter 0.8s ease;
+}
+
+.uu-playable-card:hover .uu-playable-card__bg img {
+  transform: scale(1.06);
+  filter: brightness(0.55) contrast(1.2) saturate(1.1);
+}
+
+.uu-playable-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(6, 10, 7, 0.97) 0%,
+    rgba(6, 10, 7, 0.90) 50%,
+    rgba(6, 10, 7, 0.50) 85%,
+    rgba(6, 10, 7, 0.30) 100%
+  );
+  z-index: 2;
+}
+
+.uu-playable-card__scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(80, 255, 60, 0.03) 2px,
+    rgba(80, 255, 60, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+.uu-playable-card__content {
+  position: relative;
+  z-index: 5;
+  padding: var(--sp-8) var(--sp-8);
+  max-width: 720px;
+}
+
+.uu-playable-status {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.uu-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: rgba(80, 255, 60, 0.12);
+  border: 1px solid rgba(80, 255, 60, 0.45);
+  border-radius: 999px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #50FF3C;
+  text-transform: uppercase;
+  box-shadow: 0 0 14px rgba(80, 255, 60, 0.25);
+}
+
+.uu-status-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #50FF3C;
+  box-shadow: 0 0 8px #50FF3C;
+  animation: uuPulseDot 1.8s infinite;
+}
+
+@keyframes uuPulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+.uu-status-code {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  color: rgba(212, 240, 208, 0.6);
+  letter-spacing: 0.12em;
+}
+
+.uu-playable-title {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: clamp(34px, 4.4vw, 52px);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  color: #FFFFFF;
+  margin: 0 0 var(--sp-3);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(80, 255, 60, 0.25);
+}
+
+.uu-playable-desc {
+  font-size: 15px;
+  line-height: 1.68;
+  color: rgba(212, 240, 208, 0.78);
+  margin-bottom: var(--sp-6);
+  max-width: 620px;
+}
+
+.uu-playable-desc strong {
+  color: #50FF3C;
+}
+
+/* Telemetry Specs Grid */
+.uu-playable-specs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: var(--sp-6);
+}
+
+.uu-spec-item {
+  padding: 10px 14px;
+  background: rgba(14, 22, 16, 0.75);
+  border: 1px solid rgba(80, 255, 60, 0.14);
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.uu-spec-label {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: rgba(212, 240, 208, 0.5);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.uu-spec-val {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  font-weight: 600;
+  color: #50FF3C;
+  letter-spacing: 0.05em;
+}
+
+/* Itch.io Launch CTA Button */
+.uu-itch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 32px;
+  background: linear-gradient(135deg, rgba(80, 255, 60, 0.95), rgba(30, 180, 80, 0.95));
+  border: 1px solid #7DFF6B;
+  border-radius: 6px;
+  color: #050B06;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(80, 255, 60, 0.35), 0 0 16px rgba(80, 255, 60, 0.25);
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.uu-itch-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(80, 255, 60, 0.6), 0 0 28px rgba(80, 255, 60, 0.5);
+  border-color: #B5FFAB;
+}
+
+.uu-itch-btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #050B06;
+  color: #50FF3C;
+  font-size: 18px;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(5, 11, 6, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.uu-itch-btn:hover .uu-itch-btn__icon {
+  transform: scale(1.1);
+}
+
+.uu-itch-btn__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.uu-itch-btn__primary {
+  font-family: var(--font-display, sans-serif);
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: #050B06;
+  font-weight: 700;
+}
+
+.uu-itch-btn__secondary {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: rgba(5, 11, 6, 0.75);
+  font-weight: 600;
+  margin-top: 3px;
+}
+
+.uu-itch-btn__glow {
+  position: absolute;
+  inset: -100%;
+  background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.3) 50%, transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  transform: rotate(25deg);
+  transition: opacity 0.3s ease, transform 0.6s ease;
+}
+
+.uu-itch-btn:hover .uu-itch-btn__glow {
+  opacity: 1;
+  transform: rotate(25deg) translateY(-20%);
+}
+
+/* Tactical Corner Brackets */
+.uu-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-style: solid;
+  border-color: #50FF3C;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.uu-corner--tl { top: 4px; left: 4px; border-width: 2px 0 0 2px; }
+.uu-corner--tr { top: 4px; right: 4px; border-width: 2px 2px 0 0; }
+.uu-corner--bl { bottom: 4px; left: 4px; border-width: 0 0 2px 2px; }
+.uu-corner--br { bottom: 4px; right: 4px; border-width: 0 2px 2px 0; }
+
+@media (max-width: 900px) {
+  .uu-playable-specs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .uu-playable-card__content {
+    padding: var(--sp-6) var(--sp-4);
+  }
+  .uu-playable-specs {
+    grid-template-columns: 1fr;
+  }
 }
 

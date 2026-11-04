@@ -12,7 +12,7 @@
   const ring = document.querySelector('.cursor__ring');
 
   // Skip if we are on a themed project page which handles its own cursor
-  const themes = ['theme-ub', 'theme-ln', 'theme-uu', 'theme-yami', 'theme-nv'];
+  const themes = ['theme-ub', 'theme-ln', 'theme-uu', 'theme-yami', 'theme-nv', 'theme-rps'];
   const hasTheme = themes.some(t => document.body.classList.contains(t));
   if (hasTheme) {
     if (dot)  dot.style.display = 'none';

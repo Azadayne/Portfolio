@@ -25,6 +25,8 @@
 
   // ── FILENAME → THEME KEY MAP ──────────────────────────────────
   var hrefToTheme = {
+    'rock-paper-scissors.html': 'rps',
+    'chillout.html':            'rps',
     'unfinished-business.html': 'ub',
     'leo-and-nora.html':        'ln',
     'undead-unleashed.html':    'uu',
@@ -238,7 +240,74 @@
     };
   }
 
-  var factories = { ub: createUBCursor, ln: createLNCursor, uu: createUUCursor, yami: createYamiCursor, nv: createNVCursor };
+  /* ── RPS: Custom Blade Cursor ─────────────────────────────── */
+  function createRPSCursor() {
+    var hotspotX = 4.24;
+    var hotspotY = 4.78;
+
+    var cursor = document.createElement('div');
+    cursor.setAttribute('data-warp-cursor', 'rps');
+    cursor.id = 'warp-rps-cursor';
+    cursor.className = 'rps-warp-cursor';
+    cursor.style.cssText = [
+      'position:fixed',
+      'top:0',
+      'left:0',
+      'pointer-events:none',
+      'z-index:2147483647',
+      'opacity:0',
+      'will-change:transform',
+      'transition:opacity 0.15s ease',
+      'width:56px',
+      'height:auto'
+    ].join(';');
+
+    var img = document.createElement('img');
+    img.className = 'rps-cursor-img';
+    img.src = 'public/cursor/rps-cursor.png';
+    img.srcset = 'public/cursor/rps-cursor@1x.png 1x, public/cursor/rps-cursor.png 2x';
+    img.alt = '';
+    img.style.cssText = [
+      'display:block',
+      'width:100%',
+      'height:auto',
+      'pointer-events:none',
+      'user-select:none',
+      '-webkit-user-drag:none',
+      'transform-origin:' + hotspotX + 'px ' + hotspotY + 'px',
+      'transition:transform 120ms cubic-bezier(0.2,0,0,1), filter 120ms ease',
+      'filter:drop-shadow(0 0 6px rgba(80,150,255,0.7))'
+    ].join(';');
+
+    cursor.appendChild(img);
+    document.body.appendChild(cursor);
+
+    function onMouseDown() {
+      img.style.transform = 'scale(0.9)';
+      img.style.filter = 'drop-shadow(0 0 8px rgba(230,57,70,0.85))';
+    }
+    function onMouseUp() {
+      img.style.transform = 'scale(1)';
+      img.style.filter = 'drop-shadow(0 0 6px rgba(80,150,255,0.7))';
+    }
+
+    window.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mouseup', onMouseUp);
+
+    return {
+      move: function (x, y) {
+        cursor.style.transform = 'translate3d(' + (x - hotspotX) + 'px,' + (y - hotspotY) + 'px,0)';
+        cursor.style.opacity = '1';
+      },
+      destroy: function () {
+        window.removeEventListener('mousedown', onMouseDown);
+        window.removeEventListener('mouseup', onMouseUp);
+        cursor.remove();
+      }
+    };
+  }
+
+  var factories = { ub: createUBCursor, ln: createLNCursor, uu: createUUCursor, yami: createYamiCursor, nv: createNVCursor, rps: createRPSCursor };
 
   // ── INJECT RETICLE KEYFRAME IF MISSING ───────────────────────
   if (!document.getElementById('warp-cursor-keyframes')) {
@@ -249,7 +318,10 @@
         '0%,100%{box-shadow:0 0 6px rgba(0,245,212,0.4),inset 0 0 4px rgba(0,245,212,0.1);}',
         '50%{box-shadow:0 0 18px rgba(0,245,212,0.8),inset 0 0 8px rgba(0,245,212,0.2);}',
       '}',
-      'body.hide-native-cursor .theme-cursor-element {',
+      'body.hide-native-cursor, body.hide-native-cursor * {',
+        'cursor: none !important;',
+      '}',
+      'body.hide-native-cursor .theme-cursor-element, body.hide-native-cursor .cursor__dot, body.hide-native-cursor .cursor__ring, body.hide-native-cursor .cursor__ghost {',
         'opacity: 0 !important;',
       '}'
     ].join('');

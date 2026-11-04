@@ -160,14 +160,19 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top  = e.clientY + 'px';
       cursor.style.opacity = '1';
+      cursor.style.visibility = 'visible';
     });
 
-    document.addEventListener('mouseleave', function () {
-      cursor.style.opacity = '0';
+    document.addEventListener('mouseleave', function (e) {
+      if (!e.relatedTarget && !e.toElement) {
+        const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement);
+        if (!isFs) cursor.style.opacity = '0';
+      }
     });
     
     document.addEventListener('mouseenter', function () {
       cursor.style.opacity = '1';
+      cursor.style.visibility = 'visible';
     });
 
     var centerDot = cursor.querySelector('circle:last-child');
@@ -386,11 +391,10 @@
     initHeroEnhancements();
     document.addEventListener('click', function(e) {
       if (!document.body.classList.contains('theme-ln')) return;
-      // Never intercept nav/hamburger/mobile-menu clicks
-      if (e.target.closest('.nav__hamburger, .nav__mobile-menu, .nav__mobile-link, .nav')) return;
-      e.stopImmediatePropagation();
+      // Do not trigger or intercept interactive elements
+      if (e.target.closest('button, a, input, textarea, select, [role="button"], .custom-video-controls, .video-ctrl-btn, .nav, .nav__hamburger, .nav__mobile-menu, .nav__mobile-link')) return;
       lnClickEffect(e);
-    }, true); // Use capture phase to intercept before other scripts
+    });
   }
 
   if (document.readyState === 'loading') {

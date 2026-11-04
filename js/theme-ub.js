@@ -215,13 +215,13 @@
     ].join(';');
 
     const crossH = document.createElement('div');
-    crossH.style.cssText = 'position:absolute;top:50%;left:50%;width:14px;height:1.5px;background:#00F5D4;transform:translate(-50%,-50%);transition:background 0.2s;';
+    crossH.style.cssText = 'position:absolute;top:50%;left:50%;width:14px;height:1.5px;background:#00F5D4;transform:translate(-50%,-50%);transition:background 0.2s;pointer-events:none;';
 
     const crossV = document.createElement('div');
-    crossV.style.cssText = 'position:absolute;top:50%;left:50%;width:1.5px;height:14px;background:#00F5D4;transform:translate(-50%,-50%);transition:background 0.2s;';
+    crossV.style.cssText = 'position:absolute;top:50%;left:50%;width:1.5px;height:14px;background:#00F5D4;transform:translate(-50%,-50%);transition:background 0.2s;pointer-events:none;';
 
     const centerDot = document.createElement('div');
-    centerDot.style.cssText = 'position:absolute;top:50%;left:50%;width:3px;height:3px;background:#00F5D4;border-radius:50%;transform:translate(-50%,-50%);transition:background 0.2s;';
+    centerDot.style.cssText = 'position:absolute;top:50%;left:50%;width:3px;height:3px;background:#00F5D4;border-radius:50%;transform:translate(-50%,-50%);transition:background 0.2s;pointer-events:none;';
 
     ring.appendChild(crossH);
     ring.appendChild(crossV);
@@ -235,6 +235,7 @@
       ring.style.left = e.clientX + 'px';
       ring.style.top  = e.clientY + 'px';
       ring.style.opacity = '1';
+      ring.style.visibility = 'visible';
 
       if (isIdle) {
         ring.style.animation = 'reticlePulse 2s ease-in-out infinite';
@@ -248,12 +249,16 @@
       }, 3000);
     });
 
-    document.addEventListener('mouseleave', function () {
-      ring.style.opacity = '0';
+    document.addEventListener('mouseleave', function (e) {
+      if (!e.relatedTarget && !e.toElement) {
+        const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement);
+        if (!isFs) ring.style.opacity = '0';
+      }
     });
 
     document.addEventListener('mouseenter', function () {
       ring.style.opacity = '1';
+      ring.style.visibility = 'visible';
     });
 
     function paintRed() {
