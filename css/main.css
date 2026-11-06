@@ -148,3 +148,32 @@ a:hover { opacity: 1; }
   background: rgba(123, 97, 255, 0.2);
   color: var(--text-primary);
 }
+
+/* ── Suppress Netlify Injected Badge / HUD ────────────────────── */
+#nl-badge-frame,
+iframe#nl-badge-frame,
+iframe[id*="nl-badge"],
+iframe[title*="Powered by Netlify" i],
+iframe[title*="Netlify" i],
+iframe[src*="netlify.com"],
+iframe[src*="netlify.app"],
+[id*="nl-badge"],
+[id*="netlify-badge"],
+.netlify-badge,
+#netlify-badge,
+.netlify-badge-container,
+[data-netlify-badge] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  clip: rect(0, 0, 0, 0) !important;
+  width: 0 !important;
+  height: 0 !important;
+  max-width: 0 !important;
+  max-height: 0 !important;
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  z-index: -9999 !important;
+}

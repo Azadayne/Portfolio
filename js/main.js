@@ -6,6 +6,77 @@
 (function () {
   'use strict';
 
+  /* ── Suppress Netlify Injected Badge / HUD ────────────────── */
+  function suppressNetlifyBadge() {
+    // Pre-set local storage dismiss preference so Netlify's HUD script skips rendering
+    try {
+      localStorage.setItem('nl-hud:public:v1', '{"dismissed":true}');
+    } catch (e) {}
+
+    function isNetlifyBadge(el) {
+      if (!el || el.nodeType !== 1) return false;
+      var id = el.id || '';
+      var title = (el.getAttribute && el.getAttribute('title')) || '';
+      var src = (el.getAttribute && el.getAttribute('src')) || '';
+      var cls = (typeof el.className === 'string') ? el.className : '';
+      return (
+        id === 'nl-badge-frame' ||
+        id.indexOf('nl-badge') !== -1 ||
+        id.indexOf('netlify-badge') !== -1 ||
+        title.toLowerCase().indexOf('powered by netlify') !== -1 ||
+        title.toLowerCase().indexOf('netlify') !== -1 ||
+        src.indexOf('netlify.com') !== -1 ||
+        src.indexOf('netlify.app') !== -1 ||
+        cls.indexOf('netlify-badge') !== -1
+      );
+    }
+
+    function removeMatching() {
+      var candidates = document.querySelectorAll(
+        '#nl-badge-frame, iframe[id*="nl-badge"], iframe[title*="Netlify" i], iframe[title*="Powered by Netlify" i], iframe[src*="netlify"], [id*="nl-badge"], .netlify-badge, #netlify-badge'
+      );
+      candidates.forEach(function (el) {
+        el.style.setProperty('display', 'none', 'important');
+        el.style.setProperty('visibility', 'hidden', 'important');
+        el.style.setProperty('opacity', '0', 'important');
+        el.style.setProperty('pointer-events', 'none', 'important');
+        try { el.remove(); } catch (err) {}
+      });
+    }
+
+    removeMatching();
+
+    if (typeof MutationObserver !== 'undefined') {
+      var observer = new MutationObserver(function (mutations) {
+        var shouldSweep = false;
+        for (var m = 0; m < mutations.length; m++) {
+          var added = mutations[m].addedNodes;
+          for (var n = 0; n < added.length; n++) {
+            var node = added[n];
+            if (isNetlifyBadge(node)) {
+              node.style.setProperty('display', 'none', 'important');
+              try { node.remove(); } catch (err) {}
+              shouldSweep = true;
+            }
+          }
+        }
+        if (shouldSweep) removeMatching();
+      });
+
+      var root = document.documentElement || document.body;
+      if (root) {
+        observer.observe(root, { childList: true, subtree: true });
+      } else {
+        document.addEventListener('DOMContentLoaded', function () {
+          observer.observe(document.body || document.documentElement, { childList: true, subtree: true });
+        });
+      }
+    }
+  }
+
+  // Execute suppression as early as possible
+  suppressNetlifyBadge();
+
   /* ── Loading screen ──────────────────────────────────────── */
   function initLoader() {
     const loader      = document.querySelector('.loader');
@@ -318,6 +389,7 @@
   }
 
   function initAll() {
+    suppressNetlifyBadge();
     initLoader();
     forceVideoPlay();
     initLightbox();
