@@ -88,12 +88,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Volume slider & Mute/Unmute icon
+        // Volume slider & Mute/Unmute icon & Readout
         const isMuted = (video.muted || video.volume === 0);
         if (volSlider && !volSlider.dataset.isDragging) {
             const effectiveVol = isMuted ? 0 : video.volume;
             volSlider.value = effectiveVol;
             volSlider.style.setProperty('--vol-pct', `${effectiveVol * 100}%`);
+        }
+
+        const volPct = container.querySelector('.video-volume-pct');
+        if (volPct) {
+            volPct.textContent = isMuted ? 'MUTE' : `${Math.round(video.volume * 100)}%`;
         }
 
         if (volBtn) {
@@ -247,7 +252,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button class="video-ctrl-btn video-vol-btn" type="button" aria-label="Mute audio" title="Mute audio">
                       <i class="fa-solid fa-volume-high"></i>
                     </button>
-                    <input type="range" class="video-volume-slider" min="0" max="1" step="0.02" value="0.8" aria-label="Volume level">
+                    <div class="video-volume-popover">
+                      <span class="video-volume-pct">80%</span>
+                      <input type="range" class="video-volume-slider" min="0" max="1" step="0.02" value="0.8" aria-label="Volume level">
+                    </div>
                   </div>
                   <button class="video-ctrl-btn video-fs-btn" type="button" aria-label="Toggle Fullscreen" title="Fullscreen">
                     <i class="fa-solid fa-expand"></i>
@@ -258,9 +266,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const playBtn = controls.querySelector('.video-play-btn');
             const seekSlider = controls.querySelector('.video-seek-slider');
+            const volGroup = controls.querySelector('.video-volume-group');
             const volBtn = controls.querySelector('.video-vol-btn');
-            const volSlider = controls.querySelector('.video-volume-slider');
+            let volPopover = controls.querySelector('.video-volume-popover');
+            let volSlider = controls.querySelector('.video-volume-slider');
+            let volPct = controls.querySelector('.video-volume-pct');
             const fsBtn = controls.querySelector('.video-fs-btn');
+
+            // Ensure .video-volume-popover and .video-volume-pct exist even in pre-existing static HTML
+            if (volGroup && !volPopover) {
+                volPopover = document.createElement('div');
+                volPopover.className = 'video-volume-popover';
+                volPct = document.createElement('span');
+                volPct.className = 'video-volume-pct';
+                volPct.textContent = '80%';
+                volPopover.appendChild(volPct);
+                if (volSlider) {
+                    volGroup.removeChild(volSlider);
+                    volPopover.appendChild(volSlider);
+                }
+                volGroup.appendChild(volPopover);
+            }
+
+            // Auto-close timer for mobile vertical volume popover
+            let volCloseTimer = null;
+            const startVolCloseTimer = () => {
+                if (volCloseTimer) clearTimeout(volCloseTimer);
+                volCloseTimer = setTimeout(() => {
+                    if (volGroup) volGroup.classList.remove('is-open');
+                }, 3800);
+            };
+            const clearVolCloseTimer = () => {
+                if (volCloseTimer) {
+                    clearTimeout(volCloseTimer);
+                    volCloseTimer = null;
+                }
+            };
 
             // Wire Play/Pause
             if (playBtn) {
@@ -303,10 +344,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 seekSlider.addEventListener('touchend', stopSeek);
             }
 
-            // Wire Volume Button (Explicit Mute / Unmute Toggle)
+            // Wire Volume Button (Explicit Mute / Unmute Toggle + Mobile Popover Open)
             if (volBtn) {
                 volBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
+                    const isMobile = window.innerWidth <= 768 || window.matchMedia('(pointer: coarse)').matches;
+
+                    // On mobile, if popover is closed, first tap opens the vertical slider
+                    if (isMobile && volGroup && !volGroup.classList.contains('is-open')) {
+                        volGroup.classList.add('is-open');
+                        // If muted, also unmute automatically for quick listen
+                        if (video.muted || video.volume === 0) {
+                            const restored = parseFloat(video.dataset.savedVolume || video.dataset.lastVolume || '0.8') || 0.8;
+                            video.muted = false;
+                            video.volume = restored;
+                            if (volSlider) {
+                                volSlider.value = restored;
+                                volSlider.style.setProperty('--vol-pct', `${restored * 100}%`);
+                            }
+                        }
+                        startVolCloseTimer();
+                        updateControlsUI(video);
+                        return;
+                    }
+
+                    // Otherwise (desktop or already open on mobile), toggle mute/unmute
                     const isMuted = (video.muted || video.volume === 0);
                     if (isMuted) {
                         // UNMUTE: restore saved volume or default 0.8
@@ -326,14 +388,22 @@ document.addEventListener('DOMContentLoaded', () => {
                             volSlider.style.setProperty('--vol-pct', '0%');
                         }
                     }
+                    if (isMobile && volGroup && volGroup.classList.contains('is-open')) {
+                        startVolCloseTimer();
+                    }
                     updateControlsUI(video);
                 });
             }
 
-            // Wire Volume Slider
+            // Wire Volume Slider (Desktop input & change)
             if (volSlider) {
-                volSlider.addEventListener('mousedown', () => { volSlider.dataset.isDragging = 'true'; });
-                volSlider.addEventListener('touchstart', () => { volSlider.dataset.isDragging = 'true'; }, { passive: true });
+                volSlider.addEventListener('mousedown', () => { 
+                    volSlider.dataset.isDragging = 'true'; 
+                });
+                volSlider.addEventListener('touchstart', () => { 
+                    volSlider.dataset.isDragging = 'true';
+                    clearVolCloseTimer();
+                }, { passive: true });
 
                 volSlider.addEventListener('input', () => {
                     const val = parseFloat(volSlider.value);
@@ -351,10 +421,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const stopVol = () => {
                     delete volSlider.dataset.isDragging;
+                    startVolCloseTimer();
                 };
                 volSlider.addEventListener('mouseup', stopVol);
                 volSlider.addEventListener('touchend', stopVol);
             }
+
+            // Mobile Vertical Drag & Touch Tracking on Popover
+            if (volPopover) {
+                const handleMobileVerticalTouch = (touch) => {
+                    if (!touch || !volSlider) return;
+                    const rect = volSlider.getBoundingClientRect();
+                    const height = rect.height || 96;
+                    // Rotated -90deg: Top is 100%, Bottom is 0%
+                    const ratio = 1 - ((touch.clientY - rect.top) / height);
+                    const clamped = Math.max(0, Math.min(1, Math.round(ratio * 50) / 50));
+
+                    if (clamped <= 0.02) {
+                        video.muted = true;
+                        video.volume = 0;
+                        volSlider.value = 0;
+                        volSlider.style.setProperty('--vol-pct', '0%');
+                    } else {
+                        video.muted = false;
+                        video.volume = clamped;
+                        video.dataset.savedVolume = clamped.toString();
+                        video.dataset.lastVolume = clamped.toString();
+                        volSlider.value = clamped;
+                        volSlider.style.setProperty('--vol-pct', `${clamped * 100}%`);
+                    }
+                    updateControlsUI(video);
+                };
+
+                volPopover.addEventListener('touchstart', (e) => {
+                    e.stopPropagation();
+                    clearVolCloseTimer();
+                    if (volSlider) volSlider.dataset.isDragging = 'true';
+                    if (e.touches && e.touches[0]) {
+                        handleMobileVerticalTouch(e.touches[0]);
+                    }
+                }, { passive: false });
+
+                volPopover.addEventListener('touchmove', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault(); // Prevent page scroll while adjusting vertical volume
+                    if (e.touches && e.touches[0]) {
+                        handleMobileVerticalTouch(e.touches[0]);
+                    }
+                }, { passive: false });
+
+                const endPopoverTouch = (e) => {
+                    e.stopPropagation();
+                    if (volSlider) delete volSlider.dataset.isDragging;
+                    startVolCloseTimer();
+                };
+                volPopover.addEventListener('touchend', endPopoverTouch);
+                volPopover.addEventListener('touchcancel', endPopoverTouch);
+                volPopover.addEventListener('click', (e) => e.stopPropagation());
+            }
+
+            // Close mobile popover when tapping outside
+            document.addEventListener('touchstart', (e) => {
+                if (volGroup && !volGroup.contains(e.target)) {
+                    volGroup.classList.remove('is-open');
+                }
+            }, { passive: true });
+            document.addEventListener('click', (e) => {
+                if (volGroup && !volGroup.contains(e.target)) {
+                    volGroup.classList.remove('is-open');
+                }
+            });
 
             // Robust Fullscreen Check for this Player
             function isVideoInFullscreen() {

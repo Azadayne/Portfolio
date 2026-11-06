@@ -634,6 +634,10 @@
    IGN INDIA & ITCH.IO SHOWCASE ADAPTIVE MOBILE LAYOUT
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 600px) {
+  .skills__grid {
+    grid-template-columns: 1fr !important;
+  }
+
   .rps-ign-card__content,
   .uu-playable-card__content {
     padding: var(--sp-5) var(--sp-3) !important;
