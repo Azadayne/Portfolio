@@ -982,6 +982,74 @@ body.hide-native-cursor #rps-custom-cursor {
   letter-spacing: 0.1em;
 }
 
+/* --- RPS Tactical Matrix Card & Predator-Prey Scale (Mobile Optimized) --- */
+.rps-matrix-card {
+  background: var(--color-surface, #14080A);
+  border: 1px solid rgba(230, 57, 70, 0.2);
+  border-radius: var(--radius-card, 12px);
+  padding: var(--sp-8);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+}
+
+.rps-matrix-grid {
+  margin-top: var(--sp-6);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .rps-matrix-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .rps-matrix-card {
+    padding: 20px 14px !important;
+  }
+  .rps-cycle {
+    width: 250px !important;
+    height: 240px !important;
+    max-width: calc(100vw - 44px) !important;
+    margin: 0 auto !important;
+  }
+  .rps-cycle__node {
+    width: 66px !important;
+    height: 66px !important;
+  }
+  .rps-cycle__node--rock {
+    top: 4px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  .rps-cycle__node--paper {
+    bottom: 8px !important;
+    left: 4px !important;
+  }
+  .rps-cycle__node--scissors {
+    bottom: 8px !important;
+    right: 4px !important;
+  }
+  .rps-cycle__center {
+    font-size: 10px !important;
+  }
+  .rps-matrix-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin-top: var(--sp-4) !important;
+  }
+  .rps-ign-play-btn {
+    width: 100% !important;
+    max-width: 320px !important;
+    justify-content: center !important;
+    padding: 12px 20px !important;
+  }
+}
+
 /* --- Expandable Contribution Cards --- */
 .contrib-grid {
   display: grid;

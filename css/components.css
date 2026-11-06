@@ -754,29 +754,29 @@
    THEME-SPECIFIC BACK TO THE TOP OVERRIDES
    ════════════════════════════════════════════════════════════ */
 
-/* 1. Main Portfolio Hub (Cyber Gold / Amber & Sovereign Violet) */
+/* 1. Main Portfolio Hub (Sovereign Purplish / Violet Theme) */
 body:not([class*="theme-"]) .back-to-top-btn {
-  --btt-accent: #E8A020;
-  --btt-accent-sec: #7B61FF;
-  --btt-glow: rgba(232, 160, 32, 0.55);
-  --btt-glow-sec: rgba(123, 97, 255, 0.35);
-  --btt-bg: rgba(14, 11, 18, 0.94);
-  --btt-border: rgba(232, 160, 32, 0.4);
-  --btt-border-hover: #E8A020;
-  --btt-icon-bg: rgba(232, 160, 32, 0.12);
-  --btt-icon-color: #E8A020;
-  --btt-icon-hover-bg: #E8A020;
-  --btt-icon-hover-color: #08060B;
-  --btt-meta-color: #E8A020;
-  --btt-text-glow: rgba(232, 160, 32, 0.9);
+  --btt-accent: #7B61FF;
+  --btt-accent-sec: #B39DFF;
+  --btt-glow: rgba(123, 97, 255, 0.65);
+  --btt-glow-sec: rgba(179, 157, 255, 0.35);
+  --btt-bg: rgba(13, 10, 24, 0.94);
+  --btt-border: rgba(123, 97, 255, 0.45);
+  --btt-border-hover: #7B61FF;
+  --btt-icon-bg: rgba(123, 97, 255, 0.15);
+  --btt-icon-color: #7B61FF;
+  --btt-icon-hover-bg: #7B61FF;
+  --btt-icon-hover-color: #06050C;
+  --btt-meta-color: #B39DFF;
+  --btt-text-glow: rgba(123, 97, 255, 0.9);
   --btt-clip: polygon(14px 0%, 100% 0%, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0% 100%, 0% 14px);
-  --btt-sheen: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 42%, #E8A020 50%, #7B61FF 55%, transparent 60%);
+  --btt-sheen: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 42%, #7B61FF 50%, #B39DFF 55%, transparent 60%);
 }
 body:not([class*="theme-"]) .back-to-top-btn:hover {
   box-shadow: 0 14px 38px rgba(0, 0, 0, 0.92),
-              0 0 35px rgba(232, 160, 32, 0.6),
-              0 0 55px rgba(123, 97, 255, 0.35),
-              inset 0 0 18px rgba(232, 160, 32, 0.15);
+              0 0 35px rgba(123, 97, 255, 0.7),
+              0 0 55px rgba(179, 157, 255, 0.4),
+              inset 0 0 18px rgba(123, 97, 255, 0.2);
 }
 
 /* 2. Rock Paper Scissors (Volcanic Crimson & Molten Magma Arcade) */
